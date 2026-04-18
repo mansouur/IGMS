@@ -128,6 +128,7 @@ public static class DependencyInjection
         services.AddScoped<IExecutivePdfService, ExecutivePdfService>();
         services.AddScoped<IControlTestService, ControlTestService>();
         services.AddScoped<IWorkflowService, WorkflowService>();
+        services.AddScoped<IRegulatoryService, RegulatoryService>();
     }
 
     private static void RegisterBackgroundJobs(IServiceCollection services, string tenantsDirectory)

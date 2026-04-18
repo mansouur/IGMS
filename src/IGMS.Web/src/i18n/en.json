@@ -55,6 +55,7 @@
     "risks":       "Risks",
     "controls":    "Control Tests",
     "roles":       "Roles & Permissions",
+    "compliance":  "Compliance Library",
     "workflows":   "Workflow Engine",
     "approvals":   "Approval Inbox",
     "executive":   "Executive View",
@@ -817,6 +818,16 @@
     "filter": {
       "allTypes":         "All Types",
       "allEffectiveness": "All Effectiveness"
+    }
+  },
+
+  "compliance": {
+    "title":    "Regulatory Compliance Library",
+    "subtitle": "Browse regulatory frameworks and compliance coverage",
+    "search":   "Search controls...",
+    "coverage": {
+      "label": "Coverage",
+      "total": "{{count}} total controls"
     }
   },
 

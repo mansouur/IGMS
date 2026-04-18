@@ -5,7 +5,7 @@
 namespace IGMS.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddWorkflowEngine : Migration
+    public partial class AddRegulatoryLibrary : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace IGMS.Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "PasswordHash",
-                value: "$2a$11$GWPNNuiSHVA.mrRFvbp0xO9HP1yz2nnsRLMAhtGZQ82c7GoJeccva");
+                value: "$2a$11$DrYFoU8C6Uqj52lv6e2LGOrHE3L9Ov.he.l31YSsh3gRuGMYx4bRq");
         }
 
         /// <inheritdoc />
@@ -26,7 +26,7 @@ namespace IGMS.Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "PasswordHash",
-                value: "$2a$11$hl2SuX2lk/UCw9yeIca.4OX6Hsmls801uY2uMAb86dBnRcOv4Hp.S");
+                value: "$2a$11$E1Z716CQAXeUigYowprYRuvV6EP9C3MEpqaw3t9NiCaIz8rgDF.ky");
         }
     }
 }

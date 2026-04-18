@@ -34,6 +34,7 @@ import DepartmentScorecard   from './pages/Reports/DepartmentScorecard'
 import ExecutiveDashboard    from './pages/Executive/ExecutiveDashboard'
 import Settings          from './pages/Settings/Settings'
 import AuditLogPage      from './pages/AuditLog/AuditLogPage'
+import ComplianceLibrary from './pages/Compliance/ComplianceLibrary'
 import WorkflowList     from './pages/Workflows/WorkflowList'
 import WorkflowDetail   from './pages/Workflows/WorkflowDetail'
 import ApprovalInbox    from './pages/Workflows/ApprovalInbox'
@@ -117,6 +118,7 @@ export default function App() {
         <Route path="/executive"                      element={<ExecutiveDashboard />} />
         <Route path="/reports"                    element={<Reports />} />
         <Route path="/reports/department-scorecard" element={<DepartmentScorecard />} />
+        <Route path="/compliance"        element={<ComplianceLibrary />} />
         <Route path="/workflows"         element={<WorkflowList />} />
         <Route path="/workflows/new"     element={<WorkflowDetail />} />
         <Route path="/workflows/:id"     element={<WorkflowDetail />} />

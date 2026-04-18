@@ -78,6 +78,16 @@ export const reportsApi = {
   kpiTrend: () => api.get('/api/v1/reports/kpi-trend'),
 }
 
+export const regulatoryApi = {
+  getFrameworks:   ()                        => api.get('/api/v1/regulatory/frameworks'),
+  getControls:     (frameworkId, domain)     => api.get(`/api/v1/regulatory/frameworks/${frameworkId}/controls`, { params: { domain } }),
+  getCoverage:     (frameworkId)             => api.get(`/api/v1/regulatory/frameworks/${frameworkId}/coverage`),
+  getMappings:     (entityType, entityId)    => api.get('/api/v1/regulatory/mappings', { params: { entityType, entityId } }),
+  createMapping:   (data)                    => api.post('/api/v1/regulatory/mappings', data),
+  updateMapping:   (id, data)               => api.put(`/api/v1/regulatory/mappings/${id}`, data),
+  deleteMapping:   (id)                      => api.delete(`/api/v1/regulatory/mappings/${id}`),
+}
+
 export const workflowApi = {
   // Definitions
   getDefinitions:   (entityType)     => api.get('/api/v1/workflows/definitions', { params: { entityType } }),

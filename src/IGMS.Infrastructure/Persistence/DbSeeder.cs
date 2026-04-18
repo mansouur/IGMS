@@ -86,6 +86,9 @@ internal static class DbSeeder
             ("WORKFLOWS", "READ",   "عرض تعريفات سير العمل",   "View Workflow Definitions"),
             ("WORKFLOWS", "MANAGE", "إدارة سير العمل",          "Manage Workflow Definitions"),
             ("WORKFLOWS", "APPROVE","اعتماد في سير العمل",      "Approve Workflow Instances"),
+            // COMPLIANCE
+            ("COMPLIANCE", "READ",   "عرض مكتبة الامتثال",     "View Compliance Library"),
+            ("COMPLIANCE", "MANAGE", "إدارة خرائط الامتثال",   "Manage Compliance Mappings"),
         };
 
         return definitions.Select((d, i) => new Permission

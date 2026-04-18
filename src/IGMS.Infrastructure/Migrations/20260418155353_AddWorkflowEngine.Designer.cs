@@ -4,6 +4,7 @@ using IGMS.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IGMS.Infrastructure.Migrations
 {
     [DbContext(typeof(TenantDbContext))]
-    partial class TenantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260418155353_AddWorkflowEngine")]
+    partial class AddWorkflowEngine
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4521,7 +4524,7 @@ namespace IGMS.Infrastructure.Migrations
                             FullNameEn = "System Administrator",
                             IsActive = true,
                             IsDeleted = false,
-                            PasswordHash = "$2a$11$DrYFoU8C6Uqj52lv6e2LGOrHE3L9Ov.he.l31YSsh3gRuGMYx4bRq",
+                            PasswordHash = "$2a$11$E1Z716CQAXeUigYowprYRuvV6EP9C3MEpqaw3t9NiCaIz8rgDF.ky",
                             TwoFactorEnabled = false,
                             Username = "admin"
                         });

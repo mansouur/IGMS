@@ -58,6 +58,11 @@ public class TenantDbContext : DbContext, ITenantDbContext
     public DbSet<ControlTest>       ControlTests       => Set<ControlTest>();
     public DbSet<ControlEvidence>   ControlEvidences   => Set<ControlEvidence>();
 
+    // ── Regulatory Library ───────────────────────────────────────────────────
+    public DbSet<RegulatoryFramework> RegulatoryFrameworks => Set<RegulatoryFramework>();
+    public DbSet<RegulatoryControl>   RegulatoryControls   => Set<RegulatoryControl>();
+    public DbSet<ControlMapping>      ControlMappings      => Set<ControlMapping>();
+
     // ── Workflow Engine ───────────────────────────────────────────────────────
     public DbSet<WorkflowDefinition>    WorkflowDefinitions    => Set<WorkflowDefinition>();
     public DbSet<WorkflowStage>         WorkflowStages         => Set<WorkflowStage>();
@@ -131,6 +136,7 @@ public class TenantDbContext : DbContext, ITenantDbContext
         modelBuilder.UseCollation("Arabic_CI_AS");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TenantDbContext).Assembly);
         DbSeeder.Seed(modelBuilder);
+        RegulatorySeeder.Seed(modelBuilder);
         base.OnModelCreating(modelBuilder);
     }
 }
