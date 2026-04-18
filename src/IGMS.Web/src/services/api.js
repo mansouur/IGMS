@@ -78,4 +78,18 @@ export const reportsApi = {
   kpiTrend: () => api.get('/api/v1/reports/kpi-trend'),
 }
 
+export const workflowApi = {
+  // Definitions
+  getDefinitions:   (entityType)     => api.get('/api/v1/workflows/definitions', { params: { entityType } }),
+  getDefinition:    (id)             => api.get(`/api/v1/workflows/definitions/${id}`),
+  createDefinition: (data)           => api.post('/api/v1/workflows/definitions', data),
+  updateDefinition: (id, data)       => api.put(`/api/v1/workflows/definitions/${id}`, data),
+  deleteDefinition: (id)             => api.delete(`/api/v1/workflows/definitions/${id}`),
+  // Instances
+  getInstance:   (entityType, entityId) => api.get('/api/v1/workflows/instances', { params: { entityType, entityId } }),
+  getPending:    ()                     => api.get('/api/v1/workflows/instances/pending'),
+  submit:        (data)                 => api.post('/api/v1/workflows/instances', data),
+  act:           (instanceId, data)     => api.post(`/api/v1/workflows/instances/${instanceId}/act`, data),
+}
+
 export default api

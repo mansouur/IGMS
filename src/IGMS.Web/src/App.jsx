@@ -34,6 +34,9 @@ import DepartmentScorecard   from './pages/Reports/DepartmentScorecard'
 import ExecutiveDashboard    from './pages/Executive/ExecutiveDashboard'
 import Settings          from './pages/Settings/Settings'
 import AuditLogPage      from './pages/AuditLog/AuditLogPage'
+import WorkflowList     from './pages/Workflows/WorkflowList'
+import WorkflowDetail   from './pages/Workflows/WorkflowDetail'
+import ApprovalInbox    from './pages/Workflows/ApprovalInbox'
 
 // ── Route guards ──────────────────────────────────────────────────────────────
 
@@ -114,6 +117,10 @@ export default function App() {
         <Route path="/executive"                      element={<ExecutiveDashboard />} />
         <Route path="/reports"                    element={<Reports />} />
         <Route path="/reports/department-scorecard" element={<DepartmentScorecard />} />
+        <Route path="/workflows"         element={<WorkflowList />} />
+        <Route path="/workflows/new"     element={<WorkflowDetail />} />
+        <Route path="/workflows/:id"     element={<WorkflowDetail />} />
+        <Route path="/approvals"         element={<ApprovalInbox />} />
         <Route path="/audit-log"   element={<AuditLogPage />} />
         <Route path="/settings"    element={<Settings />} />
       </Route>

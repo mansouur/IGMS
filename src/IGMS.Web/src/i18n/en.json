@@ -55,6 +55,8 @@
     "risks":       "Risks",
     "controls":    "Control Tests",
     "roles":       "Roles & Permissions",
+    "workflows":   "Workflow Engine",
+    "approvals":   "Approval Inbox",
     "executive":   "Executive View",
     "reports":     "Reports",
     "auditLog":    "Audit Log",
@@ -815,6 +817,53 @@
     "filter": {
       "allTypes":         "All Types",
       "allEffectiveness": "All Effectiveness"
+    }
+  },
+
+  "workflows": {
+    "title":    "Workflow Engine",
+    "subtitle": "Approval workflow definitions per entity type",
+    "new":      "New Definition",
+    "stages":   "stages",
+    "confirmDelete": "Delete this workflow definition?",
+    "table": {
+      "name":       "Name",
+      "entityType": "Entity Type",
+      "stages":     "Stages"
+    },
+    "form": {
+      "info":          "Definition Info",
+      "entityType":    "Entity Type",
+      "nameAr":        "Arabic Name",
+      "nameEn":        "English Name",
+      "description":   "Description",
+      "isActive":      "Active",
+      "stages":        "Approval Stages",
+      "addStage":      "Add Stage",
+      "stage":         "Stage",
+      "noStages":      "No stages — add at least one.",
+      "stageNameAr":   "Stage Name (Arabic)",
+      "stageNameEn":   "Stage Name (English)",
+      "requiredRole":  "Required Role",
+      "anyUser":       "Any authenticated user"
+    },
+    "messages": {
+      "saved":    "Workflow definition saved.",
+      "deleted":  "Definition deleted.",
+      "approved": "Stage approved.",
+      "rejected": "Request rejected."
+    },
+    "inbox": {
+      "title":              "Approval Inbox",
+      "subtitle":           "Pending approvals waiting for your action",
+      "empty":              "No pending approvals.",
+      "stage":              "Stage",
+      "submittedBy":        "Submitted by",
+      "approve":            "Approve",
+      "reject":             "Reject",
+      "comment":            "Comment",
+      "sendComment":        "Send Comment",
+      "commentPlaceholder": "Add a comment on this request..."
     }
   }
 }

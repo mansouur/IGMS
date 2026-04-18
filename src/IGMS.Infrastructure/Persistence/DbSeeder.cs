@@ -82,6 +82,10 @@ internal static class DbSeeder
             ("CONTROLS", "CREATE", "إنشاء اختبار ضابط",      "Create Control Test"),
             ("CONTROLS", "UPDATE", "تعديل اختبار ضابط",      "Update Control Test"),
             ("CONTROLS", "DELETE", "حذف اختبار ضابط",        "Delete Control Test"),
+            // WORKFLOWS
+            ("WORKFLOWS", "READ",   "عرض تعريفات سير العمل",   "View Workflow Definitions"),
+            ("WORKFLOWS", "MANAGE", "إدارة سير العمل",          "Manage Workflow Definitions"),
+            ("WORKFLOWS", "APPROVE","اعتماد في سير العمل",      "Approve Workflow Instances"),
         };
 
         return definitions.Select((d, i) => new Permission

@@ -58,6 +58,12 @@ public class TenantDbContext : DbContext, ITenantDbContext
     public DbSet<ControlTest>       ControlTests       => Set<ControlTest>();
     public DbSet<ControlEvidence>   ControlEvidences   => Set<ControlEvidence>();
 
+    // ── Workflow Engine ───────────────────────────────────────────────────────
+    public DbSet<WorkflowDefinition>    WorkflowDefinitions    => Set<WorkflowDefinition>();
+    public DbSet<WorkflowStage>         WorkflowStages         => Set<WorkflowStage>();
+    public DbSet<WorkflowInstance>      WorkflowInstances      => Set<WorkflowInstance>();
+    public DbSet<WorkflowInstanceAction> WorkflowInstanceActions => Set<WorkflowInstanceAction>();
+
     // ── Audit interception ────────────────────────────────────────────────────
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
