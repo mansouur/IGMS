@@ -38,6 +38,10 @@
     "yes": "نعم",
     "no": "لا",
     "choose": "— اختر —",
+    "back": "رجوع",
+    "none": "بدون",
+    "all": "الكل",
+    "statusLabel": "الحالة",
     "status": {
       "active": "نشط",
       "inactive": "معطل"

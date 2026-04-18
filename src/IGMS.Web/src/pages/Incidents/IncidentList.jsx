@@ -98,7 +98,7 @@ export default function IncidentList() {
               <tr>
                 <th className="text-start px-4 py-3 font-medium text-gray-600">{t('incidents.fields.title')}</th>
                 <th className="text-start px-4 py-3 font-medium text-gray-600">{t('incidents.fields.severity')}</th>
-                <th className="text-start px-4 py-3 font-medium text-gray-600">{t('common.status')}</th>
+                <th className="text-start px-4 py-3 font-medium text-gray-600">{t('common.statusLabel')}</th>
                 <th className="text-start px-4 py-3 font-medium text-gray-600">{t('incidents.fields.occurredAt')}</th>
                 <th className="text-start px-4 py-3 font-medium text-gray-600">{t('incidents.fields.riskLink')}</th>
                 <th className="px-4 py-3" />

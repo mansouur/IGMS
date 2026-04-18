@@ -96,7 +96,7 @@ export default function WorkflowList() {
                 <th className="text-start px-4 py-3 font-medium text-gray-600">{t('workflows.table.name')}</th>
                 <th className="text-start px-4 py-3 font-medium text-gray-600">{t('workflows.table.entityType')}</th>
                 <th className="text-start px-4 py-3 font-medium text-gray-600">{t('workflows.table.stages')}</th>
-                <th className="text-start px-4 py-3 font-medium text-gray-600">{t('common.status')}</th>
+                <th className="text-start px-4 py-3 font-medium text-gray-600">{t('common.statusLabel')}</th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>

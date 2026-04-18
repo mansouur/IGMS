@@ -38,6 +38,10 @@
     "yes": "Yes",
     "no": "No",
     "choose": "— Select —",
+    "back": "Back",
+    "none": "None",
+    "all": "All",
+    "statusLabel": "Status",
     "status": {
       "active": "Active",
       "inactive": "Inactive"

@@ -144,7 +144,7 @@ export default function IncidentForm() {
             </select>
           </div>
           <div>
-            <label className="block text-xs text-gray-500 mb-1">{t('common.status')}</label>
+            <label className="block text-xs text-gray-500 mb-1">{t('common.statusLabel')}</label>
             <select className={selectCls} value={form.status}
               onChange={(e) => setField('status', e.target.value)}>
               {STATUSES.map((s) => (

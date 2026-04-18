@@ -58,7 +58,7 @@ export default function AssessmentList() {
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
                 <th className="text-start px-4 py-3 font-medium text-gray-600">{t('assessments.table.title')}</th>
-                <th className="text-start px-4 py-3 font-medium text-gray-600">{t('common.status')}</th>
+                <th className="text-start px-4 py-3 font-medium text-gray-600">{t('common.statusLabel')}</th>
                 <th className="text-start px-4 py-3 font-medium text-gray-600">{t('assessments.table.questions')}</th>
                 <th className="text-start px-4 py-3 font-medium text-gray-600">{t('assessments.table.responses')}</th>
                 <th className="text-start px-4 py-3 font-medium text-gray-600">{t('assessments.table.dueDate')}</th>
