@@ -1,0 +1,784 @@
+{
+  "auth": {
+    "login": "تسجيل الدخول",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "submit": "دخول",
+    "loading": "جارٍ التحقق...",
+    "or": "أو",
+    "loginWithUaePass": "الدخول بالهوية الرقمية",
+    "logout": "تسجيل الخروج",
+    "error": {
+      "invalid": "اسم المستخدم أو كلمة المرور غير صحيحة.",
+      "required": "هذا الحقل مطلوب.",
+      "serverError": "حدث خطأ في الخادم. حاول مجدداً."
+    }
+  },
+
+  "common": {
+    "appName": "نظام الحوكمة المؤسسية",
+    "appShort": "IGMS",
+    "loading": "جارٍ التحميل...",
+    "saving": "جارٍ الحفظ...",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "saveChanges": "حفظ التغييرات",
+    "create": "إنشاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "view": "عرض",
+    "search": "بحث",
+    "export": "تصدير Excel",
+    "actions": "إجراءات",
+    "noData": "لا توجد بيانات",
+    "allStatuses": "جميع الحالات",
+    "activate": "تفعيل",
+    "deactivate": "تعطيل",
+    "confirm": "تأكيد",
+    "yes": "نعم",
+    "no": "لا",
+    "choose": "— اختر —",
+    "status": {
+      "active": "نشط",
+      "inactive": "معطل"
+    }
+  },
+
+  "nav": {
+    "dashboard":   "الرئيسية",
+    "users":       "المستخدمون",
+    "departments": "الأقسام",
+    "raci":        "مصفوفة RACI",
+    "policies":    "السياسات",
+    "tasks":       "المهام",
+    "kpi":         "مؤشرات الأداء",
+    "risks":       "المخاطر",
+    "controls":    "اختبارات الضوابط",
+    "executive":   "لوحة التنفيذي",
+    "reports":     "التقارير",
+    "auditLog":    "سجل المراجعة",
+    "settings":    "الإعدادات",
+    "section": {
+      "main":       "الرئيسية",
+      "management": "الإدارة",
+      "analytics":  "التحليلات",
+      "admin":      "النظام"
+    }
+  },
+
+  "pagination": {
+    "showing": "عرض",
+    "of": "من",
+    "records": "سجل",
+    "perPage": "/ صفحة"
+  },
+
+  "users": {
+    "title": "المستخدمون",
+    "subtitle": "إدارة حسابات مستخدمي النظام",
+    "new": "مستخدم جديد",
+    "createTitle": "مستخدم جديد",
+    "editTitle": "تعديل المستخدم",
+    "noData": "لا يوجد مستخدمون",
+    "status": {
+      "active": "نشط",
+      "inactive": "معطل"
+    },
+    "table": {
+      "user":       "المستخدم",
+      "username":   "اسم الدخول",
+      "department": "القسم",
+      "roles":      "الأدوار",
+      "status":     "الحالة"
+    },
+    "filters": {
+      "searchPlaceholder": "بحث بالاسم أو اسم المستخدم أو البريد...",
+      "allDepts":          "جميع الأقسام"
+    },
+    "fields": {
+      "fullNameAr":          "الاسم الكامل بالعربية",
+      "fullNameEn":          "الاسم بالإنجليزية",
+      "username":            "اسم الدخول (Username)",
+      "email":               "البريد الإلكتروني",
+      "password":            "كلمة المرور",
+      "phone":               "رقم الهاتف",
+      "department":          "القسم",
+      "roles":               "الأدوار",
+      "isActive":            "الحساب نشط",
+      "noDept":              "— بدون قسم —",
+      "passwordHint":        "مطلوب فقط لتسجيل الدخول المحلي",
+      "passwordPlaceholder": "اتركه فارغاً لحسابات AD أو UAE Pass"
+    },
+    "confirm": {
+      "deleteTitle":     "حذف المستخدم",
+      "deleteMsg":       "سيتم حذف \"{{name}}\" نهائياً. هل أنت متأكد؟",
+      "activateTitle":   "تفعيل المستخدم",
+      "activateMsg":     "سيتم تفعيل هذا الحساب.",
+      "deactivateTitle": "تعطيل المستخدم",
+      "deactivateMsg":   "سيتم تعطيل هذا الحساب. لن يتمكن من تسجيل الدخول."
+    },
+    "messages": {
+      "saved":       "تم حفظ التغييرات.",
+      "created":     "تم إنشاء المستخدم.",
+      "deleted":     "تم حذف المستخدم.",
+      "activated":   "تم التفعيل.",
+      "deactivated": "تم التعطيل."
+    }
+  },
+
+  "departments": {
+    "title": "الهيكل التنظيمي",
+    "subtitle": "إدارة الأقسام والوحدات التنظيمية",
+    "new": "قسم جديد",
+    "createTitle": "قسم جديد",
+    "editTitle": "تعديل القسم",
+    "noData": "لا توجد أقسام",
+    "createFirst": "أنشئ أول قسم",
+    "table": {
+      "department": "القسم",
+      "code":       "الرمز",
+      "parent":     "القسم الأعلى",
+      "manager":    "المدير",
+      "level":      "المستوى",
+      "children":   "الفرعية",
+      "status":     "الحالة"
+    },
+    "filters": {
+      "searchPlaceholder": "بحث بالاسم أو الرمز..."
+    },
+    "fields": {
+      "nameAr":        "الاسم بالعربية",
+      "nameEn":        "الاسم بالإنجليزية",
+      "code":          "الرمز (Code)",
+      "codeHint":      "رمز فريد مختصر – سيُحوَّل لحروف كبيرة تلقائياً",
+      "parent":        "القسم الأعلى",
+      "noParent":      "— لا يوجد (قسم جذر) —",
+      "manager":       "مدير القسم",
+      "noManager":     "— بدون مدير —",
+      "descriptionAr": "الوصف بالعربية",
+      "descriptionEn": "الوصف بالإنجليزية",
+      "isActive":      "القسم نشط"
+    },
+    "confirm": {
+      "deleteTitle":     "حذف القسم",
+      "deleteMsg":       "سيتم حذف \"{{name}}\" بشكل نهائي. تأكد من عدم وجود أقسام فرعية أو موظفين. هل أنت متأكد؟",
+      "activateTitle":   "تفعيل القسم",
+      "activateMsg":     "سيتم تفعيل هذا القسم وإتاحته في النظام.",
+      "deactivateTitle": "تعطيل القسم",
+      "deactivateMsg":   "سيتم تعطيل هذا القسم. هل أنت متأكد؟"
+    },
+    "messages": {
+      "saved":       "تم حفظ التغييرات.",
+      "created":     "تم إنشاء القسم.",
+      "deleted":     "تم الحذف بنجاح.",
+      "activated":   "تم التفعيل.",
+      "deactivated": "تم التعطيل."
+    }
+  },
+
+  "policies": {
+    "title": "السياسات والإجراءات",
+    "subtitle": "إدارة السياسات المؤسسية",
+    "new": "سياسة جديدة",
+    "createTitle": "سياسة جديدة",
+    "editTitle": "تعديل السياسة",
+    "noData": "لا توجد سياسات",
+    "status": {
+      "draft":    "مسودة",
+      "active":   "نشطة",
+      "archived": "مؤرشفة"
+    },
+    "category": {
+      "governance":   "حوكمة",
+      "technology":   "تقنية",
+      "hr":           "موارد بشرية",
+      "finance":      "مالي",
+      "operational":  "تشغيلي"
+    },
+    "table": {
+      "title":      "العنوان",
+      "code":       "الرمز",
+      "category":   "الفئة",
+      "department": "القسم",
+      "status":     "الحالة"
+    },
+    "actions": {
+      "publish": "نشر السياسة",
+      "archive": "أرشفة السياسة"
+    },
+    "fields": {
+      "titleAr":       "العنوان بالعربية",
+      "titleEn":       "العنوان بالإنجليزية",
+      "code":          "الرمز",
+      "category":      "الفئة",
+      "status":        "الحالة",
+      "effectiveDate": "تاريخ السريان",
+      "expiryDate":    "تاريخ الانتهاء",
+      "department":    "القسم المالك",
+      "owner":         "المسؤول",
+      "description":   "الوصف بالعربية",
+      "chooseDept":    "— اختر قسماً —",
+      "chooseOwner":   "— اختر مسؤولاً —",
+      "raciMatrix":    "مصفوفة RACI المرتبطة",
+      "chooseRaci":    "— لا يوجد —",
+      "raciHint":      "مصفوفة RACI التي تحدد المسؤوليات في تطبيق هذه السياسة"
+    },
+    "confirm": {
+      "deleteTitle": "حذف السياسة",
+      "deleteMsg":   "حذف \"{{name}}\"؟",
+      "publishMsg":  "تأكيد: نشر السياسة؟",
+      "archiveMsg":  "تأكيد: أرشفة السياسة؟"
+    },
+    "messages": {
+      "deleted":       "تم الحذف.",
+      "saved":         "تم الحفظ.",
+      "created":       "تم الإنشاء.",
+      "statusUpdated": "تم تحديث الحالة.",
+      "publishError":  "فشل النشر. حاول مرة أخرى."
+    },
+    "detail": {
+      "owner":      "المسؤول",
+      "approver":   "معتمد من",
+      "approvedAt": "تاريخ ووقت الاعتماد"
+    },
+    "publish": {
+      "approver":       "المعتمد",
+      "chooseApprover": "— اختر المعتمد —",
+      "approverHint":   "الشخص الذي يعتمد هذه السياسة رسمياً وينشرها"
+    },
+    "attachments": {
+      "title":        "المرفقات",
+      "upload":       "رفع ملف",
+      "download":     "تحميل",
+      "empty":        "لا توجد مرفقات بعد.",
+      "uploaded":     "تم رفع الملف بنجاح.",
+      "deleted":      "تم حذف المرفق.",
+      "uploadError":  "فشل الرفع. تحقق من نوع الملف وحجمه (الحد الأقصى 20 ميغابايت).",
+      "downloadError":"فشل التحميل.",
+      "deleteError":  "فشل الحذف."
+    },
+    "renew": {
+      "button":  "تجديد السياسة",
+      "success": "تم إنشاء نسخة تجديد – بإمكانك الآن تعديلها قبل النشر.",
+      "error":   "فشل تجديد السياسة."
+    },
+    "acknowledgment": {
+      "title":         "الإقرار بالسياسة",
+      "acknowledge":   "اطلعت على هذه السياسة وأُقر بالالتزام بها",
+      "acknowledged":  "تم الإقرار في {{date}}",
+      "reAcknowledge": "إعادة الإقرار",
+      "totalCount":    "{{n}} موظف أقرّ بهذه السياسة",
+      "noRecords":     "لا توجد إقرارات بعد.",
+      "success":       "تم تسجيل الإقرار بنجاح.",
+      "error":         "فشل تسجيل الإقرار.",
+      "showList":      "عرض القائمة",
+      "hideList":      "إخفاء القائمة",
+      "table": {
+        "employee": "الموظف",
+        "username": "اسم الدخول",
+        "date":     "التاريخ"
+      }
+    }
+  },
+
+  "risks": {
+    "title": "سجل المخاطر",
+    "subtitle": "تقييم المخاطر ومتابعة خطط التحديد",
+    "new": "مخاطرة جديدة",
+    "createTitle": "مخاطرة جديدة",
+    "editTitle": "تعديل المخاطرة",
+    "noData": "لا توجد مخاطر",
+    "status": {
+      "open":      "مفتوحة",
+      "mitigated": "محدّة",
+      "closed":    "مغلقة"
+    },
+    "category": {
+      "operational": "تشغيلي",
+      "financial":   "مالي",
+      "technology":  "تقنية",
+      "legal":       "قانوني",
+      "strategic":   "استراتيجي"
+    },
+    "table": {
+      "risk":       "المخاطرة",
+      "category":   "الفئة",
+      "likelihood": "الاحتمالية",
+      "impact":     "التأثير",
+      "score":      "الدرجة",
+      "status":     "الحالة"
+    },
+    "fields": {
+      "titleAr":        "العنوان بالعربية",
+      "code":           "الرمز",
+      "category":       "الفئة",
+      "status":         "الحالة",
+      "likelihood":     "الاحتمالية: {{val}}",
+      "impact":         "التأثير: {{val}}",
+      "riskScore":      "درجة المخاطرة",
+      "riskMatrix":     "مصفوفة المخاطرة",
+      "department":     "القسم",
+      "owner":          "المسؤول",
+      "description":    "الوصف",
+      "mitigation":     "خطة التخفيف"
+    },
+    "likelihood": {
+      "rare":          "نادر جداً",
+      "unlikely":      "غير محتمل",
+      "possible":      "محتمل",
+      "likely":        "مرجّح",
+      "almostCertain": "شبه مؤكد"
+    },
+    "impact": {
+      "negligible":   "ضئيل",
+      "minor":        "طفيف",
+      "moderate":     "متوسط",
+      "major":        "كبير",
+      "catastrophic": "كارثي"
+    },
+    "confirm": {
+      "deleteTitle": "حذف المخاطرة",
+      "deleteMsg":   "حذف \"{{name}}\"؟"
+    },
+    "messages": {
+      "deleted": "تم الحذف.",
+      "saved":   "تم الحفظ.",
+      "created": "تم الإنشاء."
+    },
+    "heatmap": {
+      "listView":       "قائمة",
+      "heatmapView":    "خريطة الحرارة",
+      "likelihood":     "الاحتمالية",
+      "impact":         "التأثير",
+      "low":            "منخفض",
+      "medium":         "متوسط",
+      "high":           "مرتفع",
+      "critical":       "حرج",
+      "totalRisks":     "{{n}} مخاطرة إجمالاً",
+      "cellTitle":      "احتمالية {{l}} × تأثير {{i}} = درجة {{score}}",
+      "risksFound":     "مخاطر",
+      "noRisksInCell":  "لا توجد مخاطر في هذه الخلية."
+    }
+  },
+
+  "tasks": {
+    "title": "المهام",
+    "subtitle": "متابعة المهام والإجراءات",
+    "new": "مهمة جديدة",
+    "createTitle": "مهمة جديدة",
+    "editTitle": "تعديل المهمة",
+    "noData": "لا توجد مهام",
+    "status": {
+      "pending":    "قيد الانتظار",
+      "inProgress": "جارية",
+      "done":       "منجزة",
+      "cancelled":  "ملغاة"
+    },
+    "priority": {
+      "low":      "منخفضة",
+      "medium":   "متوسطة",
+      "high":     "عالية",
+      "critical": "حرجة"
+    },
+    "table": {
+      "task":       "المهمة",
+      "assignedTo": "المكلف",
+      "priority":   "الأولوية",
+      "dueDate":    "الموعد",
+      "status":     "الحالة"
+    },
+    "fields": {
+      "titleAr":      "عنوان المهمة بالعربية",
+      "titleEn":      "بالإنجليزية",
+      "status":       "الحالة",
+      "priority":     "الأولوية",
+      "dueDate":      "الموعد النهائي",
+      "assignedTo":   "المكلف",
+      "department":   "القسم",
+      "description":  "الوصف",
+      "progress":     "مرحلة التنفيذ",
+      "details":      "تفاصيل المهمة",
+      "createdAt":    "تاريخ الإنشاء"
+    },
+    "overdue":   "المهمة متأخرة",
+    "daysAgo":   "أيام مضت",
+    "dueToday":  "الموعد النهائي اليوم",
+    "dueSoon":   "ينتهي الموعد خلال {{days}} أيام",
+    "confirm": {
+      "deleteTitle": "حذف المهمة",
+      "deleteMsg":   "حذف \"{{name}}\"؟"
+    },
+    "messages": {
+      "deleted": "تم الحذف.",
+      "saved":   "تم الحفظ.",
+      "created": "تم الإنشاء."
+    }
+  },
+
+  "kpi": {
+    "title": "مؤشرات الأداء",
+    "subtitle": "متابعة مؤشرات الأداء الرئيسية",
+    "new": "مؤشر جديد",
+    "createTitle": "مؤشر جديد",
+    "editTitle": "تعديل المؤشر",
+    "noData": "لا توجد مؤشرات",
+    "status": {
+      "onTrack": "في المسار",
+      "atRisk":  "في خطر",
+      "behind":  "متأخر"
+    },
+    "table": {
+      "kpi":         "المؤشر",
+      "period":      "الفترة",
+      "target":      "المستهدف",
+      "actual":      "الفعلي",
+      "achievement": "الإنجاز",
+      "status":      "الحالة"
+    },
+    "fields": {
+      "titleAr":          "اسم المؤشر بالعربية",
+      "code":             "الرمز",
+      "unit":             "الوحدة",
+      "unitPlaceholder":  "% أو عدد أو ساعة",
+      "targetValue":      "المستهدف",
+      "actualValue":      "الفعلي",
+      "year":             "السنة",
+      "quarter":          "الربع",
+      "annual":           "سنوي",
+      "q1":               "الربع الأول",
+      "q2":               "الربع الثاني",
+      "q3":               "الربع الثالث",
+      "q4":               "الربع الرابع",
+      "status":           "الحالة",
+      "department":       "القسم",
+      "owner":            "المسؤول"
+    },
+    "confirm": {
+      "deleteTitle": "حذف المؤشر",
+      "deleteMsg":   "حذف \"{{name}}\"؟"
+    },
+    "messages": {
+      "deleted":       "تم الحذف.",
+      "saved":         "تم الحفظ.",
+      "created":       "تم الإنشاء.",
+      "recordSaved":   "تم حفظ السجل.",
+      "recordDeleted": "تم حذف السجل."
+    },
+    "history": {
+      "title":         "سجل الأداء التاريخي",
+      "subtitle":      "مقارنة المستهدف بالفعلي عبر الفترات",
+      "addRecord":     "إضافة / تحديث سجل",
+      "noRecords":     "لا توجد سجلات تاريخية بعد.",
+      "year":          "السنة",
+      "quarter":       "الربع",
+      "annual":        "سنوي",
+      "target":        "المستهدف",
+      "actual":        "الفعلي",
+      "achievement":   "نسبة الإنجاز %",
+      "notes":         "ملاحظات",
+      "recordedBy":    "سُجّل بواسطة",
+      "recordedAt":    "تاريخ التسجيل",
+      "chart":         "الرسم البياني",
+      "table":         "جدول السجلات",
+      "confirmDelete": "حذف هذا السجل؟",
+      "targetLine":    "المستهدف",
+      "actualLine":    "الفعلي"
+    }
+  },
+
+  "compliance": {
+    "title":            "ربط أطر الامتثال",
+    "subtitle":         "ربط هذا البند بأطر حوكمة أو تنظيمية",
+    "add":              "إضافة إطار",
+    "framework":        "الإطار",
+    "clause":           "البند / المادة",
+    "clausePlaceholder":"مثال: 5.2 أو APO01.04",
+    "notes":            "ملاحظات",
+    "notesPlaceholder": "اختياري – اشرح كيف ينطبق هذا",
+    "save":             "حفظ",
+    "empty":            "لم يُربط أي إطار بعد.",
+    "added":            "تم ربط الإطار.",
+    "deleted":          "تم إزالة الربط.",
+    "addError":         "فشل الإضافة. ربما موجود مسبقاً.",
+    "deleteError":      "فشل الحذف."
+  },
+
+  "confirm": {
+    "cancel":  "إلغاء",
+    "danger":  { "btnLabel": "حذف" },
+    "warning": { "btnLabel": "تأكيد" },
+    "info":    { "btnLabel": "تأكيد" }
+  },
+
+  "reports": {
+    "title":    "لوحة التقارير التحليلية",
+    "subtitle": "لمحة شاملة عن صحة الحوكمة المؤسسية",
+    "loading":  "جاري التحميل…",
+    "error":    "تعذّر تحميل التقرير",
+    "sections": {
+      "policies":    "السياسات",
+      "risks":       "المخاطر",
+      "tasks":       "المهام",
+      "kpis":        "مؤشرات الأداء (KPI)",
+      "users":       "المستخدمون",
+      "departments": "الأقسام"
+    },
+    "stats": {
+      "total":      "الإجمالي",
+      "active":     "نشطة",
+      "draft":      "مسودة",
+      "archived":   "مؤرشفة",
+      "open":       "مفتوحة",
+      "mitigated":  "مُخففة",
+      "closed":     "مغلقة",
+      "highRisk":   "خطر عالٍ",
+      "pending":    "قيد الانتظار",
+      "inProgress": "جارية",
+      "done":       "منجزة",
+      "overdue":    "متأخرة",
+      "onTrack":    "على المسار",
+      "atRisk":     "في خطر",
+      "behind":     "متأخر",
+      "activeUsers":"نشطون"
+    }
+  },
+
+  "settings": {
+    "title":    "الإعدادات",
+    "subtitle": "ضبط إعدادات النظام",
+    "changePassword": {
+      "sectionTitle":    "تغيير كلمة المرور",
+      "currentPassword": "كلمة المرور الحالية",
+      "newPassword":     "كلمة المرور الجديدة",
+      "confirmPassword": "تأكيد كلمة المرور الجديدة",
+      "submit":          "حفظ كلمة المرور",
+      "saving":          "جاري الحفظ…",
+      "mismatch":        "كلمة المرور الجديدة وتأكيدها غير متطابقتين.",
+      "tooShort":        "كلمة المرور الجديدة يجب أن تكون 6 أحرف على الأقل.",
+      "success":         "تم تغيير كلمة المرور بنجاح.",
+      "error":           "حدث خطأ، حاول مجدداً."
+    }
+  },
+
+  "raci": {
+    "title":       "مصفوفة RACI",
+    "subtitle":    "توزيع المسؤوليات والصلاحيات على العمليات المؤسسية",
+    "new":         "مصفوفة جديدة",
+    "createTitle": "مصفوفة جديدة",
+    "editTitle":   "تعديل المصفوفة",
+    "noData":      "لا توجد مصفوفات RACI",
+    "createFirst": "أنشئ أول مصفوفة",
+    "status": {
+      "draft":       "مسودة",
+      "underReview": "قيد المراجعة",
+      "approved":    "معتمدة",
+      "archived":    "مؤرشفة"
+    },
+    "table": {
+      "title":      "العنوان",
+      "department": "القسم",
+      "activities": "الأنشطة",
+      "status":     "الحالة",
+      "createdAt":  "تاريخ الإنشاء"
+    },
+    "filters": {
+      "searchPlaceholder": "بحث باسم المصفوفة..."
+    },
+    "actions": {
+      "submit":  "إرسال للمراجعة",
+      "approve": "اعتماد"
+    },
+    "confirm": {
+      "deleteTitle":  "حذف المصفوفة",
+      "deleteMsg":    "سيتم حذف \"{{name}}\" بشكل نهائي ولن يمكن استرجاعها. هل أنت متأكد؟",
+      "approveTitle": "اعتماد المصفوفة",
+      "approveMsg":   "بعد الاعتماد لن يمكن تعديل المصفوفة. هل تريد المتابعة؟"
+    },
+    "messages": {
+      "deleted":   "تم الحذف بنجاح.",
+      "submitted": "تم إرسال المصفوفة للمراجعة.",
+      "approved":  "تم الاعتماد بنجاح.",
+      "saved":     "تم التعديل بنجاح.",
+      "created":   "تم إنشاء المصفوفة بنجاح."
+    },
+    "form": {
+      "basicInfo":      "المعلومات الأساسية",
+      "activities":     "الأنشطة",
+      "activityN":      "نشاط {{n}}",
+      "noActivities":   "لا توجد أنشطة بعد. أضف النشاط الأول.",
+      "addActivity":    "إضافة نشاط",
+      "titleAr":        "العنوان بالعربية",
+      "titleEn":        "العنوان بالإنجليزية",
+      "descriptionAr":  "الوصف بالعربية",
+      "activityNameAr": "اسم النشاط بالعربية",
+      "activityNameEn": "اسم النشاط بالإنجليزية",
+      "r": "R – المسؤولون عن التنفيذ (متعدد)",
+      "a": "A – صاحب القرار (واحد فقط)",
+      "c": "C – المستشارون (متعدد)",
+      "i": "I – المُبلَّغون (متعدد)"
+    },
+    "detail": {
+      "department":   "القسم:",
+      "approvedBy":   "اعتمد من:",
+      "approvedAt":   "في",
+      "activitiesN":  "الأنشطة ({{n}})",
+      "rLabel":       "مسؤول التنفيذ",
+      "aLabel":       "صاحب القرار",
+      "cLabel":       "يُستشار",
+      "iLabel":       "يُبلَّغ",
+      "activityCol":  "النشاط",
+      "noActivities": "لا توجد أنشطة في هذه المصفوفة."
+    }
+  },
+
+  "auditLog": {
+    "title":        "سجل المراجعة",
+    "subtitle":     "سجل كامل بجميع التغييرات على كيانات النظام",
+    "noData":       "لا توجد سجلات مراجعة",
+    "totalRecords": "{{n}} سجل",
+    "showDiff":     "عرض الفرق",
+    "hideDiff":     "إخفاء الفرق",
+    "filters": {
+      "allEntities": "جميع أنواع الكيانات",
+      "allActions":  "جميع الإجراءات",
+      "from":        "من تاريخ",
+      "to":          "إلى تاريخ"
+    },
+    "actions": {
+      "created": "إنشاء",
+      "updated": "تعديل",
+      "deleted": "حذف",
+      "login":   "دخول",
+      "logout":  "خروج"
+    },
+    "diff": {
+      "before": "قبل",
+      "after":  "بعد"
+    }
+  },
+
+  "dashboard": {
+    "welcome": "مرحباً",
+    "subtitle": "لوحة التحكم الرئيسية",
+    "overdueAlert": "{{count}} مهمة متأخرة",
+    "noDelay": "لا تأخيرات",
+    "noData": "لا بيانات",
+    "stats": {
+      "activePolicies": "السياسات النشطة",
+      "ofTotal":        "من أصل {{total}} إجمالاً",
+      "openRisks":      "المخاطر المفتوحة",
+      "highImpact":     "{{count}} عالية الأثر",
+      "activeTasks":    "المهام الجارية",
+      "kpisOnTrack":    "مؤشرات في المسار",
+      "ofKpis":         "من أصل {{total}} مؤشر"
+    },
+    "charts": {
+      "risksByStatus":      "المخاطر حسب الحالة",
+      "tasksByStatus":      "المهام حسب الحالة",
+      "kpisByStatus":       "مؤشرات الأداء",
+      "policiesByStatus":   "السياسات حسب الحالة",
+      "overview":           "نظرة عامة على الوحدات",
+      "kpiTrend":           "اتجاه إنجاز مؤشرات الأداء",
+      "kpiTrendSub":        "متوسط الإنجاز ربع سنوياً",
+      "kpiAvgAchievement":  "متوسط الإنجاز",
+      "kpiTrendNote":       "الخط الأخضر 80% (ممتاز) — الخط الأصفر 60% (مقبول)"
+    },
+    "bar": {
+      "policies": "السياسات",
+      "risks":    "المخاطر",
+      "tasks":    "المهام",
+      "kpis":     "المؤشرات",
+      "total":    "الإجمالي"
+    },
+    "quickActions": "إجراءات سريعة",
+    "actions": {
+      "newPolicy": "سياسة جديدة",
+      "newRisk":   "تسجيل مخاطرة",
+      "newTask":   "إضافة مهمة",
+      "newKpi":    "مؤشر أداء جديد"
+    },
+    "governanceScore": "مؤشر صحة الحوكمة",
+    "governanceScoreOf": "من 100",
+    "expiryAlert30": "{{count}} سياسة تنتهي خلال 30 يوماً",
+    "expiryAlert60": "{{count}} سياسة تنتهي خلال 60 يوماً",
+    "compliance": {
+      "title":    "تغطية الامتثال",
+      "policies": "السياسات مرتبطة بإطار",
+      "risks":    "المخاطر مرتبطة بإطار"
+    },
+    "kpiAvg": "متوسط تحقق المؤشرات {{pct}}%",
+    "topRisks": {
+      "title":  "أعلى المخاطر الحرجة",
+      "score":  "الدرجة",
+      "noData": "لا مخاطر مفتوحة"
+    },
+    "recentActivity": {
+      "title":      "آخر النشاطات",
+      "noActivity": "لا نشاطات حديثة"
+    }
+  },
+
+  "controls": {
+    "title":    "اختبارات الضوابط الرقابية",
+    "subtitle": "تحقق من وجود الضوابط وفاعليتها بالأدلة",
+    "new":      "اختبار جديد",
+    "noData":   "لا توجد اختبارات ضوابط.",
+    "detail":   "تفاصيل الاختبار",
+    "form": {
+      "titleAr":       "عنوان الاختبار (عربي)",
+      "titleEn":       "عنوان الاختبار (إنجليزي)",
+      "code":          "الرمز",
+      "descriptionAr": "الوصف",
+      "entityType":    "نوع الكيان المرتبط",
+      "entityId":      "الكيان المرتبط",
+      "testedById":    "المختبِر",
+      "testedAt":      "تاريخ الاختبار",
+      "nextTestDate":  "موعد الاختبار التالي",
+      "effectiveness": "مستوى الفاعلية",
+      "findingsAr":    "النتائج والملاحظات",
+      "selectEntity":  "اختر الكيان...",
+      "entityPolicy":  "سياسة",
+      "entityRisk":    "مخاطرة"
+    },
+    "effectiveness": {
+      "0": "لم يُختبر",
+      "1": "فعّال",
+      "2": "فعّال جزئياً",
+      "3": "غير فعّال"
+    },
+    "table": {
+      "test":          "الاختبار",
+      "entity":        "الكيان",
+      "effectiveness": "الفاعلية",
+      "testedAt":      "تاريخ الاختبار",
+      "nextTest":      "الاختبار التالي",
+      "evidence":      "الأدلة",
+      "testedBy":      "المختبِر"
+    },
+    "evidence": {
+      "title":       "الأدلة والمرفقات",
+      "upload":      "رفع دليل",
+      "noEvidence":  "لا توجد أدلة.",
+      "uploadHint":  "PDF، Word، Excel، صور — حتى 20 ميغابايت",
+      "uploading":   "جارٍ الرفع...",
+      "download":    "تحميل",
+      "delete":      "حذف الدليل"
+    },
+    "messages": {
+      "saved":          "تم حفظ الاختبار.",
+      "deleted":        "تم حذف الاختبار.",
+      "evidenceUploaded": "تم رفع الدليل.",
+      "evidenceDeleted":  "تم حذف الدليل."
+    },
+    "confirm": {
+      "deleteTitle": "حذف الاختبار",
+      "deleteMsg":   "هل تريد حذف «{{name}}»؟",
+      "deleteEvTitle": "حذف الدليل",
+      "deleteEvMsg":   "هل تريد حذف هذا الملف؟"
+    },
+    "filter": {
+      "allTypes":          "كل الأنواع",
+      "allEffectiveness":  "كل مستويات الفاعلية"
+    }
+  }
+}

@@ -1,0 +1,784 @@
+{
+  "auth": {
+    "login": "Sign In",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Sign In",
+    "loading": "Verifying...",
+    "or": "or",
+    "loginWithUaePass": "Sign in with UAE Pass",
+    "logout": "Sign Out",
+    "error": {
+      "invalid": "Invalid username or password.",
+      "required": "This field is required.",
+      "serverError": "Server error. Please try again."
+    }
+  },
+
+  "common": {
+    "appName": "Institutional Governance Management System",
+    "appShort": "IGMS",
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saveChanges": "Save Changes",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "search": "Search",
+    "export": "Export Excel",
+    "actions": "Actions",
+    "noData": "No data available",
+    "allStatuses": "All Statuses",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "choose": "— Select —",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
+  },
+
+  "nav": {
+    "dashboard":   "Dashboard",
+    "users":       "Users",
+    "departments": "Departments",
+    "raci":        "RACI Matrix",
+    "policies":    "Policies",
+    "tasks":       "Tasks",
+    "kpi":         "KPIs",
+    "risks":       "Risks",
+    "controls":    "Control Tests",
+    "executive":   "Executive View",
+    "reports":     "Reports",
+    "auditLog":    "Audit Log",
+    "settings":    "Settings",
+    "section": {
+      "main":       "Main",
+      "management": "Management",
+      "analytics":  "Analytics",
+      "admin":      "System"
+    }
+  },
+
+  "pagination": {
+    "showing": "Showing",
+    "of": "of",
+    "records": "records",
+    "perPage": "/ page"
+  },
+
+  "users": {
+    "title": "Users",
+    "subtitle": "Manage system user accounts",
+    "new": "New User",
+    "createTitle": "New User",
+    "editTitle": "Edit User",
+    "noData": "No users found",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "table": {
+      "user":       "User",
+      "username":   "Username",
+      "department": "Department",
+      "roles":      "Roles",
+      "status":     "Status"
+    },
+    "filters": {
+      "searchPlaceholder": "Search by name, username or email...",
+      "allDepts":          "All Departments"
+    },
+    "fields": {
+      "fullNameAr":          "Full Name (Arabic)",
+      "fullNameEn":          "Full Name (English)",
+      "username":            "Username",
+      "email":               "Email",
+      "password":            "Password",
+      "phone":               "Phone Number",
+      "department":          "Department",
+      "roles":               "Roles",
+      "isActive":            "Account Active",
+      "noDept":              "— No Department —",
+      "passwordHint":        "Required only for local login",
+      "passwordPlaceholder": "Leave blank for AD or UAE Pass accounts"
+    },
+    "confirm": {
+      "deleteTitle":     "Delete User",
+      "deleteMsg":       "\"{{name}}\" will be permanently deleted. Are you sure?",
+      "activateTitle":   "Activate User",
+      "activateMsg":     "This account will be activated.",
+      "deactivateTitle": "Deactivate User",
+      "deactivateMsg":   "This account will be deactivated. The user will not be able to sign in."
+    },
+    "messages": {
+      "saved":       "Changes saved.",
+      "created":     "User created.",
+      "deleted":     "User deleted.",
+      "activated":   "User activated.",
+      "deactivated": "User deactivated."
+    }
+  },
+
+  "departments": {
+    "title": "Organizational Structure",
+    "subtitle": "Manage departments and organizational units",
+    "new": "New Department",
+    "createTitle": "New Department",
+    "editTitle": "Edit Department",
+    "noData": "No departments found",
+    "createFirst": "Create the first department",
+    "table": {
+      "department": "Department",
+      "code":       "Code",
+      "parent":     "Parent",
+      "manager":    "Manager",
+      "level":      "Level",
+      "children":   "Sub-depts",
+      "status":     "Status"
+    },
+    "filters": {
+      "searchPlaceholder": "Search by name or code..."
+    },
+    "fields": {
+      "nameAr":        "Name (Arabic)",
+      "nameEn":        "Name (English)",
+      "code":          "Code",
+      "codeHint":      "Short unique code – will be auto-converted to uppercase",
+      "parent":        "Parent Department",
+      "noParent":      "— None (root department) —",
+      "manager":       "Department Manager",
+      "noManager":     "— No Manager —",
+      "descriptionAr": "Description (Arabic)",
+      "descriptionEn": "Description (English)",
+      "isActive":      "Department Active"
+    },
+    "confirm": {
+      "deleteTitle":     "Delete Department",
+      "deleteMsg":       "\"{{name}}\" will be permanently deleted. Make sure there are no sub-departments or employees. Are you sure?",
+      "activateTitle":   "Activate Department",
+      "activateMsg":     "This department will be activated and made available in the system.",
+      "deactivateTitle": "Deactivate Department",
+      "deactivateMsg":   "This department will be deactivated. Are you sure?"
+    },
+    "messages": {
+      "saved":       "Changes saved.",
+      "created":     "Department created.",
+      "deleted":     "Deleted successfully.",
+      "activated":   "Activated.",
+      "deactivated": "Deactivated."
+    }
+  },
+
+  "policies": {
+    "title": "Policies & Procedures",
+    "subtitle": "Manage institutional policies",
+    "new": "New Policy",
+    "createTitle": "New Policy",
+    "editTitle": "Edit Policy",
+    "noData": "No policies found",
+    "status": {
+      "draft":    "Draft",
+      "active":   "Active",
+      "archived": "Archived"
+    },
+    "category": {
+      "governance":  "Governance",
+      "technology":  "Technology",
+      "hr":          "Human Resources",
+      "finance":     "Finance",
+      "operational": "Operational"
+    },
+    "table": {
+      "title":      "Title",
+      "code":       "Code",
+      "category":   "Category",
+      "department": "Department",
+      "status":     "Status"
+    },
+    "actions": {
+      "publish": "Publish Policy",
+      "archive": "Archive Policy"
+    },
+    "fields": {
+      "titleAr":       "Title (Arabic)",
+      "titleEn":       "Title (English)",
+      "code":          "Code",
+      "category":      "Category",
+      "status":        "Status",
+      "effectiveDate": "Effective Date",
+      "expiryDate":    "Expiry Date",
+      "department":    "Owning Department",
+      "owner":         "Owner",
+      "description":   "Description (Arabic)",
+      "chooseDept":    "— Select a department —",
+      "chooseOwner":   "— Select an owner —",
+      "raciMatrix":    "Linked RACI Matrix",
+      "chooseRaci":    "— None —",
+      "raciHint":      "The RACI matrix that defines responsibilities for implementing this policy"
+    },
+    "confirm": {
+      "deleteTitle": "Delete Policy",
+      "deleteMsg":   "Delete \"{{name}}\"?",
+      "publishMsg":  "Confirm: Publish this policy?",
+      "archiveMsg":  "Confirm: Archive this policy?"
+    },
+    "messages": {
+      "deleted":       "Deleted.",
+      "saved":         "Saved.",
+      "created":       "Created.",
+      "statusUpdated": "Status updated.",
+      "publishError":  "Failed to publish. Please try again."
+    },
+    "detail": {
+      "owner":       "Owner",
+      "approver":    "Approved By",
+      "approvedAt":  "Approval Date & Time"
+    },
+    "publish": {
+      "approver":        "Approver",
+      "chooseApprover":  "— Select Approver —",
+      "approverHint":    "The person officially approving and publishing this policy"
+    },
+    "attachments": {
+      "title":        "Attachments",
+      "upload":       "Upload File",
+      "download":     "Download",
+      "empty":        "No attachments yet.",
+      "uploaded":     "File uploaded successfully.",
+      "deleted":      "Attachment deleted.",
+      "uploadError":  "Upload failed. Check file type and size (max 20 MB).",
+      "downloadError":"Download failed.",
+      "deleteError":  "Delete failed."
+    },
+    "renew": {
+      "button":  "Renew Policy",
+      "success": "Renewal draft created – review and publish when ready.",
+      "error":   "Failed to renew policy."
+    },
+    "acknowledgment": {
+      "title":          "Policy Acknowledgment",
+      "acknowledge":    "I Have Read This Policy and Commit to Comply",
+      "acknowledged":   "Acknowledged on {{date}}",
+      "reAcknowledge":  "Re-Acknowledge",
+      "totalCount":     "{{n}} employee(s) have acknowledged",
+      "noRecords":      "No acknowledgments yet.",
+      "success":        "Acknowledgment recorded successfully.",
+      "error":          "Failed to record acknowledgment.",
+      "showList":       "Show List",
+      "hideList":       "Hide List",
+      "table": {
+        "employee":  "Employee",
+        "username":  "Username",
+        "date":      "Date"
+      }
+    }
+  },
+
+  "risks": {
+    "title": "Risk Register",
+    "subtitle": "Risk assessment and mitigation tracking",
+    "new": "New Risk",
+    "createTitle": "New Risk",
+    "editTitle": "Edit Risk",
+    "noData": "No risks found",
+    "status": {
+      "open":      "Open",
+      "mitigated": "Mitigated",
+      "closed":    "Closed"
+    },
+    "category": {
+      "operational": "Operational",
+      "financial":   "Financial",
+      "technology":  "Technology",
+      "legal":       "Legal",
+      "strategic":   "Strategic"
+    },
+    "table": {
+      "risk":       "Risk",
+      "category":   "Category",
+      "likelihood": "Likelihood",
+      "impact":     "Impact",
+      "score":      "Score",
+      "status":     "Status"
+    },
+    "fields": {
+      "titleAr":        "Title (Arabic)",
+      "code":           "Code",
+      "category":       "Category",
+      "status":         "Status",
+      "likelihood":     "Likelihood: {{val}}",
+      "impact":         "Impact: {{val}}",
+      "riskScore":      "Risk Score",
+      "riskMatrix":     "Risk Matrix",
+      "department":     "Department",
+      "owner":          "Owner",
+      "description":    "Description",
+      "mitigation":     "Mitigation Plan"
+    },
+    "likelihood": {
+      "rare":          "Rare",
+      "unlikely":      "Unlikely",
+      "possible":      "Possible",
+      "likely":        "Likely",
+      "almostCertain": "Almost Certain"
+    },
+    "impact": {
+      "negligible":   "Negligible",
+      "minor":        "Minor",
+      "moderate":     "Moderate",
+      "major":        "Major",
+      "catastrophic": "Catastrophic"
+    },
+    "confirm": {
+      "deleteTitle": "Delete Risk",
+      "deleteMsg":   "Delete \"{{name}}\"?"
+    },
+    "messages": {
+      "deleted": "Deleted.",
+      "saved":   "Saved.",
+      "created": "Created."
+    },
+    "heatmap": {
+      "listView":       "List",
+      "heatmapView":    "Heat Map",
+      "likelihood":     "Likelihood",
+      "impact":         "Impact",
+      "low":            "Low",
+      "medium":         "Medium",
+      "high":           "High",
+      "critical":       "Critical",
+      "totalRisks":     "{{n}} risks total",
+      "cellTitle":      "L{{l}} × I{{i}} = Score {{score}}",
+      "risksFound":     "risks",
+      "noRisksInCell":  "No risks in this cell."
+    }
+  },
+
+  "tasks": {
+    "title": "Tasks",
+    "subtitle": "Track tasks and actions",
+    "new": "New Task",
+    "createTitle": "New Task",
+    "editTitle": "Edit Task",
+    "noData": "No tasks found",
+    "status": {
+      "pending":    "Pending",
+      "inProgress": "In Progress",
+      "done":       "Done",
+      "cancelled":  "Cancelled"
+    },
+    "priority": {
+      "low":      "Low",
+      "medium":   "Medium",
+      "high":     "High",
+      "critical": "Critical"
+    },
+    "table": {
+      "task":       "Task",
+      "assignedTo": "Assigned To",
+      "priority":   "Priority",
+      "dueDate":    "Due Date",
+      "status":     "Status"
+    },
+    "fields": {
+      "titleAr":     "Task Title (Arabic)",
+      "titleEn":     "Title (English)",
+      "status":      "Status",
+      "priority":    "Priority",
+      "dueDate":     "Due Date",
+      "assignedTo":  "Assigned To",
+      "department":  "Department",
+      "description": "Description",
+      "progress":    "Execution Stage",
+      "details":     "Task Details",
+      "createdAt":   "Created At"
+    },
+    "overdue":   "Task is overdue",
+    "daysAgo":   "days ago",
+    "dueToday":  "Due today",
+    "dueSoon":   "Due in {{days}} days",
+    "confirm": {
+      "deleteTitle": "Delete Task",
+      "deleteMsg":   "Delete \"{{name}}\"?"
+    },
+    "messages": {
+      "deleted": "Deleted.",
+      "saved":   "Saved.",
+      "created": "Created."
+    }
+  },
+
+  "kpi": {
+    "title": "Key Performance Indicators",
+    "subtitle": "Track KPI performance",
+    "new": "New KPI",
+    "createTitle": "New KPI",
+    "editTitle": "Edit KPI",
+    "noData": "No KPIs found",
+    "status": {
+      "onTrack": "On Track",
+      "atRisk":  "At Risk",
+      "behind":  "Behind"
+    },
+    "table": {
+      "kpi":         "KPI",
+      "period":      "Period",
+      "target":      "Target",
+      "actual":      "Actual",
+      "achievement": "Achievement",
+      "status":      "Status"
+    },
+    "fields": {
+      "titleAr":         "KPI Name (Arabic)",
+      "code":            "Code",
+      "unit":            "Unit",
+      "unitPlaceholder": "% or count or hours",
+      "targetValue":     "Target",
+      "actualValue":     "Actual",
+      "year":            "Year",
+      "quarter":         "Quarter",
+      "annual":          "Annual",
+      "q1":              "Q1",
+      "q2":              "Q2",
+      "q3":              "Q3",
+      "q4":              "Q4",
+      "status":          "Status",
+      "department":      "Department",
+      "owner":           "Owner"
+    },
+    "confirm": {
+      "deleteTitle": "Delete KPI",
+      "deleteMsg":   "Delete \"{{name}}\"?"
+    },
+    "messages": {
+      "deleted":       "Deleted.",
+      "saved":         "Saved.",
+      "created":       "Created.",
+      "recordSaved":   "Record saved.",
+      "recordDeleted": "Record deleted."
+    },
+    "history": {
+      "title":         "Performance History",
+      "subtitle":      "Historical target vs. actual trend",
+      "addRecord":     "Add / Update Record",
+      "noRecords":     "No historical records yet.",
+      "year":          "Year",
+      "quarter":       "Quarter",
+      "annual":        "Annual",
+      "target":        "Target",
+      "actual":        "Actual",
+      "achievement":   "Achievement %",
+      "notes":         "Notes",
+      "recordedBy":    "Recorded By",
+      "recordedAt":    "Recorded At",
+      "chart":         "Trend Chart",
+      "table":         "Records Table",
+      "confirmDelete": "Delete this record?",
+      "targetLine":    "Target",
+      "actualLine":    "Actual"
+    }
+  },
+
+  "compliance": {
+    "title":            "Compliance Framework Mapping",
+    "subtitle":         "Link this item to regulatory or governance frameworks",
+    "add":              "Add Framework",
+    "framework":        "Framework",
+    "clause":           "Clause / Article",
+    "clausePlaceholder":"e.g. 5.2 or APO01.04",
+    "notes":            "Notes",
+    "notesPlaceholder": "Optional – describe how this applies",
+    "save":             "Save",
+    "empty":            "No frameworks linked yet.",
+    "added":            "Framework linked.",
+    "deleted":          "Link removed.",
+    "addError":         "Failed to add. May already exist.",
+    "deleteError":      "Failed to remove."
+  },
+
+  "confirm": {
+    "cancel":  "Cancel",
+    "danger":  { "btnLabel": "Delete" },
+    "warning": { "btnLabel": "Confirm" },
+    "info":    { "btnLabel": "Confirm" }
+  },
+
+  "reports": {
+    "title":    "Analytics Dashboard",
+    "subtitle": "A comprehensive overview of institutional governance health",
+    "loading":  "Loading…",
+    "error":    "Failed to load report",
+    "sections": {
+      "policies":    "Policies",
+      "risks":       "Risks",
+      "tasks":       "Tasks",
+      "kpis":        "KPIs",
+      "users":       "Users",
+      "departments": "Departments"
+    },
+    "stats": {
+      "total":       "Total",
+      "active":      "Active",
+      "draft":       "Draft",
+      "archived":    "Archived",
+      "open":        "Open",
+      "mitigated":   "Mitigated",
+      "closed":      "Closed",
+      "highRisk":    "High Risk",
+      "pending":     "Pending",
+      "inProgress":  "In Progress",
+      "done":        "Done",
+      "overdue":     "Overdue",
+      "onTrack":     "On Track",
+      "atRisk":      "At Risk",
+      "behind":      "Behind",
+      "activeUsers": "Active"
+    }
+  },
+
+  "settings": {
+    "title":    "Settings",
+    "subtitle": "System configuration",
+    "changePassword": {
+      "sectionTitle":    "Change Password",
+      "currentPassword": "Current Password",
+      "newPassword":     "New Password",
+      "confirmPassword": "Confirm New Password",
+      "submit":          "Save Password",
+      "saving":          "Saving…",
+      "mismatch":        "New password and confirmation do not match.",
+      "tooShort":        "New password must be at least 6 characters.",
+      "success":         "Password changed successfully.",
+      "error":           "An error occurred. Please try again."
+    }
+  },
+
+  "raci": {
+    "title":       "RACI Matrix",
+    "subtitle":    "Responsibility assignment matrix for institutional processes",
+    "new":         "New Matrix",
+    "createTitle": "New Matrix",
+    "editTitle":   "Edit Matrix",
+    "noData":      "No RACI matrices found",
+    "createFirst": "Create first matrix",
+    "status": {
+      "draft":       "Draft",
+      "underReview": "Under Review",
+      "approved":    "Approved",
+      "archived":    "Archived"
+    },
+    "table": {
+      "title":      "Title",
+      "department": "Department",
+      "activities": "Activities",
+      "status":     "Status",
+      "createdAt":  "Created"
+    },
+    "filters": {
+      "searchPlaceholder": "Search by matrix name..."
+    },
+    "actions": {
+      "submit":  "Submit for Review",
+      "approve": "Approve"
+    },
+    "confirm": {
+      "deleteTitle":  "Delete Matrix",
+      "deleteMsg":    "\"{{name}}\" will be permanently deleted. Are you sure?",
+      "approveTitle": "Approve Matrix",
+      "approveMsg":   "Once approved the matrix cannot be edited. Continue?"
+    },
+    "messages": {
+      "deleted":   "Deleted successfully.",
+      "submitted": "Matrix submitted for review.",
+      "approved":  "Approved successfully.",
+      "saved":     "Updated successfully.",
+      "created":   "Matrix created successfully."
+    },
+    "form": {
+      "basicInfo":      "Basic Information",
+      "activities":     "Activities",
+      "activityN":      "Activity {{n}}",
+      "noActivities":   "No activities yet. Add the first one.",
+      "addActivity":    "Add Activity",
+      "titleAr":        "Title (Arabic)",
+      "titleEn":        "Title (English)",
+      "descriptionAr":  "Description (Arabic)",
+      "activityNameAr": "Activity Name (Arabic)",
+      "activityNameEn": "Activity Name (English)",
+      "r": "R – Responsible (multiple)",
+      "a": "A – Accountable (single)",
+      "c": "C – Consulted (multiple)",
+      "i": "I – Informed (multiple)"
+    },
+    "detail": {
+      "department":   "Department:",
+      "approvedBy":   "Approved by:",
+      "approvedAt":   "on",
+      "activitiesN":  "Activities ({{n}})",
+      "rLabel":       "Responsible",
+      "aLabel":       "Accountable",
+      "cLabel":       "Consulted",
+      "iLabel":       "Informed",
+      "activityCol":  "Activity",
+      "noActivities": "No activities in this matrix."
+    }
+  },
+
+  "auditLog": {
+    "title":        "Audit Log",
+    "subtitle":     "Full change history for all system entities",
+    "noData":       "No audit records found",
+    "totalRecords": "{{n}} records",
+    "showDiff":     "Show diff",
+    "hideDiff":     "Hide diff",
+    "filters": {
+      "allEntities": "All Entity Types",
+      "allActions":  "All Actions",
+      "from":        "From date",
+      "to":          "To date"
+    },
+    "actions": {
+      "created": "Created",
+      "updated": "Updated",
+      "deleted": "Deleted",
+      "login":   "Login",
+      "logout":  "Logout"
+    },
+    "diff": {
+      "before": "Before",
+      "after":  "After"
+    }
+  },
+
+  "dashboard": {
+    "welcome": "Welcome",
+    "subtitle": "Institutional Governance Dashboard",
+    "overdueAlert": "{{count}} overdue task(s)",
+    "noDelay": "No delays",
+    "noData": "No data",
+    "stats": {
+      "activePolicies": "Active Policies",
+      "ofTotal":        "of {{total}} total",
+      "openRisks":      "Open Risks",
+      "highImpact":     "{{count}} high impact",
+      "activeTasks":    "Active Tasks",
+      "kpisOnTrack":    "KPIs On Track",
+      "ofKpis":         "of {{total}} KPIs"
+    },
+    "charts": {
+      "risksByStatus":      "Risks by Status",
+      "tasksByStatus":      "Tasks by Status",
+      "kpisByStatus":       "KPI Performance",
+      "policiesByStatus":   "Policies by Status",
+      "overview":           "Module Overview",
+      "kpiTrend":           "KPI Achievement Trend",
+      "kpiTrendSub":        "Quarterly average achievement",
+      "kpiAvgAchievement":  "Avg. Achievement",
+      "kpiTrendNote":       "Green line 80% (Excellent) — Yellow line 60% (Acceptable)"
+    },
+    "bar": {
+      "policies": "Policies",
+      "risks":    "Risks",
+      "tasks":    "Tasks",
+      "kpis":     "KPIs",
+      "total":    "Total"
+    },
+    "quickActions": "Quick Actions",
+    "actions": {
+      "newPolicy": "New Policy",
+      "newRisk":   "Register Risk",
+      "newTask":   "Add Task",
+      "newKpi":    "New KPI"
+    },
+    "governanceScore": "Governance Health Score",
+    "governanceScoreOf": "out of 100",
+    "expiryAlert30": "{{count}} policy expiring within 30 days",
+    "expiryAlert60": "{{count}} policy expiring within 60 days",
+    "compliance": {
+      "title":    "Compliance Coverage",
+      "policies": "Policies linked to framework",
+      "risks":    "Risks linked to framework"
+    },
+    "kpiAvg": "Avg achievement {{pct}}%",
+    "topRisks": {
+      "title":  "Top Critical Risks",
+      "score":  "Score",
+      "noData": "No open risks"
+    },
+    "recentActivity": {
+      "title":      "Recent Activity",
+      "noActivity": "No recent activity"
+    }
+  },
+
+  "controls": {
+    "title":    "Control Tests",
+    "subtitle": "Verify the existence and effectiveness of controls with evidence",
+    "new":      "New Test",
+    "noData":   "No control tests found.",
+    "detail":   "Test Details",
+    "form": {
+      "titleAr":       "Title (Arabic)",
+      "titleEn":       "Title (English)",
+      "code":          "Code",
+      "descriptionAr": "Description",
+      "entityType":    "Related Entity Type",
+      "entityId":      "Related Entity",
+      "testedById":    "Tested By",
+      "testedAt":      "Test Date",
+      "nextTestDate":  "Next Test Date",
+      "effectiveness": "Effectiveness",
+      "findingsAr":    "Findings & Notes",
+      "selectEntity":  "Select entity...",
+      "entityPolicy":  "Policy",
+      "entityRisk":    "Risk"
+    },
+    "effectiveness": {
+      "0": "Not Tested",
+      "1": "Effective",
+      "2": "Partially Effective",
+      "3": "Ineffective"
+    },
+    "table": {
+      "test":          "Test",
+      "entity":        "Entity",
+      "effectiveness": "Effectiveness",
+      "testedAt":      "Test Date",
+      "nextTest":      "Next Test",
+      "evidence":      "Evidence",
+      "testedBy":      "Tested By"
+    },
+    "evidence": {
+      "title":       "Evidence & Attachments",
+      "upload":      "Upload Evidence",
+      "noEvidence":  "No evidence uploaded.",
+      "uploadHint":  "PDF, Word, Excel, Images — up to 20 MB",
+      "uploading":   "Uploading...",
+      "download":    "Download",
+      "delete":      "Delete Evidence"
+    },
+    "messages": {
+      "saved":            "Test saved successfully.",
+      "deleted":          "Test deleted.",
+      "evidenceUploaded": "Evidence uploaded.",
+      "evidenceDeleted":  "Evidence deleted."
+    },
+    "confirm": {
+      "deleteTitle":   "Delete Test",
+      "deleteMsg":     "Delete «{{name}}»?",
+      "deleteEvTitle": "Delete Evidence",
+      "deleteEvMsg":   "Delete this file?"
+    },
+    "filter": {
+      "allTypes":         "All Types",
+      "allEffectiveness": "All Effectiveness"
+    }
+  }
+}

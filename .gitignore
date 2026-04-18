@@ -1,0 +1,40 @@
+# ── .NET ──────────────────────────────────────────────────────────────────────
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.DotSettings.user
+TestResults/
+
+# ── ASP.NET uploads & runtime ─────────────────────────────────────────────────
+src/IGMS.API/uploads/
+src/IGMS.API/logs/
+src/IGMS.API/*.pfx
+src/IGMS.API/*.pem
+
+# ── Tenants (contains connection strings & secrets) ────────────────────────────
+tenants/
+src/IGMS.API/tenants/
+!tenants/*.example.json
+
+# ── appsettings with secrets ──────────────────────────────────────────────────
+appsettings.Production.json
+appsettings.*.json
+!appsettings.json
+
+# ── Node / React ───────────────────────────────────────────────────────────────
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.idea/
+*.swp
