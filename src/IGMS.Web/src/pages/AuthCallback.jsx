@@ -1,35 +1,65 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import useAuthStore from '../store/authStore'
+import { useEffect, useState } from 'react'
+import { useNavigate }         from 'react-router-dom'
+import { authApi }             from '../services/api'
+import useAuthStore            from '../store/authStore'
 
-/// Handles UAE Pass callback redirect.
-/// URL fragment contains: #token=...&sessionId=...
+/**
+ * UAE Pass OAuth2 callback page.
+ *
+ * UAE Pass redirects here with:
+ *   http://localhost:5173/auth/callback?code=XXX&state=YYY
+ *
+ * We call POST /api/v1/auth/uaepass/exchange with the code,
+ * receive our IGMS JWT, store it, and navigate to the dashboard.
+ */
 export default function AuthCallback() {
-  const navigate = useNavigate()
-  const setAuth = useAuthStore((s) => s.setAuth)
+  const navigate  = useNavigate()
+  const setAuth   = useAuthStore((s) => s.setAuth)
+  const [status, setStatus] = useState('جارٍ تسجيل الدخول بالهوية الرقمية...')
 
   useEffect(() => {
-    const fragment = window.location.hash.substring(1)
-    const params = new URLSearchParams(fragment)
+    const params = new URLSearchParams(window.location.search)
+    const code   = params.get('code')
+    const state  = params.get('state')
+    const error  = params.get('error')
 
-    const token      = params.get('token')
-    const sessionId  = params.get('sessionId')
-    const error      = params.get('error')
-    const fullNameAr = params.get('fullNameAr') ?? ''
-    const fullNameEn = params.get('fullNameEn') ?? ''
-
-    if (error || !token) {
-      navigate('/login?error=' + encodeURIComponent(error ?? 'UAE Pass login failed'))
+    if (error) {
+      navigate('/login?error=' + encodeURIComponent(error))
       return
     }
 
-    setAuth({ token, sessionId, authProvider: 'UaePass', fullNameAr, fullNameEn })
-    navigate('/dashboard')
+    if (!code) {
+      navigate('/login?error=' + encodeURIComponent('لم يتم استلام رمز التفويض من الهوية الرقمية.'))
+      return
+    }
+
+    authApi.exchangeUaePassCode(code, state ?? '')
+      .then((res) => {
+        const data = res.data?.data
+        if (!data?.token) throw new Error('no token')
+        setAuth(data)
+        navigate('/dashboard')
+      })
+      .catch((err) => {
+        const msg = err.response?.data?.errors?.[0]
+          ?? err.response?.data?.message
+          ?? 'فشل تسجيل الدخول بالهوية الرقمية.'
+        setStatus(null)
+        navigate('/login?error=' + encodeURIComponent(msg))
+      })
   }, [])
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <p className="text-gray-500">جارٍ تسجيل الدخول بالهوية الرقمية...</p>
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4">
+      {status && (
+        <>
+          <svg className="animate-spin text-green-600" width="32" height="32"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+          </svg>
+          <p className="text-gray-600 text-sm">{status}</p>
+        </>
+      )}
     </div>
   )
 }

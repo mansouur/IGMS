@@ -37,6 +37,7 @@ export const authApi = {
   logout:             (sessionId)      => api.post('/api/v1/auth/logout', { sessionId }),
   getMethods:         ()               => api.get('/api/v1/auth/methods'),
   getUaePassRedirect: (language)       => api.get(`/api/v1/auth/uaepass/redirect?language=${language}`),
+  exchangeUaePassCode: (code, state)   => api.post('/api/v1/auth/uaepass/exchange', { code, state }),
   verifyOtp:          (userId, otp, language) =>
     api.post('/api/v1/auth/verify-otp', { userId, otp, language: language ?? 'ar' }),
   toggle2Fa:          (enabled, password) =>

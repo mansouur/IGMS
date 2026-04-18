@@ -10,39 +10,36 @@ namespace IGMS.API.Controllers;
 [Produces("application/json")]
 public class UaePassController : ControllerBase
 {
-    private readonly IUaePassService       _uaePassService;
-    private readonly ITenantConfigLoader   _tenantLoader;
-    private readonly IJwtService           _jwtService;
-    private readonly ISessionService       _sessionService;
-    private readonly TenantContext         _tenant;          // populated for redirect endpoint
-    private readonly IConfiguration       _configuration;
+    private readonly IUaePassService     _uaePassService;
+    private readonly ITenantConfigLoader _tenantLoader;
+    private readonly IJwtService         _jwtService;
+    private readonly ISessionService     _sessionService;
+    private readonly TenantContext       _tenant;
 
     public UaePassController(
         IUaePassService     uaePassService,
         ITenantConfigLoader tenantLoader,
         IJwtService         jwtService,
         ISessionService     sessionService,
-        TenantContext       tenant,
-        IConfiguration      configuration)
+        TenantContext       tenant)
     {
         _uaePassService = uaePassService;
         _tenantLoader   = tenantLoader;
         _jwtService     = jwtService;
         _sessionService = sessionService;
         _tenant         = tenant;
-        _configuration  = configuration;
     }
 
     /// <summary>
-    /// Returns the UAE Pass authorization URL.
-    /// The tenant key is embedded in the state so the callback can resolve it
-    /// without relying on the X-Tenant-Key header (which a browser redirect can't send).
+    /// Step 1 — Returns the UAE Pass authorization URL.
+    /// Frontend redirects the browser to this URL (window.location.href).
+    /// State encodes the tenant key so Step 2 can resolve it without a header.
     /// </summary>
     [HttpGet("redirect")]
     [ProducesResponseType(typeof(ApiResponse<UaePassRedirectResponse>), StatusCodes.Status200OK)]
     public IActionResult GetRedirectUrl([FromQuery] string language = "ar")
     {
-        // state = "{tenantKey}:{random}" — tenant travels with the OAuth state
+        // Embed tenant key in state so exchange endpoint can resolve it
         var state = $"{_tenant.TenantKey}:{Guid.NewGuid():N}";
         var url   = _uaePassService.BuildAuthorizationUrl(state, language);
 
@@ -54,35 +51,24 @@ public class UaePassController : ControllerBase
     }
 
     /// <summary>
-    /// UAE Pass callback — this endpoint is called by a browser redirect from UAE Pass,
-    /// so no X-Tenant-Key header is present. The tenant is recovered from the state parameter.
+    /// Step 2 — Called by the React frontend after UAE Pass redirects back with ?code=...
+    /// Exchanges the authorization code for a UAE Pass user profile, creates an IGMS session,
+    /// and returns a JWT token ready to store in sessionStorage.
+    ///
+    /// This is a regular Axios call from the frontend (has X-Tenant-Key header).
     /// </summary>
-    [HttpGet("callback")]
-    public async Task<IActionResult> Callback(
-        [FromQuery] string  code,
-        [FromQuery] string  state,
-        [FromQuery] string? error = null)
+    [HttpPost("exchange")]
+    [ProducesResponseType(typeof(ApiResponse<LoginResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Exchange([FromBody] UaePassExchangeRequest request)
     {
-        var frontendUrl = _configuration["UaePass:FrontendCallbackUrl"]
-            ?? "http://localhost:5173/auth/callback";
+        if (string.IsNullOrWhiteSpace(request.Code))
+            return BadRequest(ApiResponse<object>.Fail("رمز التفويض مفقود."));
 
-        if (!string.IsNullOrEmpty(error))
-            return Redirect($"{frontendUrl}?error={Uri.EscapeDataString(error)}");
-
-        // ── Resolve tenant from state ─────────────────────────────────────────
-        // state format: "{tenantKey}:{randomGuid}"
-        var tenantKey = state?.Split(':')[0];
-        if (string.IsNullOrWhiteSpace(tenantKey))
-            return Redirect($"{frontendUrl}?error={Uri.EscapeDataString("حالة الطلب غير صالحة.")}");
-
-        var tenant = await _tenantLoader.LoadAsync(tenantKey);
-        if (tenant is null)
-            return Redirect($"{frontendUrl}?error={Uri.EscapeDataString("Tenant not found.")}");
-
-        // ── Exchange code for UAE Pass user info ──────────────────────────────
-        var result = await _uaePassService.ExchangeCodeAsync(code);
+        // Exchange code for UAE Pass user info (server → UAE Pass, no CORS issue)
+        var result = await _uaePassService.ExchangeCodeAsync(request.Code);
         if (!result.IsSuccess)
-            return Redirect($"{frontendUrl}?error={Uri.EscapeDataString(result.Error!)}");
+            return Unauthorized(ApiResponse<object>.Unauthorized(result.Error!));
 
         var user  = result.Value!;
         var roles = new List<string> { "User" };
@@ -92,7 +78,7 @@ public class UaePassController : ControllerBase
             username:    user.EmiratesId,
             roles:       roles,
             permissions: [],
-            tenantKey:   tenant.TenantKey,
+            tenantKey:   _tenant.TenantKey,
             language:    "ar");
 
         var session = new SessionData
@@ -101,7 +87,7 @@ public class UaePassController : ControllerBase
             Username     = user.EmiratesId,
             FullNameAr   = user.FullNameAr,
             FullNameEn   = user.FullNameEn,
-            TenantKey    = tenant.TenantKey,
+            TenantKey    = _tenant.TenantKey,
             Roles        = roles,
             Language     = "ar",
             AuthProvider = "UaePass",
@@ -110,9 +96,20 @@ public class UaePassController : ControllerBase
 
         var sessionId = await _sessionService.CreateSessionAsync(session);
 
-        return Redirect(
-            $"{frontendUrl}#token={token}&sessionId={sessionId}" +
-            $"&fullNameAr={Uri.EscapeDataString(user.FullNameAr)}" +
-            $"&fullNameEn={Uri.EscapeDataString(user.FullNameEn)}");
+        return Ok(ApiResponse<LoginResponse>.Ok(new LoginResponse
+        {
+            Token      = token,
+            SessionId  = sessionId,
+            FullNameAr = user.FullNameAr,
+            FullNameEn = user.FullNameEn,
+            Roles      = roles,
+            Language   = "ar",
+        }));
     }
+}
+
+public class UaePassExchangeRequest
+{
+    public string Code  { get; set; } = string.Empty;
+    public string State { get; set; } = string.Empty;
 }
