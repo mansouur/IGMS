@@ -30,6 +30,11 @@ dist/
 .env.local
 .env.*.local
 
+# ── Project docs (client-specific, not for public) ───────────────────────────
+00_SHARED_PLATFORM.md
+01_IGMS_CONTEXT.md
+PROJECT_OVERVIEW.md
+
 # ── OS ────────────────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
