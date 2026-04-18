@@ -59,6 +59,17 @@ export const auditApi = {
   getEntityTypes:  ()       => api.get('/api/v1/audit-logs/entity-types'),
 }
 
+export const rolesApi = {
+  getAll:            ()           => api.get('/api/v1/roles'),
+  getLookup:         ()           => api.get('/api/v1/roles/lookup'),
+  getById:           (id)         => api.get(`/api/v1/roles/${id}`),
+  create:            (data)       => api.post('/api/v1/roles', data),
+  update:            (id, data)   => api.put(`/api/v1/roles/${id}`, data),
+  delete:            (id)         => api.delete(`/api/v1/roles/${id}`),
+  setPermissions:    (id, ids)    => api.put(`/api/v1/roles/${id}/permissions`, { permissionIds: ids }),
+  getAllPermissions:  ()           => api.get('/api/v1/permissions'),
+}
+
 export const notificationsApi = {
   getMyNotifications: () => api.get('/api/v1/notifications'),
 }

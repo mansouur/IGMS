@@ -18,6 +18,8 @@ import PolicyDetail      from './pages/Policies/PolicyDetail'
 import RiskList          from './pages/Risks/RiskList'
 import RiskForm          from './pages/Risks/RiskForm'
 import RiskDetail        from './pages/Risks/RiskDetail'
+import RoleList          from './pages/Roles/RoleList'
+import RoleDetail        from './pages/Roles/RoleDetail'
 import ControlTestList   from './pages/Controls/ControlTestList'
 import ControlTestForm   from './pages/Controls/ControlTestForm'
 import ControlTestDetail from './pages/Controls/ControlTestDetail'
@@ -95,6 +97,8 @@ export default function App() {
         <Route path="/risks/new"         element={<RiskForm />} />
         <Route path="/risks/:id"         element={<RiskDetail />} />
         <Route path="/risks/:id/edit"    element={<RiskForm />} />
+        <Route path="/roles"             element={<RoleList />} />
+        <Route path="/roles/:id"         element={<RoleDetail />} />
         <Route path="/controls"          element={<ControlTestList />} />
         <Route path="/controls/new"      element={<ControlTestForm />} />
         <Route path="/controls/:id"      element={<ControlTestDetail />} />

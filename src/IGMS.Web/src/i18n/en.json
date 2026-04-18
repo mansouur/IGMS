@@ -54,6 +54,7 @@
     "kpi":         "KPIs",
     "risks":       "Risks",
     "controls":    "Control Tests",
+    "roles":       "Roles & Permissions",
     "executive":   "Executive View",
     "reports":     "Reports",
     "auditLog":    "Audit Log",
@@ -715,6 +716,41 @@
     "recentActivity": {
       "title":      "Recent Activity",
       "noActivity": "No recent activity"
+    }
+  },
+
+  "roles": {
+    "title":    "Roles & Permissions",
+    "subtitle": "Manage user roles and assign permissions to each role",
+    "new":      "New Role",
+    "noData":   "No roles found.",
+    "info":     "Role Info",
+    "permissions": "Permissions",
+    "savePerms":   "Save Permissions",
+    "systemRole":  "System Role",
+    "customRole":  "Custom Role",
+    "systemRoleNote": "Cannot be modified",
+    "table": {
+      "role":        "Role",
+      "permissions": "Permissions",
+      "users":       "Users",
+      "type":        "Type"
+    },
+    "form": {
+      "nameAr":      "Name (Arabic)",
+      "nameEn":      "Name (English)",
+      "code":        "Code",
+      "codeHint":    "Uppercase letters and underscores only — e.g. COMPLIANCE_OFFICER",
+      "description": "Description"
+    },
+    "messages": {
+      "saved":      "Role saved.",
+      "deleted":    "Role deleted.",
+      "permsSaved": "Permissions saved."
+    },
+    "confirm": {
+      "deleteTitle": "Delete Role",
+      "deleteMsg":   "Delete role «{{name}}»?"
     }
   },
 

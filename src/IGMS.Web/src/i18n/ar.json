@@ -54,6 +54,7 @@
     "kpi":         "مؤشرات الأداء",
     "risks":       "المخاطر",
     "controls":    "اختبارات الضوابط",
+    "roles":       "الأدوار والصلاحيات",
     "executive":   "لوحة التنفيذي",
     "reports":     "التقارير",
     "auditLog":    "سجل المراجعة",
@@ -715,6 +716,41 @@
     "recentActivity": {
       "title":      "آخر النشاطات",
       "noActivity": "لا نشاطات حديثة"
+    }
+  },
+
+  "roles": {
+    "title":    "الأدوار والصلاحيات",
+    "subtitle": "إدارة أدوار المستخدمين وتخصيص الصلاحيات لكل دور",
+    "new":      "دور جديد",
+    "noData":   "لا توجد أدوار.",
+    "info":     "معلومات الدور",
+    "permissions": "الصلاحيات",
+    "savePerms":   "حفظ الصلاحيات",
+    "systemRole":  "دور أساسي",
+    "customRole":  "دور مخصص",
+    "systemRoleNote": "لا يمكن تعديله",
+    "table": {
+      "role":        "الدور",
+      "permissions": "الصلاحيات",
+      "users":       "المستخدمون",
+      "type":        "النوع"
+    },
+    "form": {
+      "nameAr":      "الاسم بالعربي",
+      "nameEn":      "الاسم بالإنجليزي",
+      "code":        "الرمز",
+      "codeHint":    "حروف كبيرة وشرطة سفلية فقط — مثال: COMPLIANCE_OFFICER",
+      "description": "الوصف"
+    },
+    "messages": {
+      "saved":     "تم حفظ الدور.",
+      "deleted":   "تم حذف الدور.",
+      "permsSaved": "تم حفظ الصلاحيات."
+    },
+    "confirm": {
+      "deleteTitle": "حذف الدور",
+      "deleteMsg":   "هل تريد حذف دور «{{name}}»؟"
     }
   },
 
