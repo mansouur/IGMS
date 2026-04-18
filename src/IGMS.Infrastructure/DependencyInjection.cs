@@ -129,6 +129,7 @@ public static class DependencyInjection
         services.AddScoped<IControlTestService, ControlTestService>();
         services.AddScoped<IWorkflowService, WorkflowService>();
         services.AddScoped<IRegulatoryService, RegulatoryService>();
+        services.AddScoped<IAssessmentService, AssessmentService>();
     }
 
     private static void RegisterBackgroundJobs(IServiceCollection services, string tenantsDirectory)

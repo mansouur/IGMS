@@ -78,6 +78,20 @@ export const reportsApi = {
   kpiTrend: () => api.get('/api/v1/reports/kpi-trend'),
 }
 
+export const assessmentsApi = {
+  getAll:        ()              => api.get('/api/v1/assessments'),
+  getById:       (id)           => api.get(`/api/v1/assessments/${id}`),
+  create:        (data)         => api.post('/api/v1/assessments', data),
+  update:        (id, data)     => api.put(`/api/v1/assessments/${id}`, data),
+  delete:        (id)           => api.delete(`/api/v1/assessments/${id}`),
+  publish:       (id)           => api.post(`/api/v1/assessments/${id}/publish`),
+  close:         (id)           => api.post(`/api/v1/assessments/${id}/close`),
+  getMyResponse: (id)           => api.get(`/api/v1/assessments/${id}/my-response`),
+  respond:       (id, data, submit, deptId) =>
+    api.post(`/api/v1/assessments/${id}/respond`, data, { params: { submit, departmentId: deptId } }),
+  getReport:     (id)           => api.get(`/api/v1/assessments/${id}/report`),
+}
+
 export const regulatoryApi = {
   getFrameworks:   ()                        => api.get('/api/v1/regulatory/frameworks'),
   getControls:     (frameworkId, domain)     => api.get(`/api/v1/regulatory/frameworks/${frameworkId}/controls`, { params: { domain } }),

@@ -58,6 +58,12 @@ public class TenantDbContext : DbContext, ITenantDbContext
     public DbSet<ControlTest>       ControlTests       => Set<ControlTest>();
     public DbSet<ControlEvidence>   ControlEvidences   => Set<ControlEvidence>();
 
+    // ── Assessment / Survey ───────────────────────────────────────────────────
+    public DbSet<Assessment>         Assessments        => Set<Assessment>();
+    public DbSet<AssessmentQuestion> AssessmentQuestions => Set<AssessmentQuestion>();
+    public DbSet<AssessmentResponse> AssessmentResponses => Set<AssessmentResponse>();
+    public DbSet<AssessmentAnswer>   AssessmentAnswers   => Set<AssessmentAnswer>();
+
     // ── Regulatory Library ───────────────────────────────────────────────────
     public DbSet<RegulatoryFramework> RegulatoryFrameworks => Set<RegulatoryFramework>();
     public DbSet<RegulatoryControl>   RegulatoryControls   => Set<RegulatoryControl>();

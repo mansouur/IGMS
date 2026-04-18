@@ -89,6 +89,10 @@ internal static class DbSeeder
             // COMPLIANCE
             ("COMPLIANCE", "READ",   "عرض مكتبة الامتثال",     "View Compliance Library"),
             ("COMPLIANCE", "MANAGE", "إدارة خرائط الامتثال",   "Manage Compliance Mappings"),
+            // ASSESSMENTS
+            ("ASSESSMENTS", "READ",   "عرض الاستبيانات",        "View Assessments"),
+            ("ASSESSMENTS", "MANAGE", "إدارة الاستبيانات",      "Manage Assessments"),
+            ("ASSESSMENTS", "RESPOND","الرد على الاستبيانات",   "Respond to Assessments"),
         };
 
         return definitions.Select((d, i) => new Permission

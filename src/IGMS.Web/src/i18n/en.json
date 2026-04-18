@@ -55,6 +55,7 @@
     "risks":       "Risks",
     "controls":    "Control Tests",
     "roles":       "Roles & Permissions",
+    "assessments": "Assessments",
     "compliance":  "Compliance Library",
     "workflows":   "Workflow Engine",
     "approvals":   "Approval Inbox",
@@ -875,6 +876,67 @@
       "comment":            "Comment",
       "sendComment":        "Send Comment",
       "commentPlaceholder": "Add a comment on this request..."
+    }
+  },
+
+  "assessments": {
+    "title":       "Assessments",
+    "subtitle":    "Create and manage organizational surveys",
+    "new":         "New Assessment",
+    "newTitle":    "Create Assessment",
+    "editTitle":   "Edit Assessment",
+    "formSubtitle":"Configure assessment details and questions",
+    "basicInfo":   "Basic Information",
+    "questions":   "Questions",
+    "question":    "Question",
+    "addQuestion": "Add Question",
+    "questionType": "Question Type",
+    "required":    "Required",
+    "questionTextAr": "Question Text (Arabic)",
+    "questionTextEn": "Question Text (English)",
+    "options":     "Answer Options",
+    "option":      "Option",
+    "addOption":   "Add Option",
+    "respond":     "Respond Now",
+    "publish":     "Publish",
+    "close":       "Close",
+    "viewReport":  "View Report",
+    "saveDraft":   "Save Draft",
+    "submitResponse": "Submit Response",
+    "alreadySubmitted": "You have already submitted your response.",
+    "fields": {
+      "titleAr":     "Title (Arabic)",
+      "titleEn":     "Title (English)",
+      "description": "Description",
+      "department":  "Target Department",
+      "dueDate":     "Due Date"
+    },
+    "table": {
+      "title":     "Assessment Title",
+      "questions": "Questions",
+      "responses": "Responses",
+      "dueDate":   "Due Date"
+    },
+    "confirmDelete":  "Are you sure you want to delete this assessment?",
+    "confirmPublish": "Publish this assessment? You will not be able to edit it after publishing.",
+    "confirmClose":   "Close this assessment?",
+    "confirmSubmit":  "Submit your response? You will not be able to edit it afterwards.",
+    "messages": {
+      "created":   "Assessment created.",
+      "updated":   "Assessment updated.",
+      "deleted":   "Assessment deleted.",
+      "published": "Assessment published.",
+      "closed":    "Assessment closed.",
+      "saved":     "Draft saved.",
+      "submitted": "Response submitted successfully."
+    },
+    "report": {
+      "title":          "Assessment Report",
+      "totalInvited":   "Total Recipients",
+      "totalResponded": "Responded",
+      "responseRate":   "Response Rate",
+      "answers":        "answers",
+      "average":        "Average"
     }
   }
 }

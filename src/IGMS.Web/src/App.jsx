@@ -38,6 +38,11 @@ import ComplianceLibrary from './pages/Compliance/ComplianceLibrary'
 import WorkflowList     from './pages/Workflows/WorkflowList'
 import WorkflowDetail   from './pages/Workflows/WorkflowDetail'
 import ApprovalInbox    from './pages/Workflows/ApprovalInbox'
+import AssessmentList   from './pages/Assessments/AssessmentList'
+import AssessmentForm   from './pages/Assessments/AssessmentForm'
+import AssessmentDetail from './pages/Assessments/AssessmentDetail'
+import AssessmentRespond from './pages/Assessments/AssessmentRespond'
+import AssessmentReport  from './pages/Assessments/AssessmentReport'
 
 // ── Route guards ──────────────────────────────────────────────────────────────
 
@@ -122,7 +127,13 @@ export default function App() {
         <Route path="/workflows"         element={<WorkflowList />} />
         <Route path="/workflows/new"     element={<WorkflowDetail />} />
         <Route path="/workflows/:id"     element={<WorkflowDetail />} />
-        <Route path="/approvals"         element={<ApprovalInbox />} />
+        <Route path="/approvals"              element={<ApprovalInbox />} />
+        <Route path="/assessments"            element={<AssessmentList />} />
+        <Route path="/assessments/new"        element={<AssessmentForm />} />
+        <Route path="/assessments/:id"        element={<AssessmentDetail />} />
+        <Route path="/assessments/:id/edit"   element={<AssessmentForm />} />
+        <Route path="/assessments/:id/respond" element={<AssessmentRespond />} />
+        <Route path="/assessments/:id/report"  element={<AssessmentReport />} />
         <Route path="/audit-log"   element={<AuditLogPage />} />
         <Route path="/settings"    element={<Settings />} />
       </Route>

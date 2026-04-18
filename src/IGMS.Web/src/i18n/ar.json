@@ -55,6 +55,7 @@
     "risks":       "المخاطر",
     "controls":    "اختبارات الضوابط",
     "roles":       "الأدوار والصلاحيات",
+    "assessments": "الاستبيانات",
     "compliance":  "مكتبة الامتثال",
     "workflows":   "سير العمل",
     "approvals":   "بريد الاعتماد",
@@ -875,6 +876,67 @@
       "comment":            "تعليق",
       "sendComment":        "إرسال التعليق",
       "commentPlaceholder": "أضف تعليقاً على هذا الطلب..."
+    }
+  },
+
+  "assessments": {
+    "title":       "الاستبيانات",
+    "subtitle":    "إنشاء وإدارة استبيانات المؤسسة",
+    "new":         "استبيان جديد",
+    "newTitle":    "إنشاء استبيان",
+    "editTitle":   "تعديل الاستبيان",
+    "formSubtitle":"اضبط بيانات الاستبيان وأسئلته",
+    "basicInfo":   "المعلومات الأساسية",
+    "questions":   "الأسئلة",
+    "question":    "سؤال",
+    "addQuestion": "إضافة سؤال",
+    "questionType": "نوع السؤال",
+    "required":    "إلزامي",
+    "questionTextAr": "نص السؤال (عربي)",
+    "questionTextEn": "نص السؤال (إنجليزي)",
+    "options":     "خيارات الإجابة",
+    "option":      "خيار",
+    "addOption":   "إضافة خيار",
+    "respond":     "أجب الآن",
+    "publish":     "نشر",
+    "close":       "إغلاق",
+    "viewReport":  "تقرير النتائج",
+    "saveDraft":   "حفظ مسودة",
+    "submitResponse": "إرسال الإجابة",
+    "alreadySubmitted": "لقد أرسلت إجابتك بالفعل.",
+    "fields": {
+      "titleAr":     "العنوان (عربي)",
+      "titleEn":     "العنوان (إنجليزي)",
+      "description": "الوصف",
+      "department":  "الجهة المستهدفة",
+      "dueDate":     "تاريخ الإغلاق"
+    },
+    "table": {
+      "title":     "عنوان الاستبيان",
+      "questions": "الأسئلة",
+      "responses": "الردود",
+      "dueDate":   "تاريخ الإغلاق"
+    },
+    "confirmDelete":  "هل تريد حذف هذا الاستبيان؟",
+    "confirmPublish": "هل تريد نشر الاستبيان؟ لن تتمكن من التعديل بعد النشر.",
+    "confirmClose":   "هل تريد إغلاق الاستبيان؟",
+    "confirmSubmit":  "هل تريد إرسال إجابتك نهائياً؟ لن تتمكن من التعديل لاحقاً.",
+    "messages": {
+      "created":   "تم إنشاء الاستبيان.",
+      "updated":   "تم تحديث الاستبيان.",
+      "deleted":   "تم حذف الاستبيان.",
+      "published": "تم نشر الاستبيان.",
+      "closed":    "تم إغلاق الاستبيان.",
+      "saved":     "تم حفظ المسودة.",
+      "submitted": "تم إرسال إجابتك بنجاح."
+    },
+    "report": {
+      "title":          "تقرير الاستبيان",
+      "totalInvited":   "إجمالي المستلمين",
+      "totalResponded": "أجابوا",
+      "responseRate":   "معدل الاستجابة",
+      "answers":        "إجابة",
+      "average":        "المتوسط"
     }
   }
 }
