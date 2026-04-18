@@ -10,4 +10,5 @@ public interface IIncidentService
     Task<IncidentDetailDto>      UpdateAsync(int id, SaveIncidentRequest req);
     Task                         DeleteAsync(int id);
     Task<IncidentDetailDto>      ResolveAsync(int id, string? resolutionNotes);
+    Task<byte[]>                 ExportAsync(string? status, string? severity);
 }

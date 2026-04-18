@@ -140,6 +140,28 @@ public class IncidentService : IIncidentService
         return MapDetail(loaded!);
     }
 
+    // ── Export ────────────────────────────────────────────────────────────────
+
+    public async Task<byte[]> ExportAsync(string? status, string? severity)
+    {
+        var list = await GetListAsync(status, severity, null);
+
+        var headers = new[] { "#", "العنوان", "الخطورة", "الحالة", "تاريخ الوقوع", "القسم", "المُبلِّغ", "المخاطرة المرتبطة" };
+        var rows = list.Select((inc, i) => new object?[]
+        {
+            i + 1,
+            inc.TitleAr,
+            inc.Severity,
+            inc.Status,
+            inc.OccurredAt,
+            inc.DepartmentName,
+            inc.ReportedByName,
+            inc.RiskTitleAr,
+        });
+
+        return ExcelExporter.Build("الحوادث", headers, rows);
+    }
+
     // ── Helpers ───────────────────────────────────────────────────────────────
 
     private async Task<Incident?> LoadFull(int id) =>

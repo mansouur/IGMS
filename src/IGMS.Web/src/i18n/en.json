@@ -725,6 +725,18 @@
     "recentActivity": {
       "title":      "Recent Activity",
       "noActivity": "No recent activity"
+    },
+    "incidents": {
+      "title":    "Open Incidents",
+      "open":     "Open",
+      "critical": "Critical",
+      "allClear": "No open incidents"
+    },
+    "assessments": {
+      "title":        "Active Assessments",
+      "published":    "Published",
+      "total":        "Total",
+      "responseRate": "Response Rate"
     }
   },
 
@@ -972,6 +984,7 @@
       "taskIdPlaceholder":  "Task ID",
       "resolutionNotes": "Resolution Notes"
     },
+    "export":        "Export Excel",
     "confirmDelete": "Are you sure you want to delete this incident?",
     "messages": {
       "created":  "Incident recorded.",

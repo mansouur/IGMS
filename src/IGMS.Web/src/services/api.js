@@ -99,6 +99,13 @@ export const incidentsApi = {
   update:  (id, data) => api.put(`/api/v1/incidents/${id}`, data),
   delete:  (id)       => api.delete(`/api/v1/incidents/${id}`),
   resolve: (id, data) => api.post(`/api/v1/incidents/${id}/resolve`, data),
+  export:  (params)   => api.get('/api/v1/incidents/export', { params, responseType: 'blob' })
+    .then(r => {
+      const url = URL.createObjectURL(r.data)
+      const a = document.createElement('a')
+      a.href = url; a.download = `incidents_${new Date().toISOString().slice(0,10)}.xlsx`
+      a.click(); URL.revokeObjectURL(url)
+    }),
 }
 
 export const regulatoryApi = {

@@ -73,6 +73,14 @@ public class IncidentsController : ControllerBase
         catch (InvalidOperationException ex) { return BadRequest(ApiResponse<object>.Fail(ex.Message)); }
     }
 
+    [HttpGet("export")]
+    public async Task<IActionResult> Export([FromQuery] string? status, [FromQuery] string? severity)
+    {
+        var bytes = await _svc.ExportAsync(status, severity);
+        var fileName = $"incidents_{DateTime.UtcNow:yyyyMMdd}.xlsx";
+        return File(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+    }
+
     [HttpPost("{id:int}/resolve")]
     public async Task<IActionResult> Resolve(int id, [FromBody] ResolveIncidentRequest req)
     {

@@ -725,6 +725,18 @@
     "recentActivity": {
       "title":      "آخر النشاطات",
       "noActivity": "لا نشاطات حديثة"
+    },
+    "incidents": {
+      "title":    "الحوادث المفتوحة",
+      "open":     "مفتوحة",
+      "critical": "حرجة",
+      "allClear": "لا توجد حوادث مفتوحة"
+    },
+    "assessments": {
+      "title":        "الاستبيانات النشطة",
+      "published":    "منشور",
+      "total":        "إجمالي",
+      "responseRate": "معدل الاستجابة"
     }
   },
 
@@ -972,6 +984,7 @@
       "taskIdPlaceholder":  "رقم المهمة",
       "resolutionNotes": "ملاحظات الحل"
     },
+    "export":        "تصدير Excel",
     "confirmDelete": "هل تريد حذف هذه الحادثة؟",
     "messages": {
       "created":  "تم تسجيل الحادثة.",

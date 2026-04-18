@@ -6,7 +6,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
   LineChart, Line, ReferenceLine,
 } from 'recharts'
-import api, { reportsApi } from '../services/api'
+import api, { reportsApi, incidentsApi, assessmentsApi } from '../services/api'
 import useAuthStore from '../store/authStore'
 
 // ── Colour maps (code-keyed, stable across languages) ────────────────────────
@@ -112,6 +112,8 @@ export default function Dashboard() {
   const [recentActivity, setActivity]   = useState([])
   const [kpiTrend, setKpiTrend]         = useState([])
   const [loading, setLoading]           = useState(true)
+  const [openIncidents, setOpenIncidents]   = useState([])
+  const [assessmentStats, setAssessmentStats] = useState(null)
 
   useEffect(() => {
     api.get('/api/v1/reports/summary')
@@ -121,6 +123,22 @@ export default function Dashboard() {
     api.get('/api/v1/reports/top-risks').then(r => setTopRisks(r.data.data ?? [])).catch(() => {})
     api.get('/api/v1/reports/recent-activity').then(r => setActivity(r.data.data ?? [])).catch(() => {})
     reportsApi.kpiTrend().then(r => setKpiTrend(r.data.data ?? [])).catch(() => {})
+    // Incident + Assessment widgets
+    incidentsApi.getAll({ status: 'Open' }).then(r => setOpenIncidents(r?.data?.data ?? [])).catch(() => {})
+    assessmentsApi.getAll().then(r => {
+      const arr = r?.data?.data ?? []
+      if (!arr.length) return
+      const published = arr.filter(a => a.status === 'Published')
+      const totalResp = published.reduce((s, a) => s + (a.responseCount ?? 0), 0)
+      const submitted = published.reduce((s, a) => s + (a.submittedCount ?? 0), 0)
+      setAssessmentStats({
+        published: published.length,
+        total: arr.length,
+        responseRate: totalResp > 0 ? Math.round(submitted / totalResp * 100) : 0,
+        submitted,
+        totalResp,
+      })
+    }).catch(() => {})
   }, [])
 
   const riskData = summary ? [
@@ -361,6 +379,96 @@ export default function Dashboard() {
           </p>
         </Card>
       )}
+
+      {/* Incident + Assessment widgets */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+        {/* Open Incidents */}
+        <Card className="p-5">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-semibold text-gray-700">{t('dashboard.incidents.title')}</h3>
+            <button onClick={() => navigate('/incidents')}
+              className="text-xs text-red-600 hover:underline">{t('common.view')}</button>
+          </div>
+          {openIncidents.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-6 text-center">
+              <span className="text-2xl mb-1">✓</span>
+              <p className="text-xs text-gray-400">{t('dashboard.incidents.allClear')}</p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <div className="flex gap-3 mb-3">
+                <div className="text-center flex-1 bg-red-50 rounded-lg py-2">
+                  <div className="text-xl font-bold text-red-600">{openIncidents.length}</div>
+                  <div className="text-xs text-red-400">{t('dashboard.incidents.open')}</div>
+                </div>
+                <div className="text-center flex-1 bg-orange-50 rounded-lg py-2">
+                  <div className="text-xl font-bold text-orange-600">
+                    {openIncidents.filter(i => i.severity === 'Critical').length}
+                  </div>
+                  <div className="text-xs text-orange-400">{t('dashboard.incidents.critical')}</div>
+                </div>
+              </div>
+              {openIncidents
+                .sort((a, b) => { const o = { Critical: 4, High: 3, Medium: 2, Low: 1 }; return (o[b.severity] ?? 0) - (o[a.severity] ?? 0) })
+                .slice(0, 3)
+                .map((inc) => {
+                  const sevColor = { Critical: 'bg-red-100 text-red-700', High: 'bg-orange-100 text-orange-600', Medium: 'bg-yellow-50 text-yellow-700', Low: 'bg-blue-50 text-blue-600' }
+                  const sevLabel = { Critical: 'حرج', High: 'عالٍ', Medium: 'متوسط', Low: 'منخفض' }
+                  return (
+                    <button key={inc.id} onClick={() => navigate(`/incidents/${inc.id}`)}
+                      className="w-full flex items-center gap-2 text-start hover:bg-gray-50 rounded-lg px-2 py-1.5 transition-colors">
+                      <span className={`text-xs px-1.5 py-0.5 rounded font-medium flex-shrink-0 ${sevColor[inc.severity] ?? ''}`}>
+                        {sevLabel[inc.severity] ?? inc.severity}
+                      </span>
+                      <p className="text-sm text-gray-700 truncate">{inc.titleAr}</p>
+                    </button>
+                  )
+                })
+              }
+            </div>
+          )}
+        </Card>
+
+        {/* Active Assessments */}
+        <Card className="p-5">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-semibold text-gray-700">{t('dashboard.assessments.title')}</h3>
+            <button onClick={() => navigate('/assessments')}
+              className="text-xs text-green-700 hover:underline">{t('common.view')}</button>
+          </div>
+          {!assessmentStats || assessmentStats.total === 0 ? (
+            <div className="flex flex-col items-center justify-center py-6 text-center">
+              <p className="text-xs text-gray-400">{t('common.noData')}</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="flex gap-3">
+                <div className="text-center flex-1 bg-green-50 rounded-lg py-2">
+                  <div className="text-xl font-bold text-green-700">{assessmentStats.published}</div>
+                  <div className="text-xs text-green-600">{t('dashboard.assessments.published')}</div>
+                </div>
+                <div className="text-center flex-1 bg-blue-50 rounded-lg py-2">
+                  <div className="text-xl font-bold text-blue-600">{assessmentStats.total}</div>
+                  <div className="text-xs text-blue-500">{t('dashboard.assessments.total')}</div>
+                </div>
+              </div>
+              {assessmentStats.published > 0 && (
+                <div>
+                  <div className="flex justify-between text-xs text-gray-500 mb-1">
+                    <span>{t('dashboard.assessments.responseRate')}</span>
+                    <span className="font-semibold">{assessmentStats.submitted}/{assessmentStats.totalResp} ({assessmentStats.responseRate}%)</span>
+                  </div>
+                  <div className="w-full bg-gray-100 rounded-full h-2">
+                    <div className={`h-2 rounded-full transition-all ${assessmentStats.responseRate >= 70 ? 'bg-green-500' : assessmentStats.responseRate >= 40 ? 'bg-yellow-400' : 'bg-red-400'}`}
+                      style={{ width: `${assessmentStats.responseRate}%` }} />
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </Card>
+      </div>
 
       {/* Top Risks + Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

@@ -47,7 +47,7 @@ export default function RiskDetail() {
     taskApi.getByRisk(id).then((r) => setTasks(r.data?.data ?? [])).catch(() => {})
     loadKpiLinks()
     kpiApi.getAll({ pageSize: 100 }).then((r) => setAllKpis(r.data?.data?.items ?? [])).catch(() => {})
-    incidentsApi.getAll({ riskId: id }).then((r) => setIncidents(r ?? [])).catch(() => {})
+    incidentsApi.getAll({ riskId: id }).then((r) => setIncidents(r?.data?.data ?? [])).catch(() => {})
   }, [id])
 
   const handleAddKpiLink = async () => {

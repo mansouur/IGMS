@@ -67,12 +67,21 @@ export default function IncidentList() {
           <h1 className="text-xl font-bold text-gray-800">{t('incidents.title')}</h1>
           <p className="text-sm text-gray-500 mt-0.5">{t('incidents.subtitle')}</p>
         </div>
-        {canManage && (
-          <button onClick={() => navigate('/incidents/new')}
-            className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700">
-            + {t('incidents.new')}
+        <div className="flex items-center gap-2">
+          <button onClick={() => incidentsApi.export(filter ? { status: filter } : {})}
+            className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-600 text-sm font-medium rounded-lg hover:bg-gray-50">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            </svg>
+            {t('incidents.export')}
           </button>
-        )}
+          {canManage && (
+            <button onClick={() => navigate('/incidents/new')}
+              className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700">
+              + {t('incidents.new')}
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Filter tabs */}
