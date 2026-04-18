@@ -93,6 +93,9 @@ internal static class DbSeeder
             ("ASSESSMENTS", "READ",   "عرض الاستبيانات",        "View Assessments"),
             ("ASSESSMENTS", "MANAGE", "إدارة الاستبيانات",      "Manage Assessments"),
             ("ASSESSMENTS", "RESPOND","الرد على الاستبيانات",   "Respond to Assessments"),
+            // INCIDENTS
+            ("INCIDENTS", "READ",   "عرض الحوادث",            "View Incidents"),
+            ("INCIDENTS", "MANAGE", "إدارة الحوادث",           "Manage Incidents"),
         };
 
         return definitions.Select((d, i) => new Permission

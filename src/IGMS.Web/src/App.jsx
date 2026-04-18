@@ -43,6 +43,9 @@ import AssessmentForm   from './pages/Assessments/AssessmentForm'
 import AssessmentDetail from './pages/Assessments/AssessmentDetail'
 import AssessmentRespond from './pages/Assessments/AssessmentRespond'
 import AssessmentReport  from './pages/Assessments/AssessmentReport'
+import IncidentList   from './pages/Incidents/IncidentList'
+import IncidentForm   from './pages/Incidents/IncidentForm'
+import IncidentDetail from './pages/Incidents/IncidentDetail'
 
 // ── Route guards ──────────────────────────────────────────────────────────────
 
@@ -134,6 +137,10 @@ export default function App() {
         <Route path="/assessments/:id/edit"   element={<AssessmentForm />} />
         <Route path="/assessments/:id/respond" element={<AssessmentRespond />} />
         <Route path="/assessments/:id/report"  element={<AssessmentReport />} />
+        <Route path="/incidents"           element={<IncidentList />} />
+        <Route path="/incidents/new"       element={<IncidentForm />} />
+        <Route path="/incidents/:id"       element={<IncidentDetail />} />
+        <Route path="/incidents/:id/edit"  element={<IncidentForm />} />
         <Route path="/audit-log"   element={<AuditLogPage />} />
         <Route path="/settings"    element={<Settings />} />
       </Route>

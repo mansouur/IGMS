@@ -56,6 +56,7 @@
     "controls":    "Control Tests",
     "roles":       "Roles & Permissions",
     "assessments": "Assessments",
+    "incidents":   "Incident Management",
     "compliance":  "Compliance Library",
     "workflows":   "Workflow Engine",
     "approvals":   "Approval Inbox",
@@ -937,6 +938,42 @@
       "responseRate":   "Response Rate",
       "answers":        "answers",
       "average":        "Average"
+    }
+  },
+
+  "incidents": {
+    "title":       "Incident Management",
+    "subtitle":    "Track and manage security and operational incidents",
+    "new":         "New Incident",
+    "newTitle":    "Add Incident",
+    "editTitle":   "Edit Incident",
+    "resolve":     "Mark Resolved",
+    "resolveTitle":  "Resolve Incident",
+    "resolveNotesPlaceholder": "Describe the steps taken to resolve the incident...",
+    "resolution":  "Resolution Details",
+    "resolvedAt":  "Resolved At",
+    "linkedItems": "Linked Items",
+    "fields": {
+      "title":      "Incident Title",
+      "titleAr":    "Title (Arabic)",
+      "titleEn":    "Title (English)",
+      "description": "Description",
+      "severity":   "Severity",
+      "occurredAt": "Occurred At",
+      "department": "Affected Department",
+      "reportedBy": "Reported By",
+      "riskLink":   "Linked Risk",
+      "taskLink":   "Linked Task",
+      "riskIdPlaceholder":  "Risk ID",
+      "taskIdPlaceholder":  "Task ID",
+      "resolutionNotes": "Resolution Notes"
+    },
+    "confirmDelete": "Are you sure you want to delete this incident?",
+    "messages": {
+      "created":  "Incident recorded.",
+      "updated":  "Incident updated.",
+      "deleted":  "Incident deleted.",
+      "resolved": "Incident marked as resolved."
     }
   }
 }

@@ -92,6 +92,15 @@ export const assessmentsApi = {
   getReport:     (id)           => api.get(`/api/v1/assessments/${id}/report`),
 }
 
+export const incidentsApi = {
+  getAll:  (params)   => api.get('/api/v1/incidents', { params }),
+  getById: (id)       => api.get(`/api/v1/incidents/${id}`),
+  create:  (data)     => api.post('/api/v1/incidents', data),
+  update:  (id, data) => api.put(`/api/v1/incidents/${id}`, data),
+  delete:  (id)       => api.delete(`/api/v1/incidents/${id}`),
+  resolve: (id, data) => api.post(`/api/v1/incidents/${id}/resolve`, data),
+}
+
 export const regulatoryApi = {
   getFrameworks:   ()                        => api.get('/api/v1/regulatory/frameworks'),
   getControls:     (frameworkId, domain)     => api.get(`/api/v1/regulatory/frameworks/${frameworkId}/controls`, { params: { domain } }),

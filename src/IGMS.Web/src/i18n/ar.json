@@ -56,6 +56,7 @@
     "controls":    "اختبارات الضوابط",
     "roles":       "الأدوار والصلاحيات",
     "assessments": "الاستبيانات",
+    "incidents":   "إدارة الحوادث",
     "compliance":  "مكتبة الامتثال",
     "workflows":   "سير العمل",
     "approvals":   "بريد الاعتماد",
@@ -937,6 +938,42 @@
       "responseRate":   "معدل الاستجابة",
       "answers":        "إجابة",
       "average":        "المتوسط"
+    }
+  },
+
+  "incidents": {
+    "title":       "إدارة الحوادث",
+    "subtitle":    "تتبع وإدارة الحوادث الأمنية والتشغيلية",
+    "new":         "حادثة جديدة",
+    "newTitle":    "إضافة حادثة",
+    "editTitle":   "تعديل الحادثة",
+    "resolve":     "تسجيل الحل",
+    "resolveTitle":  "تسجيل حل الحادثة",
+    "resolveNotesPlaceholder": "وصف خطوات الحل المتخذة...",
+    "resolution":  "تفاصيل الحل",
+    "resolvedAt":  "تاريخ الحل",
+    "linkedItems": "العناصر المرتبطة",
+    "fields": {
+      "title":      "عنوان الحادثة",
+      "titleAr":    "العنوان (عربي)",
+      "titleEn":    "العنوان (إنجليزي)",
+      "description": "وصف الحادثة",
+      "severity":   "مستوى الخطورة",
+      "occurredAt": "تاريخ الوقوع",
+      "department": "الجهة المتأثرة",
+      "reportedBy": "المُبلِّغ",
+      "riskLink":   "مخاطرة مرتبطة",
+      "taskLink":   "مهمة مرتبطة",
+      "riskIdPlaceholder":  "رقم المخاطرة",
+      "taskIdPlaceholder":  "رقم المهمة",
+      "resolutionNotes": "ملاحظات الحل"
+    },
+    "confirmDelete": "هل تريد حذف هذه الحادثة؟",
+    "messages": {
+      "created":  "تم تسجيل الحادثة.",
+      "updated":  "تم تحديث الحادثة.",
+      "deleted":  "تم حذف الحادثة.",
+      "resolved": "تم تسجيل حل الحادثة."
     }
   }
 }

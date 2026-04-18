@@ -64,6 +64,9 @@ public class TenantDbContext : DbContext, ITenantDbContext
     public DbSet<AssessmentResponse> AssessmentResponses => Set<AssessmentResponse>();
     public DbSet<AssessmentAnswer>   AssessmentAnswers   => Set<AssessmentAnswer>();
 
+    // ── Incident Management ──────────────────────────────────────────────────
+    public DbSet<Incident> Incidents => Set<Incident>();
+
     // ── Regulatory Library ───────────────────────────────────────────────────
     public DbSet<RegulatoryFramework> RegulatoryFrameworks => Set<RegulatoryFramework>();
     public DbSet<RegulatoryControl>   RegulatoryControls   => Set<RegulatoryControl>();
