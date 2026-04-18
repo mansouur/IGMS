@@ -25,9 +25,10 @@ public class IncidentsController : ControllerBase
     public async Task<IActionResult> GetAll(
         [FromQuery] string? status,
         [FromQuery] string? severity,
-        [FromQuery] int?    departmentId)
+        [FromQuery] int?    departmentId,
+        [FromQuery] int?    riskId)
     {
-        var result = await _svc.GetListAsync(status, severity, departmentId);
+        var result = await _svc.GetListAsync(status, severity, departmentId, riskId);
         return Ok(ApiResponse<List<IncidentListDto>>.Ok(result));
     }
 

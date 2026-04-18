@@ -13,7 +13,7 @@ public class IncidentService : IIncidentService
 
     // ── List ──────────────────────────────────────────────────────────────────
 
-    public async Task<List<IncidentListDto>> GetListAsync(string? status, string? severity, int? departmentId)
+    public async Task<List<IncidentListDto>> GetListAsync(string? status, string? severity, int? departmentId, int? riskId = null)
     {
         var q = _db.Incidents
             .AsNoTracking()
@@ -32,6 +32,9 @@ public class IncidentService : IIncidentService
 
         if (departmentId.HasValue)
             q = q.Where(i => i.DepartmentId == departmentId);
+
+        if (riskId.HasValue)
+            q = q.Where(i => i.RiskId == riskId);
 
         var list = await q.OrderByDescending(i => i.OccurredAt).ToListAsync();
         return list.Select(MapList).ToList();

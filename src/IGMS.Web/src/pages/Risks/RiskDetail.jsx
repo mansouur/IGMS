@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { riskApi, taskApi, kpiApi } from '../../services/governanceApi'
+import { incidentsApi } from '../../services/api'
 import { useApi } from '../../hooks/useApi'
 import { PageLoader } from '../../components/ui/Spinner'
 import useAuthStore from '../../store/authStore'
@@ -22,6 +23,7 @@ export default function RiskDetail() {
   const [tasks, setTasks]       = useState([])
   const [kpiLinks, setKpiLinks] = useState([])
   const [allKpis, setAllKpis]   = useState([])
+  const [incidents, setIncidents] = useState([])
   const [showKpiPicker, setShowKpiPicker] = useState(false)
   const [kpiNotes, setKpiNotes] = useState('')
   const [selectedKpiId, setSelectedKpiId] = useState('')
@@ -45,6 +47,7 @@ export default function RiskDetail() {
     taskApi.getByRisk(id).then((r) => setTasks(r.data?.data ?? [])).catch(() => {})
     loadKpiLinks()
     kpiApi.getAll({ pageSize: 100 }).then((r) => setAllKpis(r.data?.data?.items ?? [])).catch(() => {})
+    incidentsApi.getAll({ riskId: id }).then((r) => setIncidents(r ?? [])).catch(() => {})
   }, [id])
 
   const handleAddKpiLink = async () => {
@@ -303,6 +306,53 @@ export default function RiskDetail() {
                 )}
               </div>
             ))}
+          </div>
+        )}
+      </div>
+
+      {/* Linked Incidents */}
+      <div className="bg-white rounded-xl border border-gray-200 p-5">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-semibold text-gray-700">
+            الحوادث المرتبطة
+            {incidents.length > 0 && (
+              <span className="ms-2 text-xs bg-red-100 text-red-600 rounded-full px-2 py-0.5">{incidents.length}</span>
+            )}
+          </h2>
+          <button
+            onClick={() => navigate(`/incidents/new?riskId=${id}`)}
+            className="text-xs px-3 py-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700">
+            + حادثة جديدة
+          </button>
+        </div>
+        {incidents.length === 0 ? (
+          <p className="text-sm text-gray-400 text-center py-4">لا توجد حوادث مرتبطة بهذه المخاطرة</p>
+        ) : (
+          <div className="space-y-2">
+            {incidents.map((inc) => {
+              const sevColor = { Low: 'bg-blue-50 text-blue-600', Medium: 'bg-yellow-50 text-yellow-700', High: 'bg-orange-100 text-orange-700', Critical: 'bg-red-100 text-red-700' }
+              const stColor  = { Open: 'text-red-500', UnderReview: 'text-yellow-600', Resolved: 'text-green-600', Closed: 'text-gray-400' }
+              const stLabel  = { Open: 'مفتوح', UnderReview: 'قيد المراجعة', Resolved: 'محلول', Closed: 'مغلق' }
+              const sevLabel = { Low: 'منخفض', Medium: 'متوسط', High: 'عالٍ', Critical: 'حرج' }
+              return (
+                <div key={inc.id}
+                  className="flex items-center justify-between px-4 py-3 rounded-lg border border-gray-100 hover:border-red-200 hover:bg-red-50 transition-colors group cursor-pointer"
+                  onClick={() => navigate(`/incidents/${inc.id}`)}>
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${sevColor[inc.severity] ?? ''}`}>
+                      {sevLabel[inc.severity] ?? inc.severity}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-gray-800 truncate group-hover:text-red-700">{inc.titleAr}</p>
+                      <p className="text-xs text-gray-400">{new Date(inc.occurredAt).toLocaleDateString('ar-AE')}</p>
+                    </div>
+                  </div>
+                  <span className={`text-xs font-medium flex-shrink-0 ${stColor[inc.status] ?? ''}`}>
+                    {stLabel[inc.status] ?? inc.status}
+                  </span>
+                </div>
+              )
+            })}
           </div>
         )}
       </div>

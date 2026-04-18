@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { incidentsApi } from '../../services/api'
 import { departmentApi } from '../../services/departmentApi'
@@ -30,6 +30,8 @@ export default function IncidentForm() {
   const { id } = useParams()
   const isNew   = id === 'new'
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const prefilledRiskId = searchParams.get('riskId') ?? ''
 
   const { loading: fetching, execute: fetchEx } = useApi()
   const { loading: saving,   execute: saveEx  } = useApi()
@@ -43,7 +45,7 @@ export default function IncidentForm() {
     status:        'Open',
     occurredAt:    today(),
     departmentId:  '',
-    riskId:        '',
+    riskId:        prefilledRiskId,
     taskId:        '',
     resolutionNotes: '',
   })
