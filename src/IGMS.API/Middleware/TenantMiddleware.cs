@@ -65,5 +65,8 @@ public class TenantMiddleware
     private static bool IsExemptPath(PathString path) =>
         path.StartsWithSegments("/health") ||
         path.StartsWithSegments("/swagger") ||
-        path.StartsWithSegments("/favicon.ico");
+        path.StartsWithSegments("/favicon.ico") ||
+        // UAE Pass callback arrives as a browser redirect — no custom headers possible.
+        // The controller resolves the tenant from the embedded state parameter.
+        path.StartsWithSegments("/api/v1/auth/uaepass/callback");
 }
