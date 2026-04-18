@@ -98,7 +98,10 @@ public class UaePassController : ControllerBase
 
         var sessionId = await _sessionService.CreateSessionAsync(session);
 
-        // Redirect React app with token + sessionId in URL fragment (not query string – more secure)
-        return Redirect($"{frontendUrl}#token={token}&sessionId={sessionId}");
+        // Redirect React app with token + names in URL fragment (not query string – more secure)
+        return Redirect(
+            $"{frontendUrl}#token={token}&sessionId={sessionId}" +
+            $"&fullNameAr={Uri.EscapeDataString(user.FullNameAr)}" +
+            $"&fullNameEn={Uri.EscapeDataString(user.FullNameEn)}");
     }
 }

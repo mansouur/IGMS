@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json.Serialization;
 using System.Web;
 using IGMS.Application.Common.Interfaces;
@@ -52,12 +53,12 @@ public class UaePassService : IUaePassService
         query["response_type"] = "code";
         query["client_id"]     = _clientId;
         query["redirect_uri"]  = _redirectUri;
-        query["scope"]         = "openid profile email eid";
+        query["scope"]         = "urn:uae:digitalid:profile:general";
         query["state"]         = state;
         query["ui_locales"]    = language == "ar" ? "ar" : "en";
         query["acr_values"]    = "urn:safelayer:tws:policies:authentication:level:low";
 
-        return $"{_baseUrl}/idsheer/authorize?{query}";
+        return $"{_baseUrl}/idshub/authorize?{query}";
     }
 
     /// <summary>
@@ -89,20 +90,29 @@ public class UaePassService : IUaePassService
 
     private async Task<UaePassTokenResponse?> FetchTokenAsync(string code)
     {
-        var tokenRequest = new FormUrlEncodedContent(new Dictionary<string, string>
-        {
-            ["grant_type"]    = "authorization_code",
-            ["code"]          = code,
-            ["redirect_uri"]  = _redirectUri,
-            ["client_id"]     = _clientId,
-            ["client_secret"] = _clientSecret,
-        });
+        // UAE Pass requires: params in query string + Basic auth header (not form body)
+        var query = HttpUtility.ParseQueryString(string.Empty);
+        query["grant_type"]   = "authorization_code";
+        query["code"]         = code;
+        query["redirect_uri"] = _redirectUri;
 
-        var response = await _httpClient.PostAsync($"{_baseUrl}/idsheer/token", tokenRequest);
+        var url = $"{_baseUrl}/idshub/token?{query}";
+
+        var credentials = Convert.ToBase64String(
+            Encoding.UTF8.GetBytes($"{_clientId}:{_clientSecret}"));
+
+        using var tokenRequest = new HttpRequestMessage(HttpMethod.Post, url);
+        tokenRequest.Headers.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials);
+        // UAE Pass sandbox accepts an empty multipart body with params in the query string
+        tokenRequest.Content = new MultipartFormDataContent();
+
+        var response = await _httpClient.SendAsync(tokenRequest);
 
         if (!response.IsSuccessStatusCode)
         {
-            _logger.LogError("UAE Pass token endpoint returned {Status}", response.StatusCode);
+            var body = await response.Content.ReadAsStringAsync();
+            _logger.LogError("UAE Pass token endpoint returned {Status}: {Body}", response.StatusCode, body);
             return null;
         }
 
@@ -111,7 +121,7 @@ public class UaePassService : IUaePassService
 
     private async Task<UaePassUserInfo?> FetchUserInfoAsync(string accessToken)
     {
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"{_baseUrl}/idsheer/userinfo");
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"{_baseUrl}/idshub/userinfo");
         request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
         var response = await _httpClient.SendAsync(request);

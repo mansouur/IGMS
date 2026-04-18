@@ -12,16 +12,18 @@ export default function AuthCallback() {
     const fragment = window.location.hash.substring(1)
     const params = new URLSearchParams(fragment)
 
-    const token     = params.get('token')
-    const sessionId = params.get('sessionId')
-    const error     = params.get('error')
+    const token      = params.get('token')
+    const sessionId  = params.get('sessionId')
+    const error      = params.get('error')
+    const fullNameAr = params.get('fullNameAr') ?? ''
+    const fullNameEn = params.get('fullNameEn') ?? ''
 
     if (error || !token) {
       navigate('/login?error=' + encodeURIComponent(error ?? 'UAE Pass login failed'))
       return
     }
 
-    setAuth({ token, sessionId, authProvider: 'UaePass' })
+    setAuth({ token, sessionId, authProvider: 'UaePass', fullNameAr, fullNameEn })
     navigate('/dashboard')
   }, [])
 
