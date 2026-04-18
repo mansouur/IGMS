@@ -103,16 +103,21 @@ export default function Login() {
     }
   }
 
-  const handleUaePassLogin = async () => {
-    setUaePassLoading(true)
-    setError(null)
-    try {
-      const res = await authApi.getUaePassRedirect(form.language)
-      window.location.href = res.data.data.redirectUrl
-    } catch {
-      setError(t('auth.error.serverError'))
-      setUaePassLoading(false)
-    }
+  const handleUaePassLogin = () => {
+    // Build the UAE Pass authorization URL directly — no API call needed.
+    // State carries tenant key so the exchange endpoint can resolve it.
+    const state   = `uae-sport:${crypto.randomUUID().replace(/-/g, '')}`
+    const params  = new URLSearchParams({
+      response_type: 'code',
+      client_id:     import.meta.env.VITE_UAEPASS_CLIENT_ID     ?? 'sandbox_stage',
+      redirect_uri:  import.meta.env.VITE_UAEPASS_REDIRECT_URI  ?? `${window.location.origin}/auth/callback`,
+      scope:         'urn:uae:digitalid:profile:general',
+      state,
+      acr_values:    'urn:safelayer:tws:policies:authentication:level:low',
+      ui_locales:    form.language === 'ar' ? 'ar' : 'en',
+    })
+    const base = import.meta.env.VITE_UAEPASS_BASE_URL ?? 'https://stg-id.uaepass.ae'
+    window.location.href = `${base}/idshub/authorize?${params}`
   }
 
   // ── OTP Step UI ────────────────────────────────────────────────────────────
