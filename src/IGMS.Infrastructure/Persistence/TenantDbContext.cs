@@ -70,6 +70,11 @@ public class TenantDbContext : DbContext, ITenantDbContext
     // ── Vendor Risk ───────────────────────────────────────────────────────────
     public DbSet<Vendor> Vendors => Set<Vendor>();
 
+    // ── Meeting Management ────────────────────────────────────────────────────
+    public DbSet<Meeting>           Meetings           => Set<Meeting>();
+    public DbSet<MeetingAttendee>   MeetingAttendees   => Set<MeetingAttendee>();
+    public DbSet<MeetingActionItem> MeetingActionItems => Set<MeetingActionItem>();
+
     // ── Regulatory Library ───────────────────────────────────────────────────
     public DbSet<RegulatoryFramework> RegulatoryFrameworks => Set<RegulatoryFramework>();
     public DbSet<RegulatoryControl>   RegulatoryControls   => Set<RegulatoryControl>();

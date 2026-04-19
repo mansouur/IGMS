@@ -109,6 +109,18 @@ export const incidentsApi = {
     }),
 }
 
+export const meetingsApi = {
+  getAll:          (params)         => api.get('/api/v1/meetings', { params }),
+  getById:         (id)             => api.get(`/api/v1/meetings/${id}`),
+  create:          (data)           => api.post('/api/v1/meetings', data),
+  update:          (id, data)       => api.put(`/api/v1/meetings/${id}`, data),
+  delete:          (id)             => api.delete(`/api/v1/meetings/${id}`),
+  start:           (id)             => api.post(`/api/v1/meetings/${id}/start`),
+  complete:        (id, data)       => api.post(`/api/v1/meetings/${id}/complete`, data),
+  cancel:          (id)             => api.post(`/api/v1/meetings/${id}/cancel`),
+  completeAction:  (id, actionId)   => api.post(`/api/v1/meetings/${id}/actions/${actionId}/complete`),
+}
+
 export const vendorsApi = {
   getAll:      (params)   => api.get('/api/v1/vendors', { params }),
   getById:     (id)       => api.get(`/api/v1/vendors/${id}`),

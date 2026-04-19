@@ -49,6 +49,9 @@ import IncidentDetail from './pages/Incidents/IncidentDetail'
 import VendorList     from './pages/Vendors/VendorList'
 import VendorForm     from './pages/Vendors/VendorForm'
 import VendorDetail   from './pages/Vendors/VendorDetail'
+import MeetingList    from './pages/Meetings/MeetingList'
+import MeetingForm    from './pages/Meetings/MeetingForm'
+import MeetingDetail  from './pages/Meetings/MeetingDetail'
 
 // ── Route guards ──────────────────────────────────────────────────────────────
 
@@ -148,6 +151,10 @@ export default function App() {
         <Route path="/vendors/new"        element={<VendorForm />} />
         <Route path="/vendors/:id"        element={<VendorDetail />} />
         <Route path="/vendors/:id/edit"   element={<VendorForm />} />
+        <Route path="/meetings"           element={<MeetingList />} />
+        <Route path="/meetings/new"       element={<MeetingForm />} />
+        <Route path="/meetings/:id"       element={<MeetingDetail />} />
+        <Route path="/meetings/:id/edit"  element={<MeetingForm />} />
         <Route path="/audit-log"   element={<AuditLogPage />} />
         <Route path="/settings"    element={<Settings />} />
       </Route>
