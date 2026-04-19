@@ -65,5 +65,8 @@ public class TenantMiddleware
     private static bool IsExemptPath(PathString path) =>
         path.StartsWithSegments("/health") ||
         path.StartsWithSegments("/swagger") ||
-        path.StartsWithSegments("/favicon.ico");
+        path.StartsWithSegments("/favicon.ico") ||
+        // Browser navigates here directly — no X-Tenant-Key header possible.
+        // Tenant key is passed as a query parameter instead.
+        path.StartsWithSegments("/api/v1/auth/uaepass/redirect");
 }

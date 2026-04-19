@@ -31,23 +31,21 @@ public class UaePassController : ControllerBase
     }
 
     /// <summary>
-    /// Step 1 — Returns the UAE Pass authorization URL.
-    /// Frontend redirects the browser to this URL (window.location.href).
-    /// State encodes the tenant key so Step 2 can resolve it without a header.
+    /// Step 1 — Browser navigates here directly (window.location.href).
+    /// Builds the UAE Pass authorization URL and returns 302 → UAE Pass login page.
+    /// Tenant key is read from query param (no X-Tenant-Key header in browser navigation).
     /// </summary>
     [HttpGet("redirect")]
-    [ProducesResponseType(typeof(ApiResponse<UaePassRedirectResponse>), StatusCodes.Status200OK)]
-    public IActionResult GetRedirectUrl([FromQuery] string language = "ar")
+    public IActionResult Redirect(
+        [FromQuery] string language = "ar",
+        [FromQuery] string tenant   = "")
     {
-        // Embed tenant key in state so exchange endpoint can resolve it
-        var state = $"{_tenant.TenantKey}:{Guid.NewGuid():N}";
-        var url   = _uaePassService.BuildAuthorizationUrl(state, language);
+        // Load tenant to embed its key in state
+        var tenantKey = string.IsNullOrWhiteSpace(tenant) ? tenant : tenant;
+        var state     = $"{tenantKey}:{Guid.NewGuid():N}";
+        var url       = _uaePassService.BuildAuthorizationUrl(state, language);
 
-        return Ok(ApiResponse<UaePassRedirectResponse>.Ok(new UaePassRedirectResponse
-        {
-            RedirectUrl = url,
-            State       = state,
-        }));
+        return base.Redirect(url);
     }
 
     /// <summary>
