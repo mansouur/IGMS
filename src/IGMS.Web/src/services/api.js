@@ -109,6 +109,15 @@ export const incidentsApi = {
     }),
 }
 
+export const vendorsApi = {
+  getAll:      (params)   => api.get('/api/v1/vendors', { params }),
+  getById:     (id)       => api.get(`/api/v1/vendors/${id}`),
+  create:      (data)     => api.post('/api/v1/vendors', data),
+  update:      (id, data) => api.put(`/api/v1/vendors/${id}`, data),
+  delete:      (id)       => api.delete(`/api/v1/vendors/${id}`),
+  assessRisk:  (id, data) => api.put(`/api/v1/vendors/${id}/risk`, data),
+}
+
 export const regulatoryApi = {
   getFrameworks:   ()                        => api.get('/api/v1/regulatory/frameworks'),
   getControls:     (frameworkId, domain)     => api.get(`/api/v1/regulatory/frameworks/${frameworkId}/controls`, { params: { domain } }),

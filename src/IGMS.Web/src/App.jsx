@@ -46,6 +46,9 @@ import AssessmentReport  from './pages/Assessments/AssessmentReport'
 import IncidentList   from './pages/Incidents/IncidentList'
 import IncidentForm   from './pages/Incidents/IncidentForm'
 import IncidentDetail from './pages/Incidents/IncidentDetail'
+import VendorList     from './pages/Vendors/VendorList'
+import VendorForm     from './pages/Vendors/VendorForm'
+import VendorDetail   from './pages/Vendors/VendorDetail'
 
 // ── Route guards ──────────────────────────────────────────────────────────────
 
@@ -141,6 +144,10 @@ export default function App() {
         <Route path="/incidents/new"       element={<IncidentForm />} />
         <Route path="/incidents/:id"       element={<IncidentDetail />} />
         <Route path="/incidents/:id/edit"  element={<IncidentForm />} />
+        <Route path="/vendors"            element={<VendorList />} />
+        <Route path="/vendors/new"        element={<VendorForm />} />
+        <Route path="/vendors/:id"        element={<VendorDetail />} />
+        <Route path="/vendors/:id/edit"   element={<VendorForm />} />
         <Route path="/audit-log"   element={<AuditLogPage />} />
         <Route path="/settings"    element={<Settings />} />
       </Route>

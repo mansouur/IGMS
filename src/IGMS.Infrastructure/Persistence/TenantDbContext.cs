@@ -67,6 +67,9 @@ public class TenantDbContext : DbContext, ITenantDbContext
     // ── Incident Management ──────────────────────────────────────────────────
     public DbSet<Incident> Incidents => Set<Incident>();
 
+    // ── Vendor Risk ───────────────────────────────────────────────────────────
+    public DbSet<Vendor> Vendors => Set<Vendor>();
+
     // ── Regulatory Library ───────────────────────────────────────────────────
     public DbSet<RegulatoryFramework> RegulatoryFrameworks => Set<RegulatoryFramework>();
     public DbSet<RegulatoryControl>   RegulatoryControls   => Set<RegulatoryControl>();

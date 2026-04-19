@@ -124,9 +124,9 @@ export default function Dashboard() {
     api.get('/api/v1/reports/recent-activity').then(r => setActivity(r.data.data ?? [])).catch(() => {})
     reportsApi.kpiTrend().then(r => setKpiTrend(r.data.data ?? [])).catch(() => {})
     // Incident + Assessment widgets
-    incidentsApi.getAll({ status: 'Open' }).then(r => setOpenIncidents(r?.data?.data ?? [])).catch(() => {})
-    assessmentsApi.getAll().then(r => {
-      const arr = r?.data?.data ?? []
+    incidentsApi.getAll({ status: 'Open', pageSize: 100 }).then(r => setOpenIncidents(r?.data?.data?.items ?? [])).catch(() => {})
+    assessmentsApi.getAll({ pageSize: 100 }).then(r => {
+      const arr = r?.data?.data?.items ?? []
       if (!arr.length) return
       const published = arr.filter(a => a.status === 'Published')
       const totalResp = published.reduce((s, a) => s + (a.responseCount ?? 0), 0)
