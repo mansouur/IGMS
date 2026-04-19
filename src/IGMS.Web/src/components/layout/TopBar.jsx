@@ -22,7 +22,7 @@ const TYPE_ICON = {
 export default function TopBar({ onMenuClick }) {
   const { t, i18n } = useTranslation()
   const navigate    = useNavigate()
-  const { username, fullNameAr, fullNameEn, language, sessionId, logout } = useAuthStore()
+  const { username, fullNameAr, fullNameEn, language, sessionId, authProvider, logout } = useAuthStore()
 
   const [menuOpen,  setMenuOpen]  = useState(false)
   const [bellOpen,  setBellOpen]  = useState(false)
@@ -71,7 +71,14 @@ export default function TopBar({ onMenuClick }) {
 
   const handleLogout = async () => {
     try { if (sessionId) await authApi.logout(sessionId) } catch {}
-    finally { logout(); navigate('/login', { replace: true }) }
+    logout()
+    if (authProvider === 'UaePass') {
+      const base       = import.meta.env.VITE_API_URL ?? 'http://localhost:5257'
+      const returnUrl  = encodeURIComponent(`${window.location.origin}/login`)
+      window.location.href = `${base}/api/v1/auth/uaepass/logout?redirectUri=${returnUrl}`
+    } else {
+      navigate('/login', { replace: true })
+    }
   }
 
   const toggleLanguage = () => {

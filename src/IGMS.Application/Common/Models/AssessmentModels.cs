@@ -114,3 +114,13 @@ public class QuestionReportDto
     /// <summary>For Text: first 5 responses</summary>
     public List<string> TextSamples { get; set; } = [];
 }
+
+// ── Query ─────────────────────────────────────────────────────────────────────
+
+public class AssessmentQuery
+{
+    public int     Page     { get; set; } = 1;
+    public int     PageSize { get; set; } = 20;
+    public string? Search   { get; set; }
+    public string? Status   { get; set; }
+}

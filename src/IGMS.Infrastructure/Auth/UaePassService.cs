@@ -16,8 +16,8 @@ namespace IGMS.Infrastructure.Auth;
 /// Sandbox:    stg-id.uaepass.ae  (current)
 /// Production: id.uaepass.ae      (change UaePass:BaseUrl in config only)
 ///
-/// Scopes used: openid profile email eid
-/// Flow: Authorization Code + PKCE
+/// Scope: urn:uae:digitalid:profile:general
+/// Flow:  Authorization Code  (Basic Auth on token endpoint)
 /// </summary>
 public class UaePassService : IUaePassService
 {
@@ -62,6 +62,13 @@ public class UaePassService : IUaePassService
     }
 
     /// <summary>
+    /// Builds the UAE Pass logout URL.
+    /// Browser navigates here to end the SSO session, then gets redirected back to our app.
+    /// </summary>
+    public string BuildLogoutUrl(string postLogoutRedirectUri) =>
+        $"{_baseUrl}/idshub/logout?redirect_uri={Uri.EscapeDataString(postLogoutRedirectUri)}";
+
+    /// <summary>
     /// Exchanges authorization code for user info.
     /// Called from the callback endpoint after UAE Pass redirects back.
     /// </summary>
@@ -90,22 +97,21 @@ public class UaePassService : IUaePassService
 
     private async Task<UaePassTokenResponse?> FetchTokenAsync(string code)
     {
-        // UAE Pass requires: params in query string + Basic auth header (not form body)
-        var query = HttpUtility.ParseQueryString(string.Empty);
-        query["grant_type"]   = "authorization_code";
-        query["code"]         = code;
-        query["redirect_uri"] = _redirectUri;
-
-        var url = $"{_baseUrl}/idshub/token?{query}";
-
+        var url         = $"{_baseUrl}/idshub/token";
         var credentials = Convert.ToBase64String(
             Encoding.UTF8.GetBytes($"{_clientId}:{_clientSecret}"));
 
         using var tokenRequest = new HttpRequestMessage(HttpMethod.Post, url);
         tokenRequest.Headers.Authorization =
             new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials);
-        // UAE Pass sandbox accepts an empty multipart body with params in the query string
-        tokenRequest.Content = new MultipartFormDataContent();
+
+        // OAuth 2.0 standard: params in body as application/x-www-form-urlencoded
+        tokenRequest.Content = new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["grant_type"]   = "authorization_code",
+            ["code"]         = code,
+            ["redirect_uri"] = _redirectUri,
+        });
 
         var response = await _httpClient.SendAsync(tokenRequest);
 

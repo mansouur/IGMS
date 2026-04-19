@@ -1,5 +1,6 @@
 using IGMS.Application.Common.Interfaces;
 using IGMS.Application.Common.Models;
+using IGMS.Domain.Common;
 using IGMS.Domain.Entities;
 using IGMS.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ public class IncidentService : IIncidentService
 
     // ── List ──────────────────────────────────────────────────────────────────
 
-    public async Task<List<IncidentListDto>> GetListAsync(string? status, string? severity, int? departmentId, int? riskId = null)
+    public async Task<PagedResult<IncidentListDto>> GetPagedAsync(IncidentQuery query)
     {
         var q = _db.Incidents
             .AsNoTracking()
@@ -22,22 +23,38 @@ public class IncidentService : IIncidentService
             .Include(i => i.Risk)
             .Where(i => !i.IsDeleted);
 
-        if (!string.IsNullOrEmpty(status) &&
-            Enum.TryParse<IncidentStatus>(status, out var st))
+        if (!string.IsNullOrWhiteSpace(query.Search))
+            q = q.Where(i => i.TitleAr.Contains(query.Search) ||
+                              (i.TitleEn != null && i.TitleEn.Contains(query.Search)));
+
+        if (!string.IsNullOrEmpty(query.Status) &&
+            Enum.TryParse<IncidentStatus>(query.Status, out var st))
             q = q.Where(i => i.Status == st);
 
-        if (!string.IsNullOrEmpty(severity) &&
-            Enum.TryParse<IncidentSeverity>(severity, out var sv))
+        if (!string.IsNullOrEmpty(query.Severity) &&
+            Enum.TryParse<IncidentSeverity>(query.Severity, out var sv))
             q = q.Where(i => i.Severity == sv);
 
-        if (departmentId.HasValue)
-            q = q.Where(i => i.DepartmentId == departmentId);
+        if (query.DepartmentId.HasValue)
+            q = q.Where(i => i.DepartmentId == query.DepartmentId);
 
-        if (riskId.HasValue)
-            q = q.Where(i => i.RiskId == riskId);
+        if (query.RiskId.HasValue)
+            q = q.Where(i => i.RiskId == query.RiskId);
 
-        var list = await q.OrderByDescending(i => i.OccurredAt).ToListAsync();
-        return list.Select(MapList).ToList();
+        var total = await q.CountAsync();
+        var items = await q
+            .OrderByDescending(i => i.OccurredAt)
+            .Skip((query.Page - 1) * query.PageSize)
+            .Take(query.PageSize)
+            .ToListAsync();
+
+        return new PagedResult<IncidentListDto>
+        {
+            Items       = items.Select(MapList).ToList(),
+            TotalCount  = total,
+            CurrentPage = query.Page,
+            PageSize    = query.PageSize,
+        };
     }
 
     // ── Detail ────────────────────────────────────────────────────────────────
@@ -144,7 +161,7 @@ public class IncidentService : IIncidentService
 
     public async Task<byte[]> ExportAsync(string? status, string? severity)
     {
-        var list = await GetListAsync(status, severity, null);
+        var list = await GetAllForExportAsync(status, severity);
 
         var headers = new[] { "#", "العنوان", "الخطورة", "الحالة", "تاريخ الوقوع", "القسم", "المُبلِّغ", "المخاطرة المرتبطة" };
         var rows = list.Select((inc, i) => new object?[]
@@ -163,6 +180,27 @@ public class IncidentService : IIncidentService
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────
+
+    private async Task<List<IncidentListDto>> GetAllForExportAsync(string? status, string? severity)
+    {
+        var q = _db.Incidents
+            .AsNoTracking()
+            .Include(i => i.Department)
+            .Include(i => i.ReportedBy)
+            .Include(i => i.Risk)
+            .Where(i => !i.IsDeleted);
+
+        if (!string.IsNullOrEmpty(status) &&
+            Enum.TryParse<IncidentStatus>(status, out var st))
+            q = q.Where(i => i.Status == st);
+
+        if (!string.IsNullOrEmpty(severity) &&
+            Enum.TryParse<IncidentSeverity>(severity, out var sv))
+            q = q.Where(i => i.Severity == sv);
+
+        var items = await q.OrderByDescending(i => i.OccurredAt).ToListAsync();
+        return items.Select(MapList).ToList();
+    }
 
     private async Task<Incident?> LoadFull(int id) =>
         await _db.Incidents

@@ -1,5 +1,8 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using IGMS.API.Extensions;
 using IGMS.API.Middleware;
+using IGMS.Application.Common.Validators;
 using IGMS.Infrastructure;
 using IGMS.Infrastructure.Persistence;
 using Microsoft.AspNetCore.RateLimiting;
@@ -11,6 +14,31 @@ var builder = WebApplication.CreateBuilder(args);
 // ── Services ────────────────────────────────────────────────────────────────
 
 builder.Services.AddControllers();
+
+// FluentValidation — Arabic messages, replaces DataAnnotations for request models
+builder.Services.AddFluentValidationAutoValidation(cfg =>
+    cfg.DisableDataAnnotationsValidation = true);
+builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
+
+// Uniform Arabic validation error envelope — overrides [ApiController] default 400 response
+builder.Services.Configure<Microsoft.AspNetCore.Mvc.ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = ctx =>
+    {
+        var errors = ctx.ModelState.Values
+            .SelectMany(v => v.Errors)
+            .Select(e => e.ErrorMessage)
+            .Where(m => !string.IsNullOrWhiteSpace(m))
+            .ToList();
+
+        var result = new Microsoft.AspNetCore.Mvc.ObjectResult(
+            IGMS.Domain.Common.ApiResponse<object>.Fail(errors))
+        {
+            StatusCode = StatusCodes.Status400BadRequest
+        };
+        return result;
+    };
+});
 
 // Swagger with JWT support
 builder.Services.AddSwaggerWithJwt();

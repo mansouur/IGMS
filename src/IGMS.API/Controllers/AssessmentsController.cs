@@ -24,12 +24,12 @@ public class AssessmentsController : ControllerBase
     // ── List ──────────────────────────────────────────────────────────────────
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] AssessmentQuery query)
     {
         var uid = GetUserId();
         if (uid == null) return Unauthorized();
-        var result = await _svc.GetListAsync(uid.Value);
-        return Ok(ApiResponse<List<AssessmentListDto>>.Ok(result));
+        var result = await _svc.GetPagedAsync(query, uid.Value);
+        return Ok(ApiResponse<PagedResult<AssessmentListDto>>.Ok(result));
     }
 
     // ── Detail ────────────────────────────────────────────────────────────────

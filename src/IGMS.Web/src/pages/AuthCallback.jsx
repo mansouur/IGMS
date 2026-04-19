@@ -33,18 +33,23 @@ export default function AuthCallback() {
       return
     }
 
+    // Guard against React StrictMode double-invocation (code is single-use)
+    if (sessionStorage.getItem('uae_exchanging') === code) return
+    sessionStorage.setItem('uae_exchanging', code)
+
     authApi.exchangeUaePassCode(code, state ?? '')
       .then((res) => {
         const data = res.data?.data
         if (!data?.token) throw new Error('no token')
+        sessionStorage.removeItem('uae_exchanging')
         setAuth(data)
         navigate('/dashboard')
       })
       .catch((err) => {
+        sessionStorage.removeItem('uae_exchanging')
         const msg = err.response?.data?.errors?.[0]
           ?? err.response?.data?.message
           ?? 'فشل تسجيل الدخول بالهوية الرقمية.'
-        setStatus(null)
         navigate('/login?error=' + encodeURIComponent(msg))
       })
   }, [])

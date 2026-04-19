@@ -72,6 +72,7 @@ const useAuthStore = create((set, get) => ({
   language:        initial?.language ?? 'ar',
   roles:           initial?.roles ?? [],
   permissions:     initial?.permissions ?? [],
+  authProvider:    initial?.authProvider ?? 'Local',
   isAuthenticated: !!initial?.token,
 
   setAuth: (loginResponse) => {
@@ -107,7 +108,8 @@ const useAuthStore = create((set, get) => ({
     sessionStorage.removeItem('igms_user')
     set({
       token: null, userId: '', username: '', fullNameAr: '', fullNameEn: '',
-      tenantKey: '', language: 'ar', roles: [], permissions: [], isAuthenticated: false,
+      tenantKey: '', language: 'ar', roles: [], permissions: [],
+      authProvider: 'Local', isAuthenticated: false,
     })
   },
 

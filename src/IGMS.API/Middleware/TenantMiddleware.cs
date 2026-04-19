@@ -67,6 +67,6 @@ public class TenantMiddleware
         path.StartsWithSegments("/swagger") ||
         path.StartsWithSegments("/favicon.ico") ||
         // Browser navigates here directly — no X-Tenant-Key header possible.
-        // Tenant key is passed as a query parameter instead.
-        path.StartsWithSegments("/api/v1/auth/uaepass/redirect");
+        path.StartsWithSegments("/api/v1/auth/uaepass/redirect") ||
+        path.StartsWithSegments("/api/v1/auth/uaepass/logout");
 }

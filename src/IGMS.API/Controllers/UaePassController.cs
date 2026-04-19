@@ -13,30 +13,17 @@ namespace IGMS.API.Controllers;
 [Produces("application/json")]
 public class UaePassController : ControllerBase
 {
-    private readonly IUaePassService     _uaePassService;
-    private readonly ITenantConfigLoader _tenantLoader;
-    private readonly LocalAuthStrategy   _localStrategy;
-    private readonly TenantContext       _tenant;
-    private readonly TenantDbContext     _db;
+    private readonly IUaePassService _uaePassService;
 
-    public UaePassController(
-        IUaePassService              uaePassService,
-        ITenantConfigLoader          tenantLoader,
-        IEnumerable<IAuthStrategy>   strategies,
-        TenantContext                tenant,
-        TenantDbContext              db)
+    public UaePassController(IUaePassService uaePassService)
     {
         _uaePassService = uaePassService;
-        _tenantLoader   = tenantLoader;
-        _localStrategy  = (LocalAuthStrategy)strategies.First(s => s.ProviderName == "Local");
-        _tenant         = tenant;
-        _db             = db;
     }
 
     /// <summary>
     /// Step 1 — Browser navigates here directly (window.location.href).
     /// Builds the UAE Pass authorization URL and returns 302 → UAE Pass login page.
-    /// Tenant key is read from query param (no X-Tenant-Key header in browser navigation).
+    /// Tenant key is passed as a query param (no X-Tenant-Key header in browser navigation).
     /// </summary>
     [HttpGet("redirect")]
     public IActionResult Redirect(
@@ -49,6 +36,19 @@ public class UaePassController : ControllerBase
     }
 
     /// <summary>
+    /// Ends the UAE Pass SSO session and redirects back to the IGMS login page.
+    /// Browser navigates here directly after IGMS session is cleared.
+    /// </summary>
+    [HttpGet("logout")]
+    public IActionResult UaePassLogout([FromQuery] string redirectUri = "")
+    {
+        var postLogout = string.IsNullOrWhiteSpace(redirectUri)
+            ? "http://localhost:5173/login"
+            : redirectUri;
+        return base.Redirect(_uaePassService.BuildLogoutUrl(postLogout));
+    }
+
+    /// <summary>
     /// Step 2 — Called by React after UAE Pass redirects back with ?code=...
     /// Exchanges the code for a UAE Pass profile, matches the user by Emirates ID,
     /// and returns a full IGMS JWT with the user's actual roles and permissions.
@@ -56,7 +56,11 @@ public class UaePassController : ControllerBase
     [HttpPost("exchange")]
     [ProducesResponseType(typeof(ApiResponse<LoginResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Exchange([FromBody] UaePassExchangeRequest request)
+    public async Task<IActionResult> Exchange(
+        [FromBody]    UaePassExchangeRequest    request,
+        [FromServices] IEnumerable<IAuthStrategy> strategies,
+        [FromServices] TenantContext              tenant,
+        [FromServices] TenantDbContext            db)
     {
         if (string.IsNullOrWhiteSpace(request.Code))
             return BadRequest(ApiResponse<object>.Fail("رمز التفويض مفقود."));
@@ -73,7 +77,7 @@ public class UaePassController : ControllerBase
                 "تعذّر استرجاع رقم الهوية الإماراتية من UAE Pass."));
 
         // ── 2. Find matching UserProfile by Emirates ID ───────────────────────
-        var user = await _db.UserProfiles
+        var user = await db.UserProfiles
             .Include(u => u.UserRoles)
                 .ThenInclude(ur => ur.Role)
                     .ThenInclude(r => r.RolePermissions)
@@ -88,14 +92,14 @@ public class UaePassController : ControllerBase
 
         // ── 3. Update last login ──────────────────────────────────────────────
         user.LastLoginAt = DateTime.UtcNow;
-        await _db.SaveChangesAsync();
+        await db.SaveChangesAsync();
 
         // ── 4. Build JWT + session with actual roles & permissions ────────────
-        var (roles, perms) = LocalAuthStrategy.CollectRolesAndPermissions(user);
-        var loginResult    = await _localStrategy.BuildResponseAsync(user, roles, perms, _tenant, "ar");
-
-        var response           = loginResult.Value!;
-        response.AuthProvider  = "UaePass";
+        var localStrategy          = strategies.OfType<LocalAuthStrategy>().First();
+        var (roles, perms)         = LocalAuthStrategy.CollectRolesAndPermissions(user);
+        var loginResult            = await localStrategy.BuildResponseAsync(user, roles, perms, tenant, "ar");
+        var response               = loginResult.Value!;
+        response.AuthProvider      = "UaePass";
 
         return Ok(ApiResponse<LoginResponse>.Ok(response));
     }

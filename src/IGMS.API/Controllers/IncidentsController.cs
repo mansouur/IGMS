@@ -22,14 +22,10 @@ public class IncidentsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll(
-        [FromQuery] string? status,
-        [FromQuery] string? severity,
-        [FromQuery] int?    departmentId,
-        [FromQuery] int?    riskId)
+    public async Task<IActionResult> GetAll([FromQuery] IncidentQuery query)
     {
-        var result = await _svc.GetListAsync(status, severity, departmentId, riskId);
-        return Ok(ApiResponse<List<IncidentListDto>>.Ok(result));
+        var result = await _svc.GetPagedAsync(query);
+        return Ok(ApiResponse<PagedResult<IncidentListDto>>.Ok(result));
     }
 
     [HttpGet("{id:int}")]

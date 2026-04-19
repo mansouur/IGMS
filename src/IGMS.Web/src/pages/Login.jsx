@@ -104,9 +104,9 @@ export default function Login() {
   }
 
   const handleUaePassLogin = () => {
-    const api    = import.meta.env.VITE_API_URL ?? 'http://localhost:5257'
+    const base   = import.meta.env.VITE_API_URL ?? 'http://localhost:5257'
     const tenant = 'uae-sport'
-    window.location.href = `${api}/api/v1/auth/uaepass/redirect?language=${form.language}&tenant=${tenant}`
+    window.location.href = `${base}/api/v1/auth/uaepass/redirect?language=${form.language}&tenant=${tenant}`
   }
 
   // ── OTP Step UI ────────────────────────────────────────────────────────────

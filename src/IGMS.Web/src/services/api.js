@@ -80,7 +80,7 @@ export const reportsApi = {
 }
 
 export const assessmentsApi = {
-  getAll:        ()              => api.get('/api/v1/assessments'),
+  getAll:        (params)       => api.get('/api/v1/assessments', { params }),
   getById:       (id)           => api.get(`/api/v1/assessments/${id}`),
   create:        (data)         => api.post('/api/v1/assessments', data),
   update:        (id, data)     => api.put(`/api/v1/assessments/${id}`, data),

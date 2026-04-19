@@ -45,3 +45,17 @@ public class SaveIncidentRequest
     public int?    TaskId         { get; set; }
     public string? ResolutionNotes { get; set; }
 }
+
+
+// ── Query ─────────────────────────────────────────────────────────────────────
+
+public class IncidentQuery
+{
+    public int     Page         { get; set; } = 1;
+    public int     PageSize     { get; set; } = 20;
+    public string? Search       { get; set; }
+    public string? Status       { get; set; }
+    public string? Severity     { get; set; }
+    public int?    DepartmentId { get; set; }
+    public int?    RiskId       { get; set; }
+}

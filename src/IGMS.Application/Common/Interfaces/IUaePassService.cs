@@ -15,6 +15,9 @@ public interface IUaePassService
 
     /// <summary>Exchanges the authorization code for a UAE Pass user profile.</summary>
     Task<Result<UaePassUserInfo>> ExchangeCodeAsync(string code);
+
+    /// <summary>Builds the UAE Pass logout URL. Browser navigates here to end the SSO session.</summary>
+    string BuildLogoutUrl(string postLogoutRedirectUri);
 }
 
 public class UaePassUserInfo

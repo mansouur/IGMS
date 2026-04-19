@@ -1,10 +1,11 @@
 using IGMS.Application.Common.Models;
+using IGMS.Domain.Common;
 
 namespace IGMS.Application.Common.Interfaces;
 
 public interface IIncidentService
 {
-    Task<List<IncidentListDto>>  GetListAsync(string? status, string? severity, int? departmentId, int? riskId = null);
+    Task<PagedResult<IncidentListDto>> GetPagedAsync(IncidentQuery query);
     Task<IncidentDetailDto?>     GetByIdAsync(int id);
     Task<IncidentDetailDto>      CreateAsync(SaveIncidentRequest req, int reportedById);
     Task<IncidentDetailDto>      UpdateAsync(int id, SaveIncidentRequest req);

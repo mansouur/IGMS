@@ -1,6 +1,7 @@
 using System.Text.Json;
 using IGMS.Application.Common.Interfaces;
 using IGMS.Application.Common.Models;
+using IGMS.Domain.Common;
 using IGMS.Domain.Entities;
 using IGMS.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -14,18 +15,31 @@ public class AssessmentService : IAssessmentService
 
     // ── List ──────────────────────────────────────────────────────────────────
 
-    public async Task<List<AssessmentListDto>> GetListAsync(int currentUserId)
+    public async Task<PagedResult<AssessmentListDto>> GetPagedAsync(AssessmentQuery query, int currentUserId)
     {
-        var assessments = await _db.Assessments
+        var q = _db.Assessments
             .AsNoTracking()
             .Include(a => a.Department)
-            .Include(a => a.Questions.Where(q => !q.IsDeleted))
+            .Include(a => a.Questions.Where(qx => !qx.IsDeleted))
             .Include(a => a.Responses.Where(r => !r.IsDeleted))
-            .Where(a => !a.IsDeleted)
+            .Where(a => !a.IsDeleted);
+
+        if (!string.IsNullOrWhiteSpace(query.Search))
+            q = q.Where(a => a.TitleAr.Contains(query.Search) ||
+                              (a.TitleEn != null && a.TitleEn.Contains(query.Search)));
+
+        if (!string.IsNullOrEmpty(query.Status) &&
+            Enum.TryParse<AssessmentStatus>(query.Status, out var st))
+            q = q.Where(a => a.Status == st);
+
+        var total = await q.CountAsync();
+        var assessments = await q
             .OrderByDescending(a => a.CreatedAt)
+            .Skip((query.Page - 1) * query.PageSize)
+            .Take(query.PageSize)
             .ToListAsync();
 
-        return assessments.Select(a => new AssessmentListDto
+        var items = assessments.Select(a => new AssessmentListDto
         {
             Id                   = a.Id,
             TitleAr              = a.TitleAr,
@@ -38,6 +52,14 @@ public class AssessmentService : IAssessmentService
             SubmittedCount       = a.Responses.Count(r => r.IsSubmitted),
             MyResponseSubmitted  = a.Responses.Any(r => r.RespondentId == currentUserId && r.IsSubmitted),
         }).ToList();
+
+        return new PagedResult<AssessmentListDto>
+        {
+            Items       = items,
+            TotalCount  = total,
+            CurrentPage = query.Page,
+            PageSize    = query.PageSize,
+        };
     }
 
     // ── Detail ────────────────────────────────────────────────────────────────

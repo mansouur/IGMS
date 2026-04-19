@@ -1,10 +1,11 @@
 using IGMS.Application.Common.Models;
+using IGMS.Domain.Common;
 
 namespace IGMS.Application.Common.Interfaces;
 
 public interface IAssessmentService
 {
-    Task<List<AssessmentListDto>>  GetListAsync(int currentUserId);
+    Task<PagedResult<AssessmentListDto>> GetPagedAsync(AssessmentQuery query, int currentUserId);
     Task<AssessmentDetailDto?>     GetByIdAsync(int id);
     Task<AssessmentDetailDto>      SaveAsync(int? id, SaveAssessmentRequest req, int currentUserId);
     Task                           DeleteAsync(int id);
