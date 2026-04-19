@@ -128,8 +128,16 @@ export default function DepartmentScorecard() {
   return (
     <div className="space-y-6 max-w-5xl">
 
+      {/* Print-only header */}
+      <div className="hidden print:block mb-4 border-b pb-3">
+        <h1 className="text-lg font-bold text-gray-800">بطاقة أداء الأقسام — {year}</h1>
+        <p className="text-xs text-gray-400 mt-0.5">
+          {new Date().toLocaleDateString('ar-AE', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </p>
+      </div>
+
       {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-3">
+      <div className="flex items-center justify-between flex-wrap gap-3 print:hidden">
         <div>
           <button onClick={() => navigate('/reports')}
             className="text-sm text-gray-400 hover:text-gray-600 flex items-center gap-1 mb-1">
@@ -139,10 +147,23 @@ export default function DepartmentScorecard() {
           <h1 className="text-xl font-bold text-gray-800">بطاقة أداء الأقسام</h1>
           <p className="text-xs text-gray-400 mt-0.5">مؤشرات KPI مجمّعة حسب القسم</p>
         </div>
-        <select value={year} onChange={(e) => setYear(Number(e.target.value))}
-          className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-          {years.map((y) => <option key={y} value={y}>{y}</option>)}
-        </select>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => window.print()}
+            className="no-print flex items-center gap-2 px-3 py-1.5 border border-gray-300 text-gray-600 text-sm rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <polyline points="6 9 6 2 18 2 18 9"/>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+              <rect x="6" y="14" width="12" height="8"/>
+            </svg>
+            طباعة
+          </button>
+          <select value={year} onChange={(e) => setYear(Number(e.target.value))}
+            className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            {years.map((y) => <option key={y} value={y}>{y}</option>)}
+          </select>
+        </div>
       </div>
 
       {data.length === 0 ? (

@@ -193,10 +193,31 @@ export default function Reports() {
   return (
     <div className="space-y-5 max-w-6xl">
 
-      {/* Title */}
-      <div>
-        <h1 className="text-2xl font-black text-gray-800">{t('reports.title')}</h1>
-        <p className="text-sm text-gray-400 mt-0.5">{t('reports.subtitle', 'لمحة شاملة عن صحة الحوكمة المؤسسية')}</p>
+      {/* Print-only header */}
+      <div className="hidden print:block mb-6 border-b pb-4">
+        <h1 className="text-xl font-black text-gray-800">{t('reports.title')}</h1>
+        <p className="text-xs text-gray-400 mt-1">
+          {new Date().toLocaleDateString('ar-AE', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </p>
+      </div>
+
+      {/* Title + Print button */}
+      <div className="flex items-start justify-between print:hidden">
+        <div>
+          <h1 className="text-2xl font-black text-gray-800">{t('reports.title')}</h1>
+          <p className="text-sm text-gray-400 mt-0.5">{t('reports.subtitle', 'لمحة شاملة عن صحة الحوكمة المؤسسية')}</p>
+        </div>
+        <button
+          onClick={() => window.print()}
+          className="no-print flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-600 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors flex-shrink-0"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          طباعة / PDF
+        </button>
       </div>
 
       {/* ── Quick access: Department Scorecard ── */}

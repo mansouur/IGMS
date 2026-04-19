@@ -23,7 +23,9 @@ export default function AppLayout() {
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-gray-50">
       {/* ── Top bar ─────────────────────────────────────────────── */}
-      <TopBar onMenuClick={() => setMobileOpen((o) => !o)} />
+      <div className="print:hidden">
+        <TopBar onMenuClick={() => setMobileOpen((o) => !o)} />
+      </div>
 
       {/* ── Body: sidebar + page content ────────────────────────── */}
       <div className="flex flex-1 overflow-hidden relative">
@@ -31,20 +33,22 @@ export default function AppLayout() {
         {/* Mobile backdrop – closes sidebar when tapped */}
         {mobileOpen && (
           <div
-            className="fixed inset-0 bg-black/40 z-30 md:hidden"
+            className="fixed inset-0 bg-black/40 z-30 md:hidden print:hidden"
             onClick={() => setMobileOpen(false)}
           />
         )}
 
-        <Sidebar
-          collapsed={collapsed}
-          onToggle={() => setCollapsed((c) => !c)}
-          mobileOpen={mobileOpen}
-          onClose={() => setMobileOpen(false)}
-        />
+        <div className="print:hidden">
+          <Sidebar
+            collapsed={collapsed}
+            onToggle={() => setCollapsed((c) => !c)}
+            mobileOpen={mobileOpen}
+            onClose={() => setMobileOpen(false)}
+          />
+        </div>
 
         {/* ── Page content ─────────────────────────────────────── */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-6">
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 print:overflow-visible print:p-6">
           <Outlet />
         </main>
       </div>

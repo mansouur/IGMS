@@ -55,7 +55,7 @@ export default function TopBar({ onMenuClick }) {
 
   useEffect(() => {
     fetchNotifs()
-    const interval = setInterval(fetchNotifs, 5 * 60 * 1000) // كل 5 دقائق
+    const interval = setInterval(fetchNotifs, 60 * 1000) // كل دقيقة
     return () => clearInterval(interval)
   }, [fetchNotifs])
 
