@@ -41,6 +41,7 @@ public class CreateUserRequest
     /// <summary>Required for Local auth. Leave empty for AD/UaePass-only accounts.</summary>
     public string? Password     { get; set; }
     public string? PhoneNumber  { get; set; }
+    public string? EmiratesId   { get; set; }
     public int?    DepartmentId { get; set; }
     public List<int> RoleIds    { get; set; } = [];
     public bool    IsActive     { get; set; } = true;
@@ -53,6 +54,7 @@ public class UpdateUserRequest
     [Required] public string FullNameEn { get; set; } = string.Empty;
     [Required, EmailAddress] public string Email { get; set; } = string.Empty;
     public string? PhoneNumber  { get; set; }
+    public string? EmiratesId   { get; set; }
     public int?    DepartmentId { get; set; }
     public List<int> RoleIds    { get; set; } = [];
     public bool    IsActive     { get; set; } = true;

@@ -51,6 +51,10 @@ public static class DevDataSeeder
 
         await SeedGovernanceAsync(db);
 
+        // ── Link admin to UAE Pass Emirates ID ────────────────────────────────
+        await db.Database.ExecuteSqlRawAsync(
+            "UPDATE [UserProfiles] SET EmiratesId = '784199264967375' WHERE Id = 1 AND (EmiratesId IS NULL OR EmiratesId = '')");
+
         logger.LogInformation("DevDataSeeder: done.");
     }
 

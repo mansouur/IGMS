@@ -1,7 +1,10 @@
 using IGMS.Application.Common.Interfaces;
 using IGMS.Application.Common.Models;
 using IGMS.Domain.Common;
+using IGMS.Infrastructure.Auth.Strategies;
+using IGMS.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IGMS.API.Controllers;
 
@@ -12,22 +15,22 @@ public class UaePassController : ControllerBase
 {
     private readonly IUaePassService     _uaePassService;
     private readonly ITenantConfigLoader _tenantLoader;
-    private readonly IJwtService         _jwtService;
-    private readonly ISessionService     _sessionService;
+    private readonly LocalAuthStrategy   _localStrategy;
     private readonly TenantContext       _tenant;
+    private readonly TenantDbContext     _db;
 
     public UaePassController(
-        IUaePassService     uaePassService,
-        ITenantConfigLoader tenantLoader,
-        IJwtService         jwtService,
-        ISessionService     sessionService,
-        TenantContext       tenant)
+        IUaePassService              uaePassService,
+        ITenantConfigLoader          tenantLoader,
+        IEnumerable<IAuthStrategy>   strategies,
+        TenantContext                tenant,
+        TenantDbContext              db)
     {
         _uaePassService = uaePassService;
         _tenantLoader   = tenantLoader;
-        _jwtService     = jwtService;
-        _sessionService = sessionService;
+        _localStrategy  = (LocalAuthStrategy)strategies.First(s => s.ProviderName == "Local");
         _tenant         = tenant;
+        _db             = db;
     }
 
     /// <summary>
@@ -40,20 +43,15 @@ public class UaePassController : ControllerBase
         [FromQuery] string language = "ar",
         [FromQuery] string tenant   = "")
     {
-        // Load tenant to embed its key in state
-        var tenantKey = string.IsNullOrWhiteSpace(tenant) ? tenant : tenant;
-        var state     = $"{tenantKey}:{Guid.NewGuid():N}";
-        var url       = _uaePassService.BuildAuthorizationUrl(state, language);
-
+        var state = $"{tenant}:{Guid.NewGuid():N}";
+        var url   = _uaePassService.BuildAuthorizationUrl(state, language);
         return base.Redirect(url);
     }
 
     /// <summary>
-    /// Step 2 — Called by the React frontend after UAE Pass redirects back with ?code=...
-    /// Exchanges the authorization code for a UAE Pass user profile, creates an IGMS session,
-    /// and returns a JWT token ready to store in sessionStorage.
-    ///
-    /// This is a regular Axios call from the frontend (has X-Tenant-Key header).
+    /// Step 2 — Called by React after UAE Pass redirects back with ?code=...
+    /// Exchanges the code for a UAE Pass profile, matches the user by Emirates ID,
+    /// and returns a full IGMS JWT with the user's actual roles and permissions.
     /// </summary>
     [HttpPost("exchange")]
     [ProducesResponseType(typeof(ApiResponse<LoginResponse>), StatusCodes.Status200OK)]
@@ -63,46 +61,43 @@ public class UaePassController : ControllerBase
         if (string.IsNullOrWhiteSpace(request.Code))
             return BadRequest(ApiResponse<object>.Fail("رمز التفويض مفقود."));
 
-        // Exchange code for UAE Pass user info (server → UAE Pass, no CORS issue)
+        // ── 1. Exchange code for UAE Pass user info ───────────────────────────
         var result = await _uaePassService.ExchangeCodeAsync(request.Code);
         if (!result.IsSuccess)
             return Unauthorized(ApiResponse<object>.Unauthorized(result.Error!));
 
-        var user  = result.Value!;
-        var roles = new List<string> { "User" };
+        var uaeUser = result.Value!;
 
-        var token = _jwtService.GenerateToken(
-            userId:      user.Sub,
-            username:    user.EmiratesId,
-            roles:       roles,
-            permissions: [],
-            tenantKey:   _tenant.TenantKey,
-            language:    "ar");
+        if (string.IsNullOrWhiteSpace(uaeUser.EmiratesId))
+            return Unauthorized(ApiResponse<object>.Unauthorized(
+                "تعذّر استرجاع رقم الهوية الإماراتية من UAE Pass."));
 
-        var session = new SessionData
-        {
-            UserId       = user.Sub,
-            Username     = user.EmiratesId,
-            FullNameAr   = user.FullNameAr,
-            FullNameEn   = user.FullNameEn,
-            TenantKey    = _tenant.TenantKey,
-            Roles        = roles,
-            Language     = "ar",
-            AuthProvider = "UaePass",
-            ExpiresAt    = _jwtService.GetTokenExpiry(),
-        };
+        // ── 2. Find matching UserProfile by Emirates ID ───────────────────────
+        var user = await _db.UserProfiles
+            .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+                    .ThenInclude(r => r.RolePermissions)
+                        .ThenInclude(rp => rp.Permission)
+            .Include(u => u.Department)
+            .Where(u => u.EmiratesId == uaeUser.EmiratesId && u.IsActive && !u.IsDeleted)
+            .FirstOrDefaultAsync();
 
-        var sessionId = await _sessionService.CreateSessionAsync(session);
+        if (user is null)
+            return Unauthorized(ApiResponse<object>.Unauthorized(
+                "ليس لديك صلاحية الوصول إلى النظام. هذا النظام خاص بموظفي الوزارة المسجّلين."));
 
-        return Ok(ApiResponse<LoginResponse>.Ok(new LoginResponse
-        {
-            Token      = token,
-            SessionId  = sessionId,
-            FullNameAr = user.FullNameAr,
-            FullNameEn = user.FullNameEn,
-            Roles      = roles,
-            Language   = "ar",
-        }));
+        // ── 3. Update last login ──────────────────────────────────────────────
+        user.LastLoginAt = DateTime.UtcNow;
+        await _db.SaveChangesAsync();
+
+        // ── 4. Build JWT + session with actual roles & permissions ────────────
+        var (roles, perms) = LocalAuthStrategy.CollectRolesAndPermissions(user);
+        var loginResult    = await _localStrategy.BuildResponseAsync(user, roles, perms, _tenant, "ar");
+
+        var response           = loginResult.Value!;
+        response.AuthProvider  = "UaePass";
+
+        return Ok(ApiResponse<LoginResponse>.Ok(response));
     }
 }
 

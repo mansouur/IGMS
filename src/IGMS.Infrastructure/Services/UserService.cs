@@ -126,6 +126,7 @@ public class UserService : IUserService
             FullNameEn   = req.FullNameEn,
             Email        = req.Email,
             PhoneNumber  = req.PhoneNumber,
+            EmiratesId   = req.EmiratesId?.Trim() is { Length: > 0 } eid ? eid : null,
             DepartmentId = req.DepartmentId,
             IsActive     = req.IsActive,
             PasswordHash = !string.IsNullOrWhiteSpace(req.Password)
@@ -165,6 +166,7 @@ public class UserService : IUserService
         user.FullNameEn   = req.FullNameEn;
         user.Email        = req.Email;
         user.PhoneNumber  = req.PhoneNumber;
+        user.EmiratesId   = req.EmiratesId?.Trim() is { Length: > 0 } eid ? eid : null;
         user.DepartmentId = req.DepartmentId;
         user.IsActive     = req.IsActive;
         user.ModifiedAt   = DateTime.UtcNow;

@@ -29,6 +29,7 @@ export default function UserForm() {
     email:        '',
     password:     '',
     phoneNumber:  '',
+    emiratesId:   '',
     departmentId: '',
     roleIds:      [],
     isActive:     true,
@@ -58,6 +59,7 @@ export default function UserForm() {
         email:        data.email        ?? '',
         password:     '',
         phoneNumber:  data.phoneNumber  ?? '',
+        emiratesId:   data.emiratesId   ?? '',
         departmentId: data.departmentId ?? '',
         roleIds:      data.roles
           ? roles.filter((r) => data.roles.includes(r.nameAr)).map((r) => r.id)
@@ -87,6 +89,7 @@ export default function UserForm() {
           fullNameEn:   form.fullNameEn.trim(),
           email:        form.email.trim(),
           phoneNumber:  form.phoneNumber.trim() || null,
+          emiratesId:   form.emiratesId.trim()  || null,
           departmentId: form.departmentId !== '' ? Number(form.departmentId) : null,
           roleIds:      form.roleIds,
           isActive:     form.isActive,
@@ -98,6 +101,7 @@ export default function UserForm() {
           email:        form.email.trim(),
           password:     form.password || null,
           phoneNumber:  form.phoneNumber.trim() || null,
+          emiratesId:   form.emiratesId.trim()  || null,
           departmentId: form.departmentId !== '' ? Number(form.departmentId) : null,
           roleIds:      form.roleIds,
           isActive:     form.isActive,
@@ -163,6 +167,19 @@ export default function UserForm() {
             <p className="text-xs text-gray-400 mt-1">{t('users.fields.passwordHint')}</p>
           </Field>
         )}
+
+        {/* Emirates ID — required for UAE Pass login */}
+        <Field label="رقم الهوية الإماراتية (UAE Pass)">
+          <input type="text" value={form.emiratesId}
+            onChange={(e) => setField('emiratesId', e.target.value)}
+            className={inputCls}
+            placeholder="784-XXXX-XXXXXXX-X"
+            dir="ltr"
+            maxLength={18} />
+          <p className="text-xs text-gray-400 mt-1">
+            يُستخدم للربط مع الهوية الرقمية UAE Pass عند تسجيل الدخول
+          </p>
+        </Field>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Field label={t('users.fields.department')}>
