@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { assessmentsApi } from '../../services/api'
-import { useApi } from '../../hooks/useApi'
+import { useApi, useConfirm } from '../../hooks/useApi'
 import { PageLoader } from '../../components/ui/Spinner'
 
 export default function AssessmentRespond() {
@@ -12,6 +12,7 @@ export default function AssessmentRespond() {
 
   const { loading: fetching, execute: fetchEx } = useApi()
   const { loading: saving,   execute: saveEx  } = useApi()
+  const confirm = useConfirm()
 
   const [assessment, setAssessment] = useState(null)
   const [answers,    setAnswers]    = useState({}) // { [questionId]: string }
@@ -46,10 +47,11 @@ export default function AssessmentRespond() {
   }
 
   const handleSubmit = async () => {
-    if (!window.confirm(t('assessments.confirmSubmit'))) return
-    const ok = await saveEx(() => assessmentsApi.respond(id, buildPayload(), true, null),
+    const ok = await confirm({ title: t('assessments.confirmSubmitTitle'), message: t('assessments.confirmSubmit'), variant: 'warning' })
+    if (!ok) return
+    const result = await saveEx(() => assessmentsApi.respond(id, buildPayload(), true, null),
       { successMsg: t('assessments.messages.submitted') })
-    if (ok !== null) {
+    if (result !== null) {
       setSubmitted(true)
       setTimeout(() => navigate('/assessments'), 1500)
     }

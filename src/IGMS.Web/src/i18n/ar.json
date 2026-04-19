@@ -854,6 +854,7 @@
     "subtitle": "تعريفات دورات الاعتماد لكل نوع من العناصر",
     "new":      "تعريف جديد",
     "stages":   "مراحل",
+    "confirmDeleteTitle": "حذف التعريف",
     "confirmDelete": "هل تريد حذف هذا التعريف؟",
     "table": {
       "name":       "الاسم",
@@ -934,10 +935,14 @@
       "responses": "الردود",
       "dueDate":   "تاريخ الإغلاق"
     },
-    "confirmDelete":  "هل تريد حذف هذا الاستبيان؟",
-    "confirmPublish": "هل تريد نشر الاستبيان؟ لن تتمكن من التعديل بعد النشر.",
-    "confirmClose":   "هل تريد إغلاق الاستبيان؟",
-    "confirmSubmit":  "هل تريد إرسال إجابتك نهائياً؟ لن تتمكن من التعديل لاحقاً.",
+    "confirmDeleteTitle":  "حذف الاستبيان",
+    "confirmDelete":       "هل تريد حذف هذا الاستبيان؟",
+    "confirmPublishTitle": "نشر الاستبيان",
+    "confirmPublish":      "هل تريد نشر الاستبيان؟ لن تتمكن من التعديل بعد النشر.",
+    "confirmCloseTitle":   "إغلاق الاستبيان",
+    "confirmClose":        "هل تريد إغلاق الاستبيان؟",
+    "confirmSubmitTitle":  "إرسال الإجابة",
+    "confirmSubmit":       "هل تريد إرسال إجابتك نهائياً؟ لن تتمكن من التعديل لاحقاً.",
     "messages": {
       "created":   "تم إنشاء الاستبيان.",
       "updated":   "تم تحديث الاستبيان.",
@@ -985,7 +990,8 @@
       "resolutionNotes": "ملاحظات الحل"
     },
     "export":        "تصدير Excel",
-    "confirmDelete": "هل تريد حذف هذه الحادثة؟",
+    "confirmDeleteTitle": "حذف الحادثة",
+    "confirmDelete":      "هل تريد حذف هذه الحادثة؟",
     "messages": {
       "created":  "تم تسجيل الحادثة.",
       "updated":  "تم تحديث الحادثة.",

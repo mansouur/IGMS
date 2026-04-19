@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { incidentsApi } from '../../services/api'
-import { useApi } from '../../hooks/useApi'
+import { useApi, useConfirm } from '../../hooks/useApi'
 import { PageLoader } from '../../components/ui/Spinner'
 import Pagination from '../../components/ui/Pagination'
 import useAuthStore from '../../store/authStore'
@@ -30,6 +30,7 @@ export default function IncidentList() {
 
   const { loading, execute } = useApi()
   const { execute: delEx   } = useApi()
+  const confirm = useConfirm()
 
   const [data,     setData]    = useState({ items: [], totalCount: 0, currentPage: 1, pageSize: 20 })
   const [search,   setSearch]  = useState('')
@@ -48,9 +49,10 @@ export default function IncidentList() {
   useEffect(() => { load() }, [load])
 
   const handleDelete = async (id) => {
-    if (!window.confirm(t('incidents.confirmDelete'))) return
-    const ok = await delEx(() => incidentsApi.delete(id), { successMsg: t('incidents.messages.deleted') })
-    if (ok !== null) load()
+    const ok = await confirm({ title: t('incidents.confirmDeleteTitle'), message: t('incidents.confirmDelete'), variant: 'danger' })
+    if (!ok) return
+    const result = await delEx(() => incidentsApi.delete(id), { successMsg: t('incidents.messages.deleted') })
+    if (result !== null) load()
   }
 
   const handleFilter = (st) => {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { assessmentsApi } from '../../services/api'
-import { useApi } from '../../hooks/useApi'
+import { useApi, useConfirm } from '../../hooks/useApi'
 import { PageLoader } from '../../components/ui/Spinner'
 import useAuthStore from '../../store/authStore'
 
@@ -23,6 +23,7 @@ export default function AssessmentDetail() {
 
   const { loading, execute }             = useApi()
   const { loading: acting, execute: actEx } = useApi()
+  const confirm = useConfirm()
   const [assessment, setAssessment]      = useState(null)
 
   const load = () =>
@@ -31,15 +32,17 @@ export default function AssessmentDetail() {
   useEffect(() => { load() }, [id])
 
   const handlePublish = async () => {
-    if (!window.confirm(t('assessments.confirmPublish'))) return
-    const ok = await actEx(() => assessmentsApi.publish(id), { successMsg: t('assessments.messages.published') })
-    if (ok !== null) load()
+    const ok = await confirm({ title: t('assessments.confirmPublishTitle'), message: t('assessments.confirmPublish'), variant: 'warning' })
+    if (!ok) return
+    const result = await actEx(() => assessmentsApi.publish(id), { successMsg: t('assessments.messages.published') })
+    if (result !== null) load()
   }
 
   const handleClose = async () => {
-    if (!window.confirm(t('assessments.confirmClose'))) return
-    const ok = await actEx(() => assessmentsApi.close(id), { successMsg: t('assessments.messages.closed') })
-    if (ok !== null) load()
+    const ok = await confirm({ title: t('assessments.confirmCloseTitle'), message: t('assessments.confirmClose'), variant: 'danger' })
+    if (!ok) return
+    const result = await actEx(() => assessmentsApi.close(id), { successMsg: t('assessments.messages.closed') })
+    if (result !== null) load()
   }
 
   if (loading && !assessment) return <PageLoader />

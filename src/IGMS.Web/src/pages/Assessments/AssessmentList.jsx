@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { assessmentsApi } from '../../services/api'
-import { useApi } from '../../hooks/useApi'
+import { useApi, useConfirm } from '../../hooks/useApi'
 import { PageLoader } from '../../components/ui/Spinner'
 import Pagination from '../../components/ui/Pagination'
 import useAuthStore from '../../store/authStore'
@@ -21,6 +21,7 @@ export default function AssessmentList() {
 
   const { loading, execute } = useApi()
   const { execute: delEx  } = useApi()
+  const confirm = useConfirm()
 
   const [data,     setData]    = useState({ items: [], totalCount: 0, currentPage: 1, pageSize: 20 })
   const [search,   setSearch]  = useState('')
@@ -39,9 +40,10 @@ export default function AssessmentList() {
   useEffect(() => { load() }, [load])
 
   const handleDelete = async (id) => {
-    if (!window.confirm(t('assessments.confirmDelete'))) return
-    const ok = await delEx(() => assessmentsApi.delete(id), { successMsg: t('assessments.messages.deleted') })
-    if (ok !== null) load()
+    const ok = await confirm({ title: t('assessments.confirmDeleteTitle'), message: t('assessments.confirmDelete'), variant: 'danger' })
+    if (!ok) return
+    const result = await delEx(() => assessmentsApi.delete(id), { successMsg: t('assessments.messages.deleted') })
+    if (result !== null) load()
   }
 
   const handleFilter = (st) => { setFilter(st); setPage(1) }

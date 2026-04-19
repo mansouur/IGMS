@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { workflowApi } from '../../services/api'
-import { useApi } from '../../hooks/useApi'
+import { useApi, useConfirm } from '../../hooks/useApi'
 import { PageLoader } from '../../components/ui/Spinner'
 import useAuthStore from '../../store/authStore'
-import { toast } from '../../store/toastStore'
 
 const ENTITY_TYPE_LABEL = {
   Policy:      'السياسات',
@@ -26,6 +25,7 @@ export default function WorkflowList() {
 
   const { loading, execute } = useApi()
   const { execute: delEx } = useApi()
+  const confirm = useConfirm()
   const [definitions, setDefinitions] = useState([])
   const [filter, setFilter] = useState('')
 
@@ -37,11 +37,10 @@ export default function WorkflowList() {
   useEffect(() => { load() }, [])
 
   const handleDelete = async (id) => {
-    if (!window.confirm(t('workflows.confirmDelete'))) return
-    const ok = await delEx(() => workflowApi.deleteDefinition(id), {
-      successMsg: t('workflows.messages.deleted'),
-    })
-    if (ok !== null) load()
+    const ok = await confirm({ title: t('workflows.confirmDeleteTitle'), message: t('workflows.confirmDelete'), variant: 'danger' })
+    if (!ok) return
+    const result = await delEx(() => workflowApi.deleteDefinition(id), { successMsg: t('workflows.messages.deleted') })
+    if (result !== null) load()
   }
 
   const visible = filter

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { incidentsApi } from '../../services/api'
-import { useApi } from '../../hooks/useApi'
+import { useApi, useConfirm } from '../../hooks/useApi'
 import { PageLoader } from '../../components/ui/Spinner'
 import useAuthStore from '../../store/authStore'
 
@@ -30,6 +30,7 @@ export default function IncidentDetail() {
 
   const { loading, execute }               = useApi()
   const { loading: acting, execute: actEx } = useApi()
+  const confirm = useConfirm()
   const [incident, setIncident]            = useState(null)
   const [resolveNote, setResolveNote]      = useState('')
   const [showResolve, setShowResolve]      = useState(false)
@@ -48,9 +49,10 @@ export default function IncidentDetail() {
   }
 
   const handleDelete = async () => {
-    if (!window.confirm(t('incidents.confirmDelete'))) return
-    const ok = await actEx(() => incidentsApi.delete(id), { successMsg: t('incidents.messages.deleted') })
-    if (ok !== null) navigate('/incidents')
+    const ok = await confirm({ title: t('incidents.confirmDeleteTitle'), message: t('incidents.confirmDelete'), variant: 'danger' })
+    if (!ok) return
+    const result = await actEx(() => incidentsApi.delete(id), { successMsg: t('incidents.messages.deleted') })
+    if (result !== null) navigate('/incidents')
   }
 
   if (loading && !incident) return <PageLoader />
