@@ -60,6 +60,7 @@ import PdplList          from './pages/Pdpl/PdplList'
 import PdplForm          from './pages/Pdpl/PdplForm'
 import PdplDetail        from './pages/Pdpl/PdplDetail'
 import PdplRequests      from './pages/Pdpl/PdplRequests'
+import AdminGuide        from './pages/Guide/AdminGuide'
 
 // ── Route guards ──────────────────────────────────────────────────────────────
 
@@ -174,6 +175,7 @@ export default function App() {
         <Route path="/pdpl/:id/edit"      element={<PdplForm />} />
         <Route path="/audit-log"   element={<AuditLogPage />} />
         <Route path="/settings"    element={<Settings />} />
+        <Route path="/guide"       element={<AdminGuide />} />
       </Route>
 
       {/* Default */}
