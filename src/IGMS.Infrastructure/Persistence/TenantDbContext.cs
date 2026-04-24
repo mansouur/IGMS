@@ -75,6 +75,10 @@ public class TenantDbContext : DbContext, ITenantDbContext
     public DbSet<MeetingAttendee>   MeetingAttendees   => Set<MeetingAttendee>();
     public DbSet<MeetingActionItem> MeetingActionItems => Set<MeetingActionItem>();
 
+    // ── Performance Management (HPMS) ─────────────────────────────────────────
+    public DbSet<PerformanceReview> PerformanceReviews => Set<PerformanceReview>();
+    public DbSet<PerformanceGoal>   PerformanceGoals   => Set<PerformanceGoal>();
+
     // ── Regulatory Library ───────────────────────────────────────────────────
     public DbSet<RegulatoryFramework> RegulatoryFrameworks => Set<RegulatoryFramework>();
     public DbSet<RegulatoryControl>   RegulatoryControls   => Set<RegulatoryControl>();

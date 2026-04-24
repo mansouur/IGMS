@@ -18,6 +18,7 @@ import PolicyDetail      from './pages/Policies/PolicyDetail'
 import RiskList          from './pages/Risks/RiskList'
 import RiskForm          from './pages/Risks/RiskForm'
 import RiskDetail        from './pages/Risks/RiskDetail'
+
 import RoleList          from './pages/Roles/RoleList'
 import RoleDetail        from './pages/Roles/RoleDetail'
 import ControlTestList   from './pages/Controls/ControlTestList'
@@ -49,9 +50,12 @@ import IncidentDetail from './pages/Incidents/IncidentDetail'
 import VendorList     from './pages/Vendors/VendorList'
 import VendorForm     from './pages/Vendors/VendorForm'
 import VendorDetail   from './pages/Vendors/VendorDetail'
-import MeetingList    from './pages/Meetings/MeetingList'
-import MeetingForm    from './pages/Meetings/MeetingForm'
-import MeetingDetail  from './pages/Meetings/MeetingDetail'
+import MeetingList       from './pages/Meetings/MeetingList'
+import MeetingForm       from './pages/Meetings/MeetingForm'
+import MeetingDetail     from './pages/Meetings/MeetingDetail'
+import PerformanceList   from './pages/Performance/PerformanceList'
+import PerformanceForm   from './pages/Performance/PerformanceForm'
+import PerformanceDetail from './pages/Performance/PerformanceDetail'
 
 // ── Route guards ──────────────────────────────────────────────────────────────
 
@@ -155,6 +159,10 @@ export default function App() {
         <Route path="/meetings/new"       element={<MeetingForm />} />
         <Route path="/meetings/:id"       element={<MeetingDetail />} />
         <Route path="/meetings/:id/edit"  element={<MeetingForm />} />
+        <Route path="/performance"            element={<PerformanceList />} />
+        <Route path="/performance/new"        element={<PerformanceForm />} />
+        <Route path="/performance/:id"        element={<PerformanceDetail />} />
+        <Route path="/performance/:id/edit"   element={<PerformanceForm />} />
         <Route path="/audit-log"   element={<AuditLogPage />} />
         <Route path="/settings"    element={<Settings />} />
       </Route>

@@ -121,6 +121,17 @@ export const meetingsApi = {
   completeAction:  (id, actionId)   => api.post(`/api/v1/meetings/${id}/actions/${actionId}/complete`),
 }
 
+export const performanceApi = {
+  getAll:  (params)   => api.get('/api/v1/performance', { params }),
+  getById: (id)       => api.get(`/api/v1/performance/${id}`),
+  create:  (data)     => api.post('/api/v1/performance', data),
+  update:  (id, data) => api.put(`/api/v1/performance/${id}`, data),
+  delete:  (id)       => api.delete(`/api/v1/performance/${id}`),
+  submit:  (id)       => api.post(`/api/v1/performance/${id}/submit`),
+  approve: (id)       => api.post(`/api/v1/performance/${id}/approve`),
+  reject:  (id, data) => api.post(`/api/v1/performance/${id}/reject`, data),
+}
+
 export const vendorsApi = {
   getAll:      (params)   => api.get('/api/v1/vendors', { params }),
   getById:     (id)       => api.get(`/api/v1/vendors/${id}`),
