@@ -121,6 +121,20 @@ export const meetingsApi = {
   completeAction:  (id, actionId)   => api.post(`/api/v1/meetings/${id}/actions/${actionId}/complete`),
 }
 
+export const pdplApi = {
+  getAll:          (params)           => api.get('/api/v1/pdpl', { params }),
+  getById:         (id)               => api.get(`/api/v1/pdpl/${id}`),
+  create:          (data)             => api.post('/api/v1/pdpl', data),
+  update:          (id, data)         => api.put(`/api/v1/pdpl/${id}`, data),
+  delete:          (id)               => api.delete(`/api/v1/pdpl/${id}`),
+  markReviewed:    (id)               => api.post(`/api/v1/pdpl/${id}/review`),
+  addConsent:      (id, data)         => api.post(`/api/v1/pdpl/${id}/consents`, data),
+  withdrawConsent: (id, consentId)    => api.post(`/api/v1/pdpl/${id}/consents/${consentId}/withdraw`),
+  getRequests:     (params)           => api.get('/api/v1/pdpl/requests', { params }),
+  addRequest:      (id, data)         => api.post(`/api/v1/pdpl/${id}/requests`, data),
+  resolveRequest:  (id, reqId, data)  => api.post(`/api/v1/pdpl/${id}/requests/${reqId}/resolve`, data),
+}
+
 export const performanceApi = {
   getAll:  (params)   => api.get('/api/v1/performance', { params }),
   getById: (id)       => api.get(`/api/v1/performance/${id}`),

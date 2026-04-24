@@ -56,6 +56,10 @@ import MeetingDetail     from './pages/Meetings/MeetingDetail'
 import PerformanceList   from './pages/Performance/PerformanceList'
 import PerformanceForm   from './pages/Performance/PerformanceForm'
 import PerformanceDetail from './pages/Performance/PerformanceDetail'
+import PdplList          from './pages/Pdpl/PdplList'
+import PdplForm          from './pages/Pdpl/PdplForm'
+import PdplDetail        from './pages/Pdpl/PdplDetail'
+import PdplRequests      from './pages/Pdpl/PdplRequests'
 
 // ── Route guards ──────────────────────────────────────────────────────────────
 
@@ -163,6 +167,11 @@ export default function App() {
         <Route path="/performance/new"        element={<PerformanceForm />} />
         <Route path="/performance/:id"        element={<PerformanceDetail />} />
         <Route path="/performance/:id/edit"   element={<PerformanceForm />} />
+        <Route path="/pdpl"               element={<PdplList />} />
+        <Route path="/pdpl/new"           element={<PdplForm />} />
+        <Route path="/pdpl/requests"      element={<PdplRequests />} />
+        <Route path="/pdpl/:id"           element={<PdplDetail />} />
+        <Route path="/pdpl/:id/edit"      element={<PdplForm />} />
         <Route path="/audit-log"   element={<AuditLogPage />} />
         <Route path="/settings"    element={<Settings />} />
       </Route>

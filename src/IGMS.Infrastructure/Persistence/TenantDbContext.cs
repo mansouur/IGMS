@@ -79,6 +79,11 @@ public class TenantDbContext : DbContext, ITenantDbContext
     public DbSet<PerformanceReview> PerformanceReviews => Set<PerformanceReview>();
     public DbSet<PerformanceGoal>   PerformanceGoals   => Set<PerformanceGoal>();
 
+    // ── PDPL (Data Protection) ────────────────────────────────────────────────
+    public DbSet<PdplRecord>      PdplRecords      => Set<PdplRecord>();
+    public DbSet<PdplConsent>     PdplConsents     => Set<PdplConsent>();
+    public DbSet<PdplDataRequest> PdplDataRequests => Set<PdplDataRequest>();
+
     // ── Regulatory Library ───────────────────────────────────────────────────
     public DbSet<RegulatoryFramework> RegulatoryFrameworks => Set<RegulatoryFramework>();
     public DbSet<RegulatoryControl>   RegulatoryControls   => Set<RegulatoryControl>();
