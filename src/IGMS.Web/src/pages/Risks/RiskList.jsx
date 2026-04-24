@@ -10,12 +10,22 @@ import useAuthStore from '../../store/authStore'
 import { toast } from '../../store/toastStore'
 import RiskHeatMap from './RiskHeatMap'
 
+// درجة المخاطرة = الاحتمالية × الأثر (ISO 31000 — 4 مستويات)
 function scoreColor(s) {
   const n = Number(s)
   if (!Number.isFinite(n)) return 'bg-gray-400 text-white'
-  if (n >= 15) return 'bg-red-600 text-white'
-  if (n >= 8)  return 'bg-amber-500 text-white'
-  return 'bg-emerald-600 text-white'
+  if (n >= 17) return 'bg-red-600 text-white'      // حرج
+  if (n >= 10) return 'bg-orange-500 text-white'    // عالٍ
+  if (n >= 5)  return 'bg-yellow-500 text-white'    // متوسط
+  return 'bg-emerald-600 text-white'                // منخفض
+}
+
+function scoreTierAr(s) {
+  const n = Number(s)
+  if (n >= 17) return 'حرج'
+  if (n >= 10) return 'عالٍ'
+  if (n >= 5)  return 'متوسط'
+  return 'منخفض'
 }
 
 export default function RiskList() {

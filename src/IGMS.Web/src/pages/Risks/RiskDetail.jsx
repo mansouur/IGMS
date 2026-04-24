@@ -10,7 +10,17 @@ import ComplianceTags from '../../components/ui/ComplianceTags'
 import RiskLifecycle  from '../../components/ui/RiskLifecycle'
 
 const STATUS_CLS   = { 0: 'bg-red-100 text-red-700', 1: 'bg-amber-100 text-amber-700', 2: 'bg-emerald-100 text-emerald-700' }
-const SCORE_CLS    = (s) => { const n = Number(s); if (!Number.isFinite(n) || n === 0) return 'bg-gray-400 text-white'; return n >= 15 ? 'bg-red-600 text-white' : n >= 8 ? 'bg-amber-500 text-white' : 'bg-emerald-600 text-white' }
+
+// درجة المخاطرة = الاحتمالية × الأثر (ISO 31000 — 4 مستويات)
+function getRiskTierDetail(n) {
+  const v = Number(n)
+  if (!Number.isFinite(v) || v === 0) return { cls: 'bg-gray-400 text-white', label: '—', note: '' }
+  if (v >= 17) return { cls: 'bg-red-600 text-white',    label: 'حرج',   note: 'تصعيد فوري لصانع القرار' }
+  if (v >= 10) return { cls: 'bg-orange-500 text-white', label: 'عالٍ',  note: 'إجراء تخفيف فوري مطلوب' }
+  if (v >= 5)  return { cls: 'bg-yellow-500 text-white', label: 'متوسط', note: 'خطة تخفيف مطلوبة ومتابعة دورية' }
+  return              { cls: 'bg-emerald-600 text-white', label: 'منخفض', note: 'يُقبل، يُراجع سنوياً' }
+}
+const SCORE_CLS = (s) => getRiskTierDetail(s).cls
 
 export default function RiskDetail() {
   const { t }      = useTranslation()
@@ -118,36 +128,79 @@ export default function RiskDetail() {
         </div>
       </div>
 
-      {/* Risk matrix */}
-      <div className="bg-white rounded-xl border border-gray-200 p-5">
-        <h2 className="text-sm font-semibold text-gray-700 mb-4">{t('risks.fields.riskMatrix')}</h2>
-        <div className="grid grid-cols-2 gap-6">
-          <div>
-            <p className="text-xs text-gray-400 mb-1">{t('risks.table.likelihood')} ({risk.likelihood}/5)</p>
-            <div className="flex items-center gap-2">
-              <div className="flex gap-1">
-                {[1,2,3,4,5].map((n) => (
-                  <div key={n} className={`w-6 h-6 rounded flex items-center justify-center text-xs font-bold
-                    ${n <= risk.likelihood ? 'bg-amber-500 text-white' : 'bg-gray-100 text-gray-400'}`}>{n}</div>
-                ))}
+      {/* Risk matrix — ISO 31000 */}
+      {(() => {
+        const tier = getRiskTierDetail(score)
+        const LIKELIHOOD_DESCS = {
+          1: { label: 'نادر جداً',  detail: 'أقل من 10٪ · مرة كل 5 سنوات أو أكثر' },
+          2: { label: 'نادر',       detail: '10–29٪ · مرة كل 2–5 سنوات' },
+          3: { label: 'محتمل',      detail: '30–49٪ · مرة في السنة تقريباً' },
+          4: { label: 'مرجح',       detail: '50–79٪ · عدة مرات في السنة' },
+          5: { label: 'شبه مؤكد',  detail: '80٪ أو أكثر · مرة شهرياً أو أكثر' },
+        }
+        const IMPACT_DESCS = {
+          1: { label: 'ضئيل',  detail: 'أثر مالي < 50,000 درهم · لا انقطاع في الخدمة' },
+          2: { label: 'طفيف',  detail: '50,000–250,000 درهم · انقطاع بضع ساعات' },
+          3: { label: 'متوسط', detail: '250,000–1,000,000 درهم · انقطاع يوم أو يومين' },
+          4: { label: 'جسيم',  detail: '1–5 مليون درهم · ضرر بالسمعة أو شكاوى رسمية' },
+          5: { label: 'كارثي', detail: 'أكثر من 5 ملايين درهم · توقف كامل أو عقوبات تنظيمية' },
+        }
+        const lDesc = LIKELIHOOD_DESCS[risk.likelihood]
+        const iDesc = IMPACT_DESCS[risk.impact]
+        return (
+          <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-semibold text-gray-700">{t('risks.fields.riskMatrix')} — ISO 31000</h2>
+              <span className="text-xs text-gray-400">الدرجة = الاحتمالية × الأثر</span>
+            </div>
+
+            {/* المعادلة الصريحة */}
+            <div className={`rounded-xl border-2 p-4 ${tier.cls.includes('red') ? 'border-red-400' : tier.cls.includes('orange') ? 'border-orange-400' : tier.cls.includes('yellow') ? 'border-yellow-400' : 'border-emerald-400'}`}>
+              <div className="flex items-center gap-3 flex-wrap">
+                <div className="flex items-center gap-2 text-sm">
+                  <div className="text-center">
+                    <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center font-bold text-amber-700 text-lg">{risk.likelihood}</div>
+                    <p className="text-[10px] text-gray-400 mt-0.5">احتمالية</p>
+                  </div>
+                  <span className="text-gray-400 text-lg font-light">×</span>
+                  <div className="text-center">
+                    <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center font-bold text-red-700 text-lg">{risk.impact}</div>
+                    <p className="text-[10px] text-gray-400 mt-0.5">أثر</p>
+                  </div>
+                  <span className="text-gray-400 text-lg font-light">=</span>
+                  <div className="text-center">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl ${tier.cls}`}>{score}</div>
+                    <p className="text-[10px] text-gray-400 mt-0.5">الدرجة</p>
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0 me-1">
+                  <span className={`inline-flex px-3 py-1 rounded-full text-sm font-bold ${tier.cls} mb-1`}>{tier.label}</span>
+                  <p className="text-xs text-gray-500">{tier.note}</p>
+                </div>
               </div>
-              <span className="text-sm text-gray-600">{LIKELIHOOD_LABEL[risk.likelihood] ?? risk.likelihood}</span>
+              {/* مقياس المستويات */}
+              <div className="mt-3 grid grid-cols-4 gap-1 text-center text-[10px] font-semibold">
+                <div className="rounded py-1 bg-emerald-100 text-emerald-700">1–4 منخفض</div>
+                <div className="rounded py-1 bg-yellow-100 text-yellow-700">5–9 متوسط</div>
+                <div className="rounded py-1 bg-orange-100 text-orange-700">10–16 عالٍ</div>
+                <div className="rounded py-1 bg-red-100 text-red-700">17–25 حرج</div>
+              </div>
+            </div>
+
+            {/* تفاصيل المستويين المختارين */}
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="rounded-lg border border-amber-200 bg-amber-50 p-3">
+                <p className="text-xs text-amber-600 font-semibold mb-1">الاحتمالية: {risk.likelihood}/5 — {lDesc?.label}</p>
+                <p className="text-xs text-amber-700">{lDesc?.detail}</p>
+              </div>
+              <div className="rounded-lg border border-red-200 bg-red-50 p-3">
+                <p className="text-xs text-red-600 font-semibold mb-1">الأثر: {risk.impact}/5 — {iDesc?.label}</p>
+                <p className="text-xs text-red-700">{iDesc?.detail}</p>
+              </div>
             </div>
           </div>
-          <div>
-            <p className="text-xs text-gray-400 mb-1">{t('risks.table.impact')} ({risk.impact}/5)</p>
-            <div className="flex items-center gap-2">
-              <div className="flex gap-1">
-                {[1,2,3,4,5].map((n) => (
-                  <div key={n} className={`w-6 h-6 rounded flex items-center justify-center text-xs font-bold
-                    ${n <= risk.impact ? 'bg-red-500 text-white' : 'bg-gray-100 text-gray-400'}`}>{n}</div>
-                ))}
-              </div>
-              <span className="text-sm text-gray-600">{IMPACT_LABEL[risk.impact] ?? risk.impact}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+        )
+      })()}
 
       {/* Risk Lifecycle */}
       <RiskLifecycle risk={risk} />
